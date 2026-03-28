@@ -8,7 +8,39 @@
 <meta name="theme-color" content="#0f1117">
 <title>شجرة عائلة المجاحيد سواعد</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+/* Arabic font — embedded fallback stack, no flicker */
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('https://fonts.gstatic.com/s/tajawal/v9/Iura6YBj_oCad4k1nzSBC45I.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
+}
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('https://fonts.gstatic.com/s/tajawal/v9/Iura6YBj_oCad4k1nzSiC45I.woff2') format('woff2');
+  unicode-range: U+0600-06FF;
+}
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('https://fonts.gstatic.com/s/tajawal/v9/Iura6YBj_oCad4k1nzS2Dq5I.woff2') format('woff2');
+  unicode-range: U+0600-06FF;
+}
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url('https://fonts.gstatic.com/s/tajawal/v9/Iura6YBj_oCad4k1nzSuDK5I.woff2') format('woff2');
+  unicode-range: U+0600-06FF;
+}
 
 :root {
   --bg: #0a0d14;
@@ -288,6 +320,16 @@ html, body {
 </style>
 </head>
 <body>
+
+<!-- LOADING SCREEN -->
+<div id="loadScreen" style="position:fixed;inset:0;z-index:999;background:#0a0d14;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.4s">
+  <div style="font-size:48px">🌳</div>
+  <div style="font-size:18px;font-weight:700;color:#e8eaf6;font-family:sans-serif">شجرة عائلة المجاحيد سواعد</div>
+  <div style="font-size:13px;color:#7a82a8;font-family:sans-serif">جاري التحميل...</div>
+  <div style="width:120px;height:3px;background:#2a2f4a;border-radius:2px;overflow:hidden;margin-top:8px">
+    <div id="loadBar" style="height:100%;width:0%;background:#5b8dee;border-radius:2px;transition:width 1.5s ease"></div>
+  </div>
+</div>
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -687,7 +729,8 @@ function render(){
 // ══════════════════════════════════════════
 //  PAN & ZOOM (touch + mouse)
 // ══════════════════════════════════════════
-const wrap = document.getElementById('treeWrap');
+let wrap = null, canvas = null;
+const canvas_placeholder = null;
 const canvas = document.getElementById('treeCanvas');
 
 function applyTransform(){
@@ -1083,9 +1126,41 @@ document.querySelectorAll('.sheet-handle').forEach(h=>{
 
 // ══════════════════════════════════════════
 //  INIT
+
 // ══════════════════════════════════════════
-render();
-setTimeout(resetZoom, 100);
+//  INIT — wait for DOM ready
+// ══════════════════════════════════════════
+function init(){
+  try {
+    wrap = document.getElementById('treeWrap');
+    canvas = document.getElementById('treeCanvas');
+    // Animate loading bar
+    var bar = document.getElementById('loadBar');
+    if(bar) setTimeout(function(){ bar.style.width='90%'; }, 50);
+
+    // Wait for fonts so Arabic text renders correctly on first paint
+    function afterLoad(){
+      render();
+      setTimeout(resetZoom, 200);
+      // Hide loading screen
+      var ls = document.getElementById('loadScreen');
+      if(ls){ ls.style.opacity='0'; setTimeout(function(){ ls.style.display='none'; }, 400); }
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(afterLoad);
+    } else {
+      setTimeout(afterLoad, 500);
+    }
+  } catch(e) {
+    console.error('Init error:', e);
+  }
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
