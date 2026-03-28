@@ -717,8 +717,6 @@ function render(){
 //  PAN & ZOOM (touch + mouse)
 // ══════════════════════════════════════════
 let wrap = null, canvas = null;
-const canvas_placeholder = null;
-const canvas = document.getElementById('treeCanvas');
 
 function applyTransform(){
   canvas.style.transform=`translate(${pan.x}px,${pan.y}px) scale(${scale})`;
