@@ -2,389 +2,2103 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0a0d14">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>شجرة عائلة المجاحيد سواعد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;width:100%;overflow:hidden;font-family:'Tajawal','Segoe UI',Tahoma,Arial,sans-serif;background:#0a0d14;color:#e8eaf6;touch-action:manipulation}
-:root{--bg:#0a0d14;--s1:#13161f;--s2:#1c2030;--s3:#242840;--bdr:#2a2f4a;--acc:#5b8dee;--gold:#f5c542;--t1:#e8eaf6;--t2:#7a82a8;--red:#f56565;--grn:#48bb78;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
-#loader{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .4s}
-#loader .ico{font-size:52px}
-#loader .ttl{font-size:19px;font-weight:700;color:var(--t1)}
-#loader .sub{font-size:13px;color:var(--t2)}
-#loader .bwrap{width:130px;height:3px;background:var(--bdr);border-radius:2px;overflow:hidden;margin-top:6px}
-#loaderBar{height:100%;width:0%;background:var(--acc);border-radius:2px;transition:width 1.2s ease}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,13,20,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);padding:10px 12px;padding-top:calc(var(--st) + 10px);display:flex;align-items:center;gap:8px}
-.tinfo{flex:1;min-width:0}
-.tinfo h1{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tinfo p{font-size:10px;color:var(--t2);margin-top:1px}
-.ibtn{width:38px;height:38px;border-radius:10px;background:var(--s2);border:1px solid var(--bdr);color:var(--t2);font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative}
-.ibtn:active{background:var(--s3);transform:scale(.93)}
-.udot{width:8px;height:8px;border-radius:50%;background:#f59e0b;position:absolute;top:6px;right:6px;display:none}
-.udot.on{display:block}
-#treeWrap{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;touch-action:none}
-#treeCanvas{position:absolute;transform-origin:0 0;will-change:transform}
-.fab{position:fixed;bottom:calc(var(--sb) + 20px);left:20px;z-index:150;width:52px;height:52px;border-radius:16px;background:var(--acc);color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(91,141,238,.45);cursor:pointer;border:none}
-.fab:active{transform:scale(.91)}
-#zoomBadge{position:fixed;bottom:calc(var(--sb) + 20px);right:16px;z-index:150;background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:5px 11px;font-size:12px;color:var(--t2);pointer-events:none;opacity:0;transition:opacity .3s}
-#zoomBadge.on{opacity:1}
-#backdrop{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .25s}
-#backdrop.on{opacity:1;pointer-events:all}
-.sheet{position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--s1);border-radius:20px 20px 0 0;border-top:1px solid var(--bdr);padding-bottom:calc(var(--sb) + 16px);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:82vh;display:flex;flex-direction:column}
-.sheet.on{transform:translateY(0)}
-.handle{width:36px;height:4px;border-radius:2px;background:var(--bdr);margin:10px auto 0;flex-shrink:0}
-.shd{padding:12px 18px 10px;border-bottom:1px solid var(--bdr);flex-shrink:0}
-.shd h2{font-size:17px;font-weight:700}
-.shd p{font-size:12px;color:var(--t2);margin-top:3px}
-.shb{overflow-y:auto;flex:1;padding:14px 18px}
-.drow{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--bdr);font-size:14px}
-.drow:last-of-type{border-bottom:none}
-.dlbl{color:var(--t2);font-size:13px;white-space:nowrap}
-.dval{color:var(--t1);font-weight:500;flex:1;text-align:left}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.chip{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:4px 10px;font-size:13px;color:var(--t1);cursor:pointer}
-.chip:active{background:var(--s3);border-color:var(--acc)}
-.btn{flex:1;padding:11px 8px;border-radius:11px;border:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
-.btn:active{transform:scale(.96)}
-.bp{background:var(--acc);color:#fff}
-.bg{background:var(--s2);color:var(--t2);border:1px solid var(--bdr)}
-.br{background:#2d1515;color:var(--red);border:1px solid #5a1e1e}
-.brow{display:flex;gap:8px;margin-top:12px}
-.mlist{list-style:none}
-.mitem{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid var(--bdr);cursor:pointer;font-size:15px;color:var(--t1);border-radius:10px}
-.mitem:last-child{border-bottom:none}
-.mitem:active{background:var(--s2)}
-.mico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.msub{font-size:12px;color:var(--t2)}
-.flbl{font-size:13px;color:var(--t2);margin-bottom:6px;display:block}
-.finp,.fsel{width:100%;padding:12px 14px;background:var(--s2);border:1.5px solid var(--bdr);border-radius:11px;color:var(--t1);font-family:inherit;font-size:15px;direction:rtl;-webkit-appearance:none;margin-bottom:14px}
-.finp:focus,.fsel:focus{outline:none;border-color:var(--acc)}
-.fsel option{background:var(--s2)}
-#searchPane{position:fixed;inset:0;z-index:300;background:var(--bg);padding:10px 14px;padding-top:calc(var(--st) + 10px);display:flex;flex-direction:column;gap:10px;transform:translateY(-100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
-#searchPane.on{transform:translateY(0)}
-.sinput{flex:1;padding:11px 14px;background:var(--s2);border:1.5px solid var(--bdr);border-radius:11px;color:var(--t1);font-family:inherit;font-size:16px;direction:rtl}
-.sinput:focus{outline:none;border-color:var(--acc)}
-.srow{display:flex;gap:8px}
-#sResults{overflow-y:auto;flex:1}
-.sri{display:flex;align-items:center;gap:10px;padding:13px 12px;border-radius:11px;cursor:pointer;margin-bottom:4px}
-.sri:active{background:var(--s2)}
-.sdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-#toast{position:fixed;bottom:calc(var(--sb) + 80px);left:50%;transform:translateX(-50%) translateY(20px);background:var(--s2);border:1px solid var(--bdr);border-radius:12px;padding:11px 20px;font-size:13px;z-index:500;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
-#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-#toast.ok{border-color:var(--grn);color:var(--grn)}
-#toast.err{border-color:var(--red);color:var(--red)}
-.starred rect{filter:drop-shadow(0 0 5px #f5c542)}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+:root {
+  --bg:       #080c14;
+  --bg2:      #0d1220;
+  --surface:  #111827;
+  --surface2: #1a2236;
+  --surface3: #1f2d44;
+  --border:   #243047;
+  --border2:  #2e3f5c;
+  --gold:     #c9a84c;
+  --gold2:    #e8c878;
+  --gold3:    #f5e0a0;
+  --blue:     #3b82f6;
+  --blue2:    #60a5fa;
+  --teal:     #14b8a6;
+  --violet:   #8b5cf6;
+  --rose:     #f43f5e;
+  --text:     #e2e8f0;
+  --text2:    #94a3b8;
+  --text3:    #64748b;
+  --success:  #10b981;
+  --warning:  #f59e0b;
+  --danger:   #ef4444;
+
+  --g1: #a855f7; --g1b: #1e0f3a;
+  --g2: #06b6d4; --g2b: #042330;
+  --g3: #f59e0b; --g3b: #2d1a00;
+  --g4: #3b82f6; --g4b: #0c1e40;
+  --g5: #10b981; --g5b: #032817;
+  --g6: #f43f5e; --g6b: #300a14;
+  --g7: #8b5cf6; --g7b: #1a0f35;
+  --g8: #14b8a6; --g8b: #031e1c;
+  --g9: #fb923c; --g9b: #2d1200;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+  height:100%;
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+}
+
+/* ── HEADER ───────────────────────────── */
+#header{
+  height:56px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  position:relative;
+  z-index:50;
+  gap:10px;
+  flex-shrink:0;
+}
+
+.header-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+}
+
+.brand-icon{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+
+.brand-title{
+  font-family:'Amiri',serif;
+  font-size:17px;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--gold2),var(--gold3));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  white-space:nowrap;
+}
+
+.brand-sub{
+  font-size:10px;
+  color:var(--text3);
+  margin-top:1px;
+  white-space:nowrap;
+}
+
+.header-center{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-width:0;
+}
+
+.search-box{
+  position:relative;
+  width:220px;
+}
+.search-box input{
+  width:100%;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  padding:7px 12px 7px 36px;
+  font-family:'Tajawal',sans-serif;
+  font-size:13px;
+  direction:rtl;
+  transition:border-color .2s,box-shadow .2s;
+}
+.search-box input:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,168,76,.12);
+}
+.search-box::after{
+  content:'⌕';
+  position:absolute;
+  left:10px;top:50%;
+  transform:translateY(-50%);
+  color:var(--text3);
+  font-size:16px;
+  pointer-events:none;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+}
+
+/* ── BUTTONS ────────────────────────────── */
+.btn{
+  padding:7px 14px;
+  border-radius:7px;
+  border:none;
+  font-family:'Tajawal',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all .15s;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),#b8922f);
+  color:#0d0800;
+  font-weight:700;
+  box-shadow:0 2px 8px rgba(201,168,76,.3);
+}
+.btn-gold:hover{box-shadow:0 4px 16px rgba(201,168,76,.4)}
+
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2563eb}
+
+.btn-ghost{
+  background:var(--surface2);
+  color:var(--text2);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover{color:var(--text);border-color:var(--border2)}
+
+.btn-danger{background:rgba(239,68,68,.15);color:var(--danger);border:1px solid rgba(239,68,68,.3)}
+.btn-danger:hover{background:rgba(239,68,68,.25)}
+
+.btn-success{background:rgba(16,185,129,.15);color:var(--success);border:1px solid rgba(16,185,129,.3)}
+.btn-success:hover{background:rgba(16,185,129,.25)}
+
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-xs{padding:3px 8px;font-size:11px}
+
+/* ── UNSAVED BADGE ───────────────────── */
+.unsaved-badge{
+  display:none;
+  align-items:center;
+  gap:5px;
+  background:rgba(245,158,11,.1);
+  border:1px solid rgba(245,158,11,.4);
+  color:var(--warning);
+  border-radius:6px;
+  padding:4px 10px;
+  font-size:12px;
+  animation:pulse-badge 2s ease-in-out infinite;
+}
+.unsaved-badge.show{display:flex}
+@keyframes pulse-badge{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── MAIN LAYOUT ─────────────────────── */
+#app{
+  display:flex;
+  height:calc(100vh - 56px);
+}
+
+/* ── SIDEBAR ─────────────────────────── */
+#sidebar{
+  width:280px;
+  min-width:280px;
+  background:var(--surface);
+  border-left:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition:width .3s,min-width .3s;
+}
+
+.sidebar-tabs{
+  display:flex;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.tab-btn{
+  flex:1;
+  padding:10px 8px;
+  background:none;
+  border:none;
+  color:var(--text3);
+  font-family:'Tajawal',sans-serif;
+  font-size:12px;
+  cursor:pointer;
+  transition:all .2s;
+  border-bottom:2px solid transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.tab-btn.active{
+  color:var(--gold2);
+  border-bottom-color:var(--gold);
+  background:rgba(201,168,76,.05);
+}
+.tab-btn:hover:not(.active){color:var(--text2)}
+
+.tab-panel{display:none;flex-direction:column;flex:1;overflow:hidden}
+.tab-panel.active{display:flex}
+
+.sidebar-body{overflow-y:auto;flex:1;padding:12px}
+
+/* ── PERSON CARD ─────────────────────── */
+.person-card{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  margin-bottom:10px;
+  animation:slideIn .2s ease;
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.person-card-header{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.person-avatar{
+  width:44px;height:44px;
+  border-radius:10px;
+  background:var(--surface3);
+  border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .2s;
+}
+.person-avatar:hover{border-color:var(--gold)}
+.person-avatar img{width:100%;height:100%;object-fit:cover}
+
+.person-info-main h3{
+  font-size:16px;
+  font-weight:700;
+  line-height:1.3;
+}
+.gen-tag{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:12px;
+  font-size:10px;
+  font-weight:500;
+  margin-top:4px;
+}
+
+.info-row{
+  font-size:12px;
+  color:var(--text2);
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+  line-height:1.5;
+}
+.info-row:last-child{border-bottom:none}
+.info-row .label{color:var(--text3);min-width:56px;flex-shrink:0}
+.info-row .val{color:var(--text);flex:1}
+
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{
+  background:var(--surface3);
+  border:1px solid var(--border2);
+  border-radius:5px;
+  padding:2px 8px;
+  font-size:11px;
+  color:var(--text2);
+  cursor:pointer;
+  transition:all .15s;
+}
+.chip:hover{border-color:var(--gold);color:var(--gold2)}
+
+.action-bar{
+  display:flex;
+  gap:6px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+/* ── STATS PANEL ─────────────────────── */
+.stat-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:12px;
+}
+.stat-box{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px;
+  text-align:center;
+}
+.stat-num{
+  font-size:24px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.stat-label{font-size:11px;color:var(--text3);margin-top:2px}
+
+.gen-list{display:flex;flex-direction:column;gap:5px}
+.gen-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:7px;
+}
+.gen-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.gen-row-label{font-size:12px;flex:1}
+.gen-count{
+  font-size:12px;
+  font-weight:700;
+  color:var(--gold2);
+}
+
+/* ── TREE AREA ───────────────────────── */
+#treeArea{
+  flex:1;
+  overflow:hidden;
+  background:var(--bg);
+  position:relative;
+}
+
+#treeArea svg{
+  width:100%;
+  height:100%;
+  cursor:grab;
+}
+#treeArea svg:active{cursor:grabbing}
+
+/* Grid bg */
+#treeArea::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--surface2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--surface2) 1px,transparent 1px);
+  background-size:40px 40px;
+  opacity:.35;
+  pointer-events:none;
+}
+
+/* ── MINIMAP ────────────────────────── */
+#minimap{
+  position:absolute;
+  bottom:14px;
+  right:14px;
+  width:160px;
+  height:100px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);
+  z-index:20;
+}
+#minimapSvg{width:100%;height:100%}
+#minimapViewport{
+  fill:rgba(201,168,76,.12);
+  stroke:var(--gold);
+  stroke-width:1;
+  rx:3;
+}
+
+/* ── CONTROLS ───────────────────────── */
+#treeControls{
+  position:absolute;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:10px;
+  padding:6px 10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+  z-index:20;
+}
+
+.ctrl-btn{
+  width:30px;height:30px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text2);
+  font-size:14px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.ctrl-btn:hover{border-color:var(--gold);color:var(--gold2)}
+
+.zoom-level{
+  font-size:12px;
+  color:var(--text3);
+  min-width:42px;
+  text-align:center;
+}
+
+/* ── TOOLTIP ────────────────────────── */
+#tooltip{
+  position:absolute;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:12px;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .15s;
+  z-index:100;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);
+  max-width:200px;
+  line-height:1.5;
+}
+#tooltip.show{opacity:1}
+
+/* ── MODAL ──────────────────────────── */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .2s;
+}
+.overlay.open{opacity:1;pointer-events:all}
+
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  padding:28px;
+  width:400px;max-width:92vw;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(24px);
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+  direction:rtl;
+}
+.overlay.open .modal{transform:translateY(0)}
+
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.modal-header h2{font-size:18px;font-weight:700}
+.modal-close{
+  width:28px;height:28px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text2);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  transition:all .15s;
+}
+.modal-close:hover{border-color:var(--danger);color:var(--danger)}
+
+.form-group{margin-bottom:14px}
+.form-group label{
+  display:block;
+  font-size:12px;
+  color:var(--text3);
+  margin-bottom:6px;
+  font-weight:500;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  padding:9px 12px;
+  font-family:'Tajawal',sans-serif;
+  font-size:13px;
+  direction:rtl;
+  transition:border-color .2s,box-shadow .2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,168,76,.1);
+}
+.form-group select option{background:var(--surface2)}
+.form-group textarea{resize:vertical;min-height:72px}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.modal-footer{
+  display:flex;gap:8px;
+  margin-top:20px;
+  justify-content:flex-end;
+}
+
+/* ── TOAST ──────────────────────────── */
+#toast{
+  position:fixed;
+  bottom:20px;left:50%;
+  transform:translateX(-50%) translateY(10px);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 20px;
+  font-size:13px;
+  z-index:500;
+  opacity:0;
+  transition:all .25s;
+  pointer-events:none;
+  white-space:nowrap;
+  box-shadow:0 4px 24px rgba(0,0,0,.5);
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.success{border-color:var(--success);color:var(--success)}
+#toast.error{border-color:var(--danger);color:var(--danger)}
+#toast.warn{border-color:var(--warning);color:var(--warning)}
+
+/* ── EMPTY STATE ─────────────────────── */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:40px 20px;
+  color:var(--text3);text-align:center;
+}
+.empty-state .icon{font-size:36px;margin-bottom:12px;opacity:.5}
+.empty-state p{font-size:13px;line-height:1.6}
+
+/* ── SCROLLBAR ───────────────────────── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+/* ── CONTEXT MENU ────────────────────── */
+#ctxMenu{
+  position:fixed;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:5px;
+  z-index:300;
+  display:none;
+  min-width:150px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  direction:rtl;
+}
+#ctxMenu.show{display:block}
+.ctx-item{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;
+  border-radius:5px;
+  font-size:13px;
+  cursor:pointer;
+  color:var(--text2);
+  transition:all .1s;
+}
+.ctx-item:hover{background:var(--surface2);color:var(--text)}
+.ctx-item.danger:hover{background:rgba(239,68,68,.1);color:var(--danger)}
+.ctx-sep{height:1px;background:var(--border);margin:4px 0}
+
+/* ── SEARCH RESULTS ───────────────────── */
+.search-results{
+  position:absolute;
+  top:calc(100% + 4px);
+  right:0;left:0;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  overflow:hidden;
+  z-index:60;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+  max-height:240px;
+  overflow-y:auto;
+}
+.search-item{
+  padding:8px 12px;
+  cursor:pointer;
+  font-size:13px;
+  display:flex;align-items:center;gap:8px;
+  transition:background .1s;
+  border-bottom:1px solid var(--border);
+}
+.search-item:last-child{border-bottom:none}
+.search-item:hover{background:var(--surface2)}
+.search-item .si-gen{font-size:10px;color:var(--text3);margin-right:auto}
+
+/* ── PATH HIGHLIGHT ───────────────────── */
+.path-line{stroke:var(--gold)!important;stroke-width:2.5!important;opacity:1!important}
+.path-node rect{fill:var(--gold)!important;stroke:var(--gold2)!important}
+
+/* ── PRINT ───────────────────────────── */
+@media print{
+  #header,#sidebar,#treeControls,#minimap{display:none!important}
+  #treeArea{overflow:visible!important}
+  body{overflow:visible!important}
+}
+
+/* ── RESPONSIVE ──────────────────────── */
+@media(max-width:768px){
+  #sidebar{position:absolute;right:0;top:0;bottom:0;z-index:40;transform:translateX(100%);transition:transform .3s}
+  #sidebar.mobile-open{transform:translateX(0)}
+  .brand-title{font-size:14px}
+  .search-box{width:150px}
+}
+
+/* Photo upload area */
+.photo-upload{
+  border:2px dashed var(--border2);
+  border-radius:8px;
+  padding:16px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  color:var(--text3);
+  font-size:12px;
+}
+.photo-upload:hover{border-color:var(--gold);color:var(--gold2)}
+
+/* Path indicator */
+.path-indicator{
+  position:absolute;
+  top:14px;left:14px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:12px;
+  z-index:20;
+  display:none;
+  gap:4px;
+  align-items:center;
+  flex-wrap:wrap;
+  max-width:400px;
+}
+.path-indicator.show{display:flex}
+.path-indicator .pi-name{
+  color:var(--gold2);
+  display:flex;align-items:center;gap:3px;
+}
+.path-indicator .pi-arrow{color:var(--text3)}
+.path-close{cursor:pointer;color:var(--text3);margin-right:4px}
+.path-close:hover{color:var(--danger)}
+
+/* Floating add button */
+.fab{
+  position:absolute;
+  top:14px;right:14px;
+  width:40px;height:40px;
+  background:linear-gradient(135deg,var(--gold),#b8922f);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  cursor:pointer;
+  z-index:20;
+  box-shadow:0 4px 16px rgba(201,168,76,.35);
+  color:#0d0800;
+  font-weight:700;
+  transition:all .2s;
+  border:none;
+}
+.fab:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(201,168,76,.5)}
 </style>
 </head>
 <body>
 
-<div id="loader">
-  <div class="ico">🌳</div>
-  <div class="ttl">شجرة عائلة المجاحيد سواعد</div>
-  <div class="sub">جاري التحميل...</div>
-  <div class="bwrap"><div id="loaderBar"></div></div>
-</div>
-
-<div class="topbar">
-  <div class="tinfo">
-    <h1>🌳 شجرة عائلة المجاحيد سواعد</h1>
-    <p>سوريا • فلسطين • الأردن &nbsp;|&nbsp; © Muhammad Abdalla</p>
-  </div>
-  <div class="ibtn" onclick="openSearch()">🔍</div>
-  <div class="ibtn" onclick="openMenu()">☰<span class="udot" id="udot"></span></div>
-</div>
-
-<div id="treeWrap">
-  <div id="treeCanvas"><svg id="treeSvg"></svg></div>
-</div>
-
-<button class="fab" onclick="openAddSheet()">＋</button>
-<div id="zoomBadge">100%</div>
-<div id="backdrop" onclick="closeAll()"></div>
-
-<div class="sheet" id="detailSheet">
-  <div class="handle"></div>
-  <div class="shd"><h2 id="dName">—</h2><div id="dGen"></div></div>
-  <div class="shb" id="dBody"></div>
-</div>
-
-<div class="sheet" id="menuSheet">
-  <div class="handle"></div>
-  <div class="shd"><h2>القائمة</h2></div>
-  <div class="shb">
-    <ul class="mlist">
-      <li class="mitem" onclick="closeAll();exportData()"><div class="mico" style="background:#0d3b1e">💾</div><div><div style="font-weight:600">حفظ الشجرة</div><div class="msub" id="saveHint">لم يتم الحفظ بعد</div></div></li>
-      <li class="mitem" onclick="closeAll();importData()"><div class="mico" style="background:#0c2560">📂</div><div><div style="font-weight:600">تحميل ملف محفوظ</div><div class="msub">استيراد ملف .json</div></div></li>
-      <li class="mitem" onclick="closeAll();printTree()"><div class="mico" style="background:#2d1b6b">🖨️</div><div><div style="font-weight:600">طباعة / PDF</div><div class="msub">طباعة الشجرة كاملة</div></div></li>
-      <li class="mitem" onclick="closeAll();resetZoom()"><div class="mico" style="background:#1a1d27">🎯</div><div><div style="font-weight:600">ضبط العرض</div><div class="msub">العودة للعرض الكامل</div></div></li>
-    </ul>
-  </div>
-</div>
-
-<div class="sheet" id="formSheet">
-  <div class="handle"></div>
-  <div class="shd"><h2 id="formTitle">إضافة شخص</h2></div>
-  <div class="shb">
-    <label class="flbl">الاسم *</label>
-    <input class="finp" id="fName" type="text" placeholder="أدخل الاسم...">
-    <div id="fParentGroup">
-      <label class="flbl">الأب</label>
-      <select class="fsel" id="fParent"><option value="">— جذر الشجرة —</option></select>
-    </div>
-    <div class="brow">
-      <button class="btn bg" onclick="closeAll()">إلغاء</button>
-      <button class="btn bp" onclick="saveForm()">✓ حفظ</button>
+<!-- HEADER -->
+<div id="header">
+  <div class="header-brand">
+    <div class="brand-icon">🌳</div>
+    <div>
+      <div class="brand-title">شجرة عائلة المجاحيد سواعد</div>
+      <div class="brand-sub">سوريا • فلسطين • الأردن</div>
     </div>
   </div>
+
+  <div class="header-center">
+    <div class="search-box" id="searchBox">
+      <input type="text" id="searchInput" placeholder="ابحث بالاسم..." autocomplete="off" oninput="handleSearch(this.value)">
+      <div class="search-results" id="searchResults" style="display:none"></div>
+    </div>
+    <span class="unsaved-badge" id="unsavedBadge">⚠ تغييرات غير محفوظة</span>
+  </div>
+
+  <div class="header-right">
+    <button class="btn btn-ghost btn-sm" onclick="centerTree()" title="توسيط الشجرة">⌂</button>
+    <button class="btn btn-ghost btn-sm" onclick="openImport()">📂 تحميل</button>
+    <button class="btn btn-ghost btn-sm" onclick="printTree()">🖨 طباعة</button>
+    <button class="btn btn-gold btn-sm" onclick="exportData()">💾 حفظ</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+  </div>
 </div>
 
-<div class="sheet" id="deleteSheet">
-  <div class="handle"></div>
-  <div class="shd"><h2 style="color:var(--red)">🗑️ تأكيد الحذف</h2></div>
-  <div class="shb">
-    <p id="delMsg" style="font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:16px"></p>
-    <div class="brow">
-      <button class="btn bg" onclick="closeAll()">إلغاء</button>
-      <button class="btn br" onclick="confirmDelete()">حذف</button>
+<!-- APP -->
+<div id="app">
+
+  <!-- TREE AREA -->
+  <div id="treeArea">
+    <svg id="treeSvg">
+      <defs>
+        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glow-soft" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#2e3f5c"/>
+        </marker>
+      </defs>
+      <g id="treeRoot"></g>
+    </svg>
+
+    <!-- FAB -->
+    <button class="fab" onclick="openAddModal()" title="إضافة شخص">+</button>
+
+    <!-- Controls -->
+    <div id="treeControls">
+      <button class="ctrl-btn" onclick="zoom(-0.2)" title="تصغير">−</button>
+      <span class="zoom-level" id="zoomLabel">100%</span>
+      <button class="ctrl-btn" onclick="zoom(0.2)" title="تكبير">+</button>
+      <button class="ctrl-btn" onclick="centerTree()" title="توسيط">⊙</button>
+      <button class="ctrl-btn" onclick="fitTree()" title="ملاءمة">⊞</button>
+      <button class="ctrl-btn" id="toggleMinimap" onclick="toggleMinimap()" title="خريطة مصغرة">🗺</button>
+    </div>
+
+    <!-- Minimap -->
+    <div id="minimap">
+      <svg id="minimapSvg">
+        <g id="minimapContent"></g>
+        <rect id="minimapViewport" x="0" y="0" width="40" height="25" rx="2" fill="rgba(201,168,76,.15)" stroke="var(--gold)" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- Path indicator -->
+    <div class="path-indicator" id="pathIndicator">
+      <span class="path-close" onclick="clearPath()">✕</span>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip"></div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sidebar-tabs">
+      <button class="tab-btn active" data-tab="details" onclick="switchTab('details')">👤 التفاصيل</button>
+      <button class="tab-btn" data-tab="stats" onclick="switchTab('stats')">📊 إحصائيات</button>
+      <button class="tab-btn" data-tab="search" onclick="switchTab('search')">🔍 بحث</button>
+    </div>
+
+    <!-- Details tab -->
+    <div class="tab-panel active" id="tab-details">
+      <div class="sidebar-body" id="sidebarDetails">
+        <div class="empty-state">
+          <div class="icon">👆</div>
+          <p>انقر على أي شخص في الشجرة لعرض تفاصيله، أو انقر بزر الماوس الأيمن لمزيد من الخيارات</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats tab -->
+    <div class="tab-panel" id="tab-stats">
+      <div class="sidebar-body" id="sidebarStats"></div>
+    </div>
+
+    <!-- Search tab -->
+    <div class="tab-panel" id="tab-search">
+      <div style="padding:12px;border-bottom:1px solid var(--border)">
+        <input type="text" id="advSearch" placeholder="ابحث بالاسم أو الملاحظات..." 
+          style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:8px 12px;font-family:'Tajawal',sans-serif;font-size:13px;direction:rtl"
+          oninput="advancedSearch(this.value)">
+      </div>
+      <div class="sidebar-body" id="sidebarSearch">
+        <div class="empty-state">
+          <div class="icon">🔍</div>
+          <p>اكتب للبحث في كل الأشخاص</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="searchPane">
-  <div class="srow">
-    <input class="sinput" id="sInput" type="search" placeholder="ابحث عن اسم..." oninput="doSearch(this.value)" autocomplete="off">
-    <button class="btn bg" style="flex:none;padding:10px 14px;font-size:14px" onclick="closeSearch()">إلغاء</button>
-  </div>
-  <div id="sResults"><div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div></div>
+<!-- Context Menu -->
+<div id="ctxMenu">
+  <div class="ctx-item" onclick="ctxAddChild()">➕ إضافة ابن</div>
+  <div class="ctx-item" onclick="ctxEdit()">✏️ تعديل البيانات</div>
+  <div class="ctx-item" onclick="ctxShowPath()">🗺 مسار للجذر</div>
+  <div class="ctx-item" onclick="ctxHighlightFamily()">✨ إبراز العائلة</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" onclick="ctxDelete()">🗑️ حذف</div>
 </div>
 
-<input type="file" id="fileIn" accept=".json" style="display:none" onchange="handleImport(event)">
+<!-- ADD/EDIT MODAL -->
+<div class="overlay" id="editOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="editTitle">إضافة شخص</h2>
+      <button class="modal-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="form-group">
+      <label>الاسم *</label>
+      <input type="text" id="fName" placeholder="أدخل الاسم الكامل...">
+    </div>
+    <div class="form-group">
+      <label>اللقب / الكنية</label>
+      <input type="text" id="fNickname" placeholder="مثال: أبو محمد...">
+    </div>
+    <div class="form-group" id="parentGroup">
+      <label>الأب</label>
+      <select id="fParent">
+        <option value="">— جذر الشجرة —</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>سنة الميلاد</label>
+        <input type="number" id="fBirthYear" placeholder="مثال: 1950" min="1800" max="2026">
+      </div>
+      <div class="form-group">
+        <label>سنة الوفاة</label>
+        <input type="number" id="fDeathYear" placeholder="إن توفي" min="1800" max="2026">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>مكان الإقامة</label>
+      <input type="text" id="fLocation" placeholder="مثال: دمشق، سوريا">
+    </div>
+    <div class="form-group">
+      <label>ملاحظات</label>
+      <textarea id="fNotes" placeholder="أي معلومات إضافية..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeEdit()">إلغاء</button>
+      <button class="btn btn-gold" onclick="saveEdit()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="overlay" id="deleteOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🗑️ تأكيد الحذف</h2>
+      <button class="modal-close" onclick="closeDelete()">✕</button>
+    </div>
+    <p style="color:var(--text2);font-size:14px;line-height:1.8" id="deleteMsg"></p>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeDelete()">إلغاء</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">نعم، احذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
 <div id="toast"></div>
 
 <script>
-"use strict";
+// ═══════════════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════════════
+let familyData = {
+  id:'taha',name:'طه',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+    {id:'mustafa',name:'مصطفى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+      {id:'muhammad1',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+        {id:'ubaid',name:'عبيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'khabasa',name:'خبصة',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+        ]},
+        {id:'khalid1',name:'خالد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'mahmoud1',name:'محمود',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+          {id:'muhammad2',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+          {id:'hamad',name:'حمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+          {id:'hussain1',name:'حسين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+        ]}
+      ]},
+      {id:'hasan1',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+        {id:'abdallah1',name:'عبد الله',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'awwad1',name:'عواد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'said1',name:'⭐ سعيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'haytham',name:'هيثم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+                {id:'said2',name:'سعيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+              ]},
+              {id:'muhammad3',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+                {id:'umar',name:'عمر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+              ]},
+              {id:'ahmad1',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'amjad',name:'أمجد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+                {id:'adam',name:'آدم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+              ]}
+            ]},
+            {id:'abdallah2',name:'عبد الله',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'awwad2',name:'عواد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'fadi',name:'فادي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'husam',name:'حسام',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'imad',name:'عماد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'muhammad4',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'basil1',name:'باسل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]},
+            {id:'karim1',name:'كريم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'maher',name:'ماهر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'samer',name:'سامر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'ammar',name:'عمار',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'zaher',name:'زاهر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]}
+          ]}
+        ]},
+        {id:'ahmad2',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+        {id:'mahmoud2',name:'محمود',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+        {id:'muhammad5',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'musa',name:'موسى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'fayiz',name:'فايز',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'khalid2',name:'خالد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'mahmoud3',name:'محمود',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'ali1',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'muhammad6',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'ismail',name:'إسماعيل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'ibrahim',name:'إبراهيم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'khalil1',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'yusuf',name:'يوسف',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+          ]},
+          {id:'hasan2',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'muhammad7',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'wasim',name:'وسيم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'iyad',name:'إياد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'basil2',name:'باسل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]},
+            {id:'hasan3',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'shawqi',name:'شوقي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]}
+          ]}
+        ]},
+        {id:'karim2',name:'كريم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+      ]},
+      {id:'khalil2',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+        {id:'salih1',name:'صالح',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'ahmad3',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'said3',name:'سعيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'adnan1',name:'عدنان',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]},
+            {id:'muhammad8',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'khalil3',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'ahmad4',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'muhammad9',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'zayn',name:'زين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'abd',name:'عبد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]}
+          ]},
+          {id:'hussain2',name:'حسين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'atif',name:'عاطف',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'atiyya',name:'عطية',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'hatim',name:'حاتم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'ahmad5',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+          ]},
+          {id:'hasan4',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'ahmad6',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'salih2',name:'صالح',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+              {id:'adil',name:'عادل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'adnan2',name:'عدنان',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'hasan5',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+              {id:'khalid3',name:'خالد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+            ]}
+          ]}
+        ]},
+        {id:'ali2',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'muhammad10',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+            {id:'ali3',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'sultan',name:'سلطان',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'hussain3',name:'حسين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'hasan6',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'abdallah3',name:'عبد الله',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'isa',name:'عيسى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'khalil4',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
+            {id:'ghazi',name:'غازي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+          ]}
+        ]}
+      ]},
+      {id:'ali4',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+        {id:'isa2',name:'عيسى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
+          {id:'raja',name:'رجا',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
+        ]}
+      ]}
+    ]}
+  ]
+};
 
-var familyData={id:'taha',name:'طه',children:[{id:'mustafa',name:'مصطفى',children:[{id:'muhammad1',name:'محمد',children:[{id:'ubaid',name:'عبيد',children:[{id:'khabasa',name:'خبصة',children:[]}]},{id:'khalid1',name:'خالد',children:[{id:'mahmoud1',name:'محمود',children:[]},{id:'muhammad2',name:'محمد',children:[]},{id:'hamad',name:'حمد',children:[]},{id:'hussain1',name:'حسين',children:[]}]}]},{id:'hasan1',name:'حسن',children:[{id:'abdallah1',name:'عبد الله',children:[{id:'awwad1',name:'عواد',children:[{id:'said1',name:'⭐ سعيد',children:[{id:'haytham',name:'هيثم',children:[{id:'said2',name:'سعيد',children:[]}]},{id:'muhammad3',name:'محمد',children:[{id:'umar',name:'عمر',children:[]}]},{id:'ahmad1',name:'أحمد',children:[]},{id:'amjad',name:'أمجد',children:[{id:'adam',name:'آدم',children:[]}]}]},{id:'abdallah2',name:'عبد الله',children:[{id:'awwad2',name:'عواد',children:[]},{id:'fadi',name:'فادي',children:[]},{id:'husam',name:'حسام',children:[]},{id:'imad',name:'عماد',children:[]},{id:'muhammad4',name:'محمد',children:[]},{id:'basil1',name:'باسل',children:[]}]},{id:'karim1',name:'كريم',children:[{id:'maher',name:'ماهر',children:[]},{id:'samer',name:'سامر',children:[]},{id:'ammar',name:'عمار',children:[]},{id:'zaher',name:'زاهر',children:[]}]}]}]},{id:'ahmad2',name:'أحمد',children:[]},{id:'mahmoud2',name:'محمود',children:[]},{id:'muhammad5',name:'محمد',children:[{id:'musa',name:'موسى',children:[{id:'fayiz',name:'فايز',children:[]},{id:'khalid2',name:'خالد',children:[]},{id:'mahmoud3',name:'محمود',children:[]},{id:'ali1',name:'علي',children:[]},{id:'muhammad6',name:'محمد',children:[]},{id:'ismail',name:'إسماعيل',children:[]},{id:'ibrahim',name:'إبراهيم',children:[]},{id:'khalil1',name:'خليل',children:[]},{id:'yusuf',name:'يوسف',children:[]}]},{id:'hasan2',name:'حسن',children:[{id:'muhammad7',name:'محمد',children:[{id:'wasim',name:'وسيم',children:[]},{id:'iyad',name:'إياد',children:[]},{id:'basil2',name:'باسل',children:[]}]},{id:'hasan3',name:'حسن',children:[{id:'shawqi',name:'شوقي',children:[]}]}]}]},{id:'karim2',name:'كريم',children:[]}]},{id:'khalil2',name:'خليل',children:[{id:'salih1',name:'صالح',children:[{id:'ahmad3',name:'أحمد',children:[{id:'said3',name:'سعيد',children:[{id:'adnan1',name:'عدنان',children:[]}]},{id:'muhammad8',name:'محمد',children:[]},{id:'khalil3',name:'خليل',children:[{id:'ahmad4',name:'أحمد',children:[]},{id:'muhammad9',name:'محمد',children:[]},{id:'zayn',name:'زين',children:[]},{id:'abd',name:'عبد',children:[]}]}]},{id:'hussain2',name:'حسين',children:[{id:'atif',name:'عاطف',children:[]},{id:'atiyya',name:'عطية',children:[]},{id:'hatim',name:'حاتم',children:[]},{id:'ahmad5',name:'أحمد',children:[]}]},{id:'hasan4',name:'حسن',children:[{id:'ahmad6',name:'أحمد',children:[]},{id:'salih2',name:'صالح',children:[{id:'adil',name:'عادل',children:[]},{id:'adnan2',name:'عدنان',children:[]},{id:'hasan5',name:'حسن',children:[]},{id:'khalid3',name:'خالد',children:[]}]}]}]},{id:'ali2',name:'علي',children:[{id:'muhammad10',name:'محمد',children:[{id:'ali3',name:'علي',children:[]},{id:'sultan',name:'سلطان',children:[]},{id:'hussain3',name:'حسين',children:[]},{id:'hasan6',name:'حسن',children:[]},{id:'abdallah3',name:'عبد الله',children:[]},{id:'isa',name:'عيسى',children:[]},{id:'khalil4',name:'خليل',children:[]},{id:'ghazi',name:'غازي',children:[]}]}]}]},{id:'ali4',name:'علي',children:[{id:'isa2',name:'عيسى',children:[{id:'raja',name:'رجا',children:[]}]}]}]}]};
+// ═══════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════
+let selectedId = null;
+let ctxTargetId = null;
+let editMode = 'add'; // 'add'|'addChild'|'edit'
+let editParentId = null;
+let editNodeId = null;
+let deletingId = null;
+let hasUnsaved = false;
+let highlightedIds = new Set();
+let pathIds = [];
 
-var selId=null,editId=null,delId=null,fMode='add',fPid=null;
-var unsaved=false,pMap={},gMap={},allN=[],nPos={};
-var panX=20,panY=80,scl=1,MIN_S=0.15,MAX_S=3;
-var tWrap=null,tCvs=null;
+// D3 zoom transform state
+let currentTransform = d3.zoomIdentity;
+let svgW = 0, svgH = 0;
+let treeW = 0, treeH = 0;
 
-var GCOL=[null,{s:'#7c3aed',f:'#2d1b6b'},{s:'#0d9488',f:'#0f3d3a'},{s:'#b45309',f:'#3d2a0b'},{s:'#1d4ed8',f:'#0c2560'},{s:'#15803d',f:'#0d3b1e'},{s:'#be185d',f:'#4a0d2e'},{s:'#7c3aed',f:'#2d1b6b'},{s:'#0d9488',f:'#0f3d3a'}];
-function gcol(g){return GCOL[Math.min(g,8)]||GCOL[1];}
-function glbl(g){return['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن'][Math.min(g,8)]||'الجيل '+g;}
+// Flat maps
+let parentMap = {};
+let genMap = {};
+let allNodes = [];
+let nodePos = {};
 
-function uid(){return 'n'+Math.random().toString(36).substr(2,8);}
-function findN(id,node){if(node.id===id)return node;for(var i=0;i<(node.children||[]).length;i++){var r=findN(id,node.children[i]);if(r)return r;}return null;}
-function delN(id,par){if(!par.children)return false;var i=par.children.findIndex(function(c){return c.id===id;});if(i!==-1){par.children.splice(i,1);return true;}for(var j=0;j<par.children.length;j++){if(delN(id,par.children[j]))return true;}return false;}
-function buildMaps(node,par,gen){pMap[node.id]=par?par.id:null;gMap[node.id]=gen;allN.push(node);(node.children||[]).forEach(function(c){buildMaps(c,node,gen+1);});}
-function cntD(node){var c=0;(node.children||[]).forEach(function(ch){c+=1+cntD(ch);});return c;}
+// ═══════════════════════════════════════════════════════════
+//  COLORS
+// ═══════════════════════════════════════════════════════════
+const GEN_COLORS = [
+  null,
+  {stroke:'#a855f7',fill:'#1e0f3a',text:'#e9d5ff'},
+  {stroke:'#06b6d4',fill:'#042330',text:'#cffafe'},
+  {stroke:'#f59e0b',fill:'#2d1a00',text:'#fef3c7'},
+  {stroke:'#3b82f6',fill:'#0c1e40',text:'#dbeafe'},
+  {stroke:'#10b981',fill:'#032817',text:'#d1fae5'},
+  {stroke:'#f43f5e',fill:'#300a14',text:'#ffe4e6'},
+  {stroke:'#8b5cf6',fill:'#1a0f35',text:'#ede9fe'},
+  {stroke:'#14b8a6',fill:'#031e1c',text:'#ccfbf1'},
+  {stroke:'#fb923c',fill:'#2d1200',text:'#ffedd5'},
+];
 
-var BW=80,BH=32,HG=14,VG=58;
-function measure(node){if(!node.children||!node.children.length){node._w=BW;return BW;}var t=0;node.children.forEach(function(c,i){t+=measure(c);if(i<node.children.length-1)t+=HG;});node._w=Math.max(BW,t);return node._w;}
-function layout(node,x,y){node._x=x+node._w/2-BW/2;node._y=y;nPos[node.id]={x:node._x,y:node._y};if(!node.children||!node.children.length)return;var cx=x;node.children.forEach(function(c){layout(c,cx,y+BH+VG);cx+=c._w+HG;});}
+function gc(g){ return GEN_COLORS[Math.min(g,9)] || GEN_COLORS[1]; }
+const GEN_LABELS=['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن','الجيل التاسع'];
 
-function render(){
-  pMap={};gMap={};allN=[];nPos={};
-  buildMaps(familyData,null,1);
-  measure(familyData);
-  layout(familyData,20,20);
-  var svg=document.getElementById('treeSvg');
-  var mxX=0,mxY=0;
-  allN.forEach(function(n){if(n._x+BW>mxX)mxX=n._x+BW;if(n._y+BH>mxY)mxY=n._y+BH;});
-  mxX+=40;mxY+=40;
-  svg.setAttribute('width',mxX);svg.setAttribute('height',mxY);svg.innerHTML='';
-  var eg=document.createElementNS('http://www.w3.org/2000/svg','g');
-  allN.forEach(function(node){
-    (node.children||[]).forEach(function(child){
-      var px=node._x+BW/2,py=node._y+BH,cx2=child._x+BW/2,cy=child._y,my=(py+cy)/2;
-      var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-      p.setAttribute('d','M'+px+','+py+' C'+px+','+my+' '+cx2+','+my+' '+cx2+','+cy);
-      p.setAttribute('fill','none');p.setAttribute('stroke','#2a2f4a');p.setAttribute('stroke-width','1.5');
-      eg.appendChild(p);
-    });
-  });
-  svg.appendChild(eg);
-  allN.forEach(function(node){
-    var g=gMap[node.id]||1,col=gcol(g),isSel=(node.id===selId),isStar=(node.id==='said1');
-    var grp=document.createElementNS('http://www.w3.org/2000/svg','g');
-    grp.style.cursor='pointer';
-    if(isStar)grp.setAttribute('class','starred');
-    var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('x',node._x);rect.setAttribute('y',node._y);rect.setAttribute('width',BW);rect.setAttribute('height',BH);rect.setAttribute('rx','8');
-    rect.setAttribute('fill',isSel?col.s:col.f);rect.setAttribute('stroke',isSel?'#fff':col.s);rect.setAttribute('stroke-width',isSel?'2':'1');
-    var txt=document.createElementNS('http://www.w3.org/2000/svg','text');
-    txt.setAttribute('x',node._x+BW/2);txt.setAttribute('y',node._y+BH/2);txt.setAttribute('text-anchor','middle');txt.setAttribute('dominant-baseline','central');
-    txt.setAttribute('fill','#fff');txt.setAttribute('font-size',node.name.length>8?'9.5':'11.5');
-    txt.setAttribute('font-family',"Tajawal,'Segoe UI',Tahoma,Arial,sans-serif");txt.setAttribute('font-weight',isSel?'700':'500');
-    txt.textContent=node.name;
-    grp.appendChild(rect);grp.appendChild(txt);svg.appendChild(grp);
-    (function(id){grp.addEventListener('click',function(){selectNode(id);});})(node.id);
-  });
-}
+// ═══════════════════════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════════════════════
+function uid(){ return 'n_'+Math.random().toString(36).substr(2,9); }
 
-function applyT(){tCvs.style.transform='translate('+panX+'px,'+panY+'px) scale('+scl+')';}
-function resetZoom(){
-  var svg=document.getElementById('treeSvg');
-  var sw=parseFloat(svg.getAttribute('width')||600),sh=parseFloat(svg.getAttribute('height')||400);
-  var ww=tWrap.clientWidth,wh=tWrap.clientHeight-70;
-  scl=Math.min(ww/sw,wh/sh,1)*0.9;scl=Math.max(MIN_S,Math.min(MAX_S,scl));
-  panX=(ww-sw*scl)/2;panY=70+(wh-sh*scl)/2;applyT();
-}
-
-var isPan=false,lPanX=0,lPanY=0,pDist0=0,pScl0=1,pMidX=0,pMidY=0;
-function tdist(a,b){return Math.hypot(b.clientX-a.clientX,b.clientY-a.clientY);}
-
-function setupTouch(){
-  tWrap.addEventListener('touchstart',function(e){
-    if(e.touches.length===1){isPan=true;lPanX=e.touches[0].clientX-panX;lPanY=e.touches[0].clientY-panY;}
-    else if(e.touches.length===2){isPan=false;pDist0=tdist(e.touches[0],e.touches[1]);pScl0=scl;pMidX=(e.touches[0].clientX+e.touches[1].clientX)/2;pMidY=(e.touches[0].clientY+e.touches[1].clientY)/2;}
-  },{passive:true});
-  tWrap.addEventListener('touchmove',function(e){
-    e.preventDefault();
-    if(e.touches.length===1&&isPan){panX=e.touches[0].clientX-lPanX;panY=e.touches[0].clientY-lPanY;applyT();}
-    else if(e.touches.length===2){
-      var d=tdist(e.touches[0],e.touches[1]);
-      var ns=Math.max(MIN_S,Math.min(MAX_S,pScl0*(d/pDist0)));
-      var mx=(e.touches[0].clientX+e.touches[1].clientX)/2,my2=(e.touches[0].clientY+e.touches[1].clientY)/2;
-      panX=mx-(pMidX-panX)*(ns/pScl0)-(mx-pMidX);
-      panY=my2-(pMidY-panY)*(ns/pScl0)-(my2-pMidY);
-      scl=ns;applyT();showZoom();
-    }
-  },{passive:false});
-  tWrap.addEventListener('touchend',function(){isPan=false;},{passive:true});
-  var mDown=false,lMX=0,lMY=0;
-  tWrap.addEventListener('mousedown',function(e){if(e.target===tWrap||e.target===tCvs||e.target.tagName==='svg'){mDown=true;lMX=e.clientX-panX;lMY=e.clientY-panY;}});
-  window.addEventListener('mousemove',function(e){if(mDown){panX=e.clientX-lMX;panY=e.clientY-lMY;applyT();}});
-  window.addEventListener('mouseup',function(){mDown=false;});
-  tWrap.addEventListener('wheel',function(e){e.preventDefault();var f=e.deltaY>0?0.9:1.1;var ns=Math.max(MIN_S,Math.min(MAX_S,scl*f));panX=e.clientX-(e.clientX-panX)*(ns/scl);panY=e.clientY-(e.clientY-panY)*(ns/scl);scl=ns;applyT();showZoom();},{passive:false});
-}
-
-var zTmr;
-function showZoom(){var el=document.getElementById('zoomBadge');el.textContent=Math.round(scl*100)+'%';el.classList.add('on');clearTimeout(zTmr);zTmr=setTimeout(function(){el.classList.remove('on');},1200);}
-
-function selectNode(id){selId=id;render();showDetail(id);}
-function showDetail(id){
-  var node=findN(id,familyData);if(!node)return;
-  var g=gMap[id]||1,col=gcol(g),par=pMap[id]?findN(pMap[id],familyData):null,kids=node.children||[];
-  document.getElementById('dName').textContent=node.name;
-  document.getElementById('dGen').innerHTML='<span style="display:inline-flex;align-items:center;gap:5px;background:'+col.f+';color:'+col.s+';border:1px solid '+col.s+';padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600">'+glbl(g)+'</span>';
-  var h='';
-  h+='<div class="drow"><span class="dlbl">👤 الأب</span><span class="dval">'+(par?'<span class="chip" onclick="closeAll();setTimeout(function(){selectNode(\''+par.id+'\');},100)">'+par.name+'</span>':'جذر الشجرة')+'</span></div>';
-  h+='<div class="drow"><span class="dlbl">👥 الأبناء</span><span class="dval">'+kids.length+'</span></div>';
-  if(kids.length){h+='<div class="drow" style="flex-direction:column;align-items:flex-start;gap:8px"><span class="dlbl">👦 الأسماء</span><div class="chips">'+kids.map(function(c){return'<span class="chip" onclick="closeAll();setTimeout(function(){selectNode(\''+c.id+'\');},100)">'+c.name+'</span>';}).join('')+'</div></div>';}
-  h+='<div class="brow"><button class="btn bp" onclick="openAddChild(\''+id+'\')">＋ ابن</button><button class="btn bg" onclick="openEdit(\''+id+'\')">✏️</button><button class="btn br" onclick="openDel(\''+id+'\')">🗑️</button></div>';
-  document.getElementById('dBody').innerHTML=h;
-  openSheet('detailSheet');
-}
-
-var ALL_SHEETS=['detailSheet','menuSheet','formSheet','deleteSheet'];
-function openSheet(id){document.getElementById('backdrop').classList.add('on');ALL_SHEETS.forEach(function(s){document.getElementById(s).classList.remove('on');});document.getElementById(id).classList.add('on');}
-function closeAll(){document.getElementById('backdrop').classList.remove('on');ALL_SHEETS.forEach(function(s){document.getElementById(s).classList.remove('on');});}
-function openMenu(){openSheet('menuSheet');}
-
-function fillPS(excl){var sel=document.getElementById('fParent');sel.innerHTML='<option value="">— جذر الشجرة —</option>';allN.forEach(function(n){if(n.id!==excl){var o=document.createElement('option');o.value=n.id;o.textContent=n.name+' ('+glbl(gMap[n.id]||1)+')';sel.appendChild(o);}});}
-function openAddSheet(){fMode='add';editId=null;document.getElementById('formTitle').textContent='إضافة شخص';document.getElementById('fName').value='';document.getElementById('fParentGroup').style.display='block';fillPS(null);document.getElementById('fParent').value='';openSheet('formSheet');setTimeout(function(){document.getElementById('fName').focus();},350);}
-function openAddChild(pid){fMode='addChild';fPid=pid;var p=findN(pid,familyData);document.getElementById('formTitle').textContent='إضافة ابن لـ "'+p.name+'"';document.getElementById('fName').value='';document.getElementById('fParentGroup').style.display='none';openSheet('formSheet');setTimeout(function(){document.getElementById('fName').focus();},350);}
-function openEdit(id){fMode='edit';editId=id;var node=findN(id,familyData);document.getElementById('formTitle').textContent='تعديل "'+node.name+'"';document.getElementById('fName').value=node.name;document.getElementById('fParentGroup').style.display='block';fillPS(id);document.getElementById('fParent').value=pMap[id]||'';openSheet('formSheet');setTimeout(function(){document.getElementById('fName').focus();},350);}
-
-function saveForm(){
-  var name=document.getElementById('fName').value.trim();
-  if(!name){toast('يرجى إدخال الاسم','err');return;}
-  if(fMode==='add'){
-    var pid=document.getElementById('fParent').value;
-    var nn={id:uid(),name:name,children:[]};
-    var par=pid?findN(pid,familyData):familyData;par.children=par.children||[];par.children.push(nn);
-    closeAll();markUnsaved();render();toast('✅ تمت الإضافة','ok');setTimeout(function(){selectNode(nn.id);},100);
-  }else if(fMode==='addChild'){
-    var nn2={id:uid(),name:name,children:[]};
-    var par2=findN(fPid,familyData);par2.children=par2.children||[];par2.children.push(nn2);
-    closeAll();markUnsaved();render();toast('✅ تمت الإضافة','ok');setTimeout(function(){selectNode(nn2.id);},100);
-  }else if(fMode==='edit'){
-    var nd=findN(editId,familyData),newPid=document.getElementById('fParent').value,oldPid=pMap[editId];
-    nd.name=name;
-    if(newPid!==(oldPid||'')){
-      if(oldPid){var op=findN(oldPid,familyData);if(op)op.children=op.children.filter(function(c){return c.id!==editId;});}
-      var np=newPid?findN(newPid,familyData):familyData;np.children=np.children||[];np.children.push(nd);
-    }
-    closeAll();markUnsaved();selId=editId;render();toast('✅ تم التعديل','ok');setTimeout(function(){showDetail(editId);},100);
+function find(id, node=familyData){
+  if(!node) return null;
+  if(node.id===id) return node;
+  for(const c of (node.children||[])){
+    const r=find(id,c); if(r) return r;
   }
+  return null;
 }
 
-function openDel(id){delId=id;var nd=findN(id,familyData),dc=cntD(nd);var msg='هل أنت متأكد من حذف <strong style="color:#e8eaf6">"'+nd.name+'"</strong>؟';if(dc>0)msg+='<br><br>⚠️ سيتم حذف <strong style="color:#f56565">'+(dc+1)+' شخص</strong>.';document.getElementById('delMsg').innerHTML=msg;openSheet('deleteSheet');}
-function confirmDelete(){if(!delId)return;if(delId===familyData.id){toast('لا يمكن حذف الجذر','err');closeAll();return;}var nd=findN(delId,familyData),name=nd?nd.name:'';delN(delId,familyData);if(selId===delId)selId=null;closeAll();markUnsaved();render();toast('تم الحذف','ok');}
-
-function openSearch(){document.getElementById('searchPane').classList.add('on');document.getElementById('sResults').innerHTML='<div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>';document.getElementById('sInput').value='';setTimeout(function(){document.getElementById('sInput').focus();},300);}
-function closeSearch(){document.getElementById('searchPane').classList.remove('on');}
-function doSearch(val){
-  if(!val.trim()){document.getElementById('sResults').innerHTML='<div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>';return;}
-  var found=allN.filter(function(n){return n.name.indexOf(val.trim())!==-1;});
-  if(!found.length){document.getElementById('sResults').innerHTML='<div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">لم يُوجد الاسم</div>';return;}
-  document.getElementById('sResults').innerHTML=found.map(function(n){var col=gcol(gMap[n.id]||1);return'<div class="sri" onclick="closeSearch();setTimeout(function(){selectNode(\''+n.id+'\');},300)"><div class="sdot" style="background:'+col.s+'"></div><div><div style="font-size:15px;font-weight:600;color:var(--t1)">'+n.name+'</div><div style="font-size:12px;color:var(--t2)">'+glbl(gMap[n.id]||1)+'</div></div></div>';}).join('');
+function remove(id, node=familyData){
+  if(!node.children) return false;
+  const i=node.children.findIndex(c=>c.id===id);
+  if(i!==-1){node.children.splice(i,1);return true;}
+  for(const c of node.children){ if(remove(id,c)) return true; }
+  return false;
 }
 
-function markUnsaved(){unsaved=true;document.getElementById('udot').classList.add('on');document.getElementById('saveHint').textContent='⚠️ لديك تغييرات غير محفوظة!';document.getElementById('saveHint').style.color='#f59e0b';}
-function markSaved(){unsaved=false;document.getElementById('udot').classList.remove('on');var now=new Date(),t=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');document.getElementById('saveHint').textContent='✅ آخر حفظ الساعة '+t;document.getElementById('saveHint').style.color='var(--grn)';}
-window.addEventListener('beforeunload',function(e){if(unsaved){e.preventDefault();e.returnValue='';}});
-
-function exportData(){var json=JSON.stringify(familyData,null,2);var blob=new Blob([json],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='family_tree_majahid.json';a.click();markSaved();toast('✅ تم الحفظ!','ok');}
-function importData(){document.getElementById('fileIn').click();}
-function handleImport(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{familyData=JSON.parse(ev.target.result);selId=null;render();resetZoom();markSaved();toast('✅ تم التحميل','ok');}catch(err){toast('خطأ في الملف','err');}};reader.readAsText(file);e.target.value='';}
-
-function printTree(){
-  var PBW=100,PBH=36,PHG=20,PVG=70,ppMap={},pgMap={},pAll=[];
-  function pbm(node,par,gen){ppMap[node.id]=par?par.id:null;pgMap[node.id]=gen;pAll.push(node);(node.children||[]).forEach(function(c){pbm(c,node,gen+1);});}
-  pbm(familyData,null,1);
-  function pm(node){if(!node.children||!node.children.length){node._pw=PBW;return PBW;}var t=0;node.children.forEach(function(c,i){t+=pm(c);if(i<node.children.length-1)t+=PHG;});node._pw=Math.max(PBW,t);return node._pw;}
-  function pl(node,x,y){node._px=x+node._pw/2-PBW/2;node._py=y;if(!node.children||!node.children.length)return;var cx=x;node.children.forEach(function(c){pl(c,cx,y+PBH+PVG);cx+=c._pw+PHG;});}
-  pm(familyData);pl(familyData,30,50);
-  var mxX=0,mxY=0;pAll.forEach(function(n){if(n._px+PBW>mxX)mxX=n._px+PBW;if(n._py+PBH>mxY)mxY=n._py+PBH;});mxX+=60;mxY+=60;
-  var maxGen=0;Object.keys(pgMap).forEach(function(k){if(pgMap[k]>maxGen)maxGen=pgMap[k];});
-  var pc=[null,{f:'#ede9fe',s:'#7c3aed',t:'#3b0764'},{f:'#ccfbf1',s:'#0d9488',t:'#042f2e'},{f:'#fef3c7',s:'#b45309',t:'#451a03'},{f:'#dbeafe',s:'#1d4ed8',t:'#1e1b4b'},{f:'#dcfce7',s:'#15803d',t:'#052e16'},{f:'#fce7f3',s:'#be185d',t:'#500724'},{f:'#ede9fe',s:'#7c3aed',t:'#3b0764'},{f:'#ccfbf1',s:'#0d9488',t:'#042f2e'}];
-  var edges='';pAll.forEach(function(node){(node.children||[]).forEach(function(child){var px=node._px+PBW/2,py=node._py+PBH,cx2=child._px+PBW/2,cy=child._py,my=(py+cy)/2;edges+='<path d="M'+px+','+py+' C'+px+','+my+' '+cx2+','+my+' '+cx2+','+cy+'" fill="none" stroke="#aaa" stroke-width="1.2"/>';});});
-  var snodes='';pAll.forEach(function(node){var g=pgMap[node.id]||1;var c=pc[Math.min(g,8)];snodes+='<g><rect x="'+node._px+'" y="'+node._py+'" width="'+PBW+'" height="'+PBH+'" rx="7" fill="'+c.f+'" stroke="'+c.s+'" stroke-width="1.2"/><text x="'+(node._px+PBW/2)+'" y="'+(node._py+PBH/2)+'" text-anchor="middle" dominant-baseline="central" fill="'+c.t+'" font-size="13" font-family="Tajawal,Arial,sans-serif" font-weight="600">'+node.name+'</text></g>';});
-  var lbls=['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن'];
-  var leg='';for(var g=1;g<=Math.min(maxGen,8);g++){var c=pc[g];leg+='<span style="display:inline-flex;align-items:center;gap:5px;margin-left:14px;font-size:12px"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:'+c.s+'"></span>'+lbls[g]+'</span>';}
-  var today=new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
-  var html='<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>شجرة المجاحيد سواعد</title><style>*{box-sizing:border-box;margin:0;padding:0}body{background:#fff;font-family:Tajawal,Arial,sans-serif;direction:rtl}.top{display:flex;gap:12px;justify-content:center;padding:14px;background:#f3f4f6;border-bottom:1px solid #e5e7eb}.top button{padding:10px 26px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer}.bp{background:#1d4ed8;color:#fff}.bc{background:#e5e7eb;color:#374151}.hdr{text-align:center;padding:18px 30px 12px;border-bottom:2px solid #e5e7eb}.hdr h1{font-size:24px;font-weight:900}.leg{text-align:center;padding:8px 20px;border-bottom:1px solid #e5e7eb;background:#f9fafb}.tree{padding:20px}.ftr{text-align:center;padding:12px;border-top:1px solid #e5e7eb;font-size:11px;color:#aaa;margin-top:8px}@media print{.top{display:none!important}}</style></head><body><div class="top"><button class="bp" onclick="window.print()">🖨️ طباعة / PDF</button><button class="bc" onclick="window.close()">✕ إغلاق</button></div><div class="hdr"><h1>🌳 شجرة عائلة المجاحيد سواعد</h1><p style="font-size:14px;color:#555;margin-top:4px">سوريا • فلسطين • الأردن</p><p style="font-size:12px;color:#777;margin-top:6px">الأشخاص: <strong>'+pAll.length+'</strong> | الأجيال: <strong>'+maxGen+'</strong> | '+today+'</p><p style="font-size:11px;color:#999;margin-top:4px">© جميع الحقوق محفوظة لـ <strong>Muhammad Abdalla</strong></p></div><div class="leg">'+leg+'</div><div class="tree"><svg width="'+mxX+'" height="'+mxY+'" xmlns="http://www.w3.org/2000/svg">'+edges+snodes+'</svg></div><div class="ftr">شجرة عائلة المجاحيد سواعد • © Muhammad Abdalla • '+today+'</div></body></html>';
-  var win=window.open('','_blank','width=1400,height=900,scrollbars=yes');
-  if(!win){toast('اسمح بالنوافذ المنبثقة','err');return;}
-  win.document.open();win.document.write(html);win.document.close();
+function buildMaps(node, parent, gen){
+  parentMap[node.id]=parent?parent.id:null;
+  genMap[node.id]=gen;
+  allNodes.push(node);
+  (node.children||[]).forEach(c=>buildMaps(c,node,gen+1));
 }
 
-var tTmr;
-function toast(msg,type){var el=document.getElementById('toast');el.textContent=msg;el.className='toast on '+(type||'ok');clearTimeout(tTmr);tTmr=setTimeout(function(){el.className='toast';},2500);}
+function countDesc(node){
+  let n=0;
+  (node.children||[]).forEach(c=>{n+=1+countDesc(c);});
+  return n;
+}
 
-document.querySelectorAll('.handle').forEach(function(h){
-  var sy=0;
-  h.parentElement.addEventListener('touchstart',function(e){sy=e.touches[0].clientY;},{passive:true});
-  h.parentElement.addEventListener('touchend',function(e){if(e.changedTouches[0].clientY-sy>60)closeAll();},{passive:true});
+function ancestors(id){
+  const path=[];
+  let cur=id;
+  while(cur){
+    path.unshift(cur);
+    cur=parentMap[cur];
+  }
+  return path;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LAYOUT (Reingold-Tilford style)
+// ═══════════════════════════════════════════════════════════
+const NW=80, NH=32, HGAP=14, VGAP=60;
+
+function measureW(node){
+  if(!node.children||!node.children.length){node._w=NW;return NW;}
+  let total=node.children.reduce((s,c,i)=>s+measureW(c)+(i?HGAP:0),0);
+  node._w=Math.max(NW,total);
+  return node._w;
+}
+
+function placeNodes(node, x, y){
+  node._x=x+node._w/2-NW/2;
+  node._y=y;
+  nodePos[node.id]={x:node._x,y:node._y};
+  if(!node.children||!node.children.length) return;
+  let cx=x;
+  node.children.forEach(c=>{ placeNodes(c,cx,y+NH+VGAP); cx+=c._w+HGAP; });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════════════════
+function rebuildMaps(){
+  parentMap={}; genMap={}; allNodes=[]; nodePos={};
+  buildMaps(familyData,null,1);
+  measureW(familyData);
+  placeNodes(familyData,20,20);
+  treeW=Math.max(...allNodes.map(n=>n._x+NW))+40;
+  treeH=Math.max(...allNodes.map(n=>n._y+NH))+40;
+}
+
+const svg = d3.select('#treeSvg');
+const root = d3.select('#treeRoot');
+
+const zoomBehavior = d3.zoom()
+  .scaleExtent([0.05,3])
+  .on('zoom',(event)=>{
+    currentTransform=event.transform;
+    root.attr('transform',event.transform);
+    document.getElementById('zoomLabel').textContent=Math.round(event.transform.k*100)+'%';
+    updateMinimap();
+  });
+
+svg.call(zoomBehavior).on('dblclick.zoom',null);
+
+// Right-click to deselect
+svg.on('contextmenu.tree',function(event){
+  const target=event.target.closest('[data-id]');
+  if(!target){ hideCtxMenu(); event.preventDefault(); return; }
 });
 
-function init(){
-  tWrap=document.getElementById('treeWrap');
-  tCvs=document.getElementById('treeCanvas');
-  setupTouch();
-  render();
-  setTimeout(resetZoom,200);
-  var bar=document.getElementById('loaderBar');
-  if(bar)bar.style.width='100%';
-  setTimeout(function(){
-    var loader=document.getElementById('loader');
-    if(loader){loader.style.opacity='0';setTimeout(function(){loader.style.display='none';},400);}
-  },700);
+// Click on empty space to deselect
+svg.on('click.deselect',function(event){
+  if(!event.target.closest('[data-id]')){
+    selectedId=null;
+    highlightedIds.clear();
+    pathIds=[];
+    d3.select('#pathIndicator').classed('show',false);
+    renderTree();
+  }
+});
+
+function renderTree(){
+  rebuildMaps();
+  root.selectAll('*').remove();
+
+  // ── Edges ─────────
+  const edgeGroup=root.append('g').attr('class','edges');
+  allNodes.forEach(node=>{
+    (node.children||[]).forEach(child=>{
+      const px=node._x+NW/2, py=node._y+NH;
+      const cx=child._x+NW/2, cy=child._y;
+      const my=(py+cy)/2;
+
+      const isPath=pathIds.includes(node.id)&&pathIds.includes(child.id);
+      const isHighlight=highlightedIds.has(node.id)&&highlightedIds.has(child.id);
+
+      edgeGroup.append('path')
+        .attr('d',`M${px},${py} C${px},${my} ${cx},${my} ${cx},${cy}`)
+        .attr('fill','none')
+        .attr('stroke', isPath?'var(--gold)': isHighlight?'rgba(59,130,246,.6)':'var(--border)')
+        .attr('stroke-width', isPath?2.5: isHighlight?1.8:1.2)
+        .attr('opacity', isPath?1: isHighlight?0.8:0.6)
+        .attr('stroke-dasharray', isPath?'none':'none');
+    });
+  });
+
+  // ── Nodes ─────────
+  const nodeGroup=root.append('g').attr('class','nodes');
+
+  allNodes.forEach(node=>{
+    const g=genMap[node.id]||1;
+    const col=gc(g);
+    const isSel=node.id===selectedId;
+    const isPath=pathIds.includes(node.id);
+    const isHL=highlightedIds.has(node.id);
+    const isDead=node.deathYear;
+
+    const grp=nodeGroup.append('g')
+      .attr('data-id',node.id)
+      .attr('transform',`translate(${node._x},${node._y})`)
+      .style('cursor','pointer');
+
+    // Shadow/glow for selected
+    if(isSel){
+      grp.append('rect')
+        .attr('x',-3).attr('y',-3)
+        .attr('width',NW+6).attr('height',NH+6)
+        .attr('rx',10)
+        .attr('fill',col.stroke)
+        .attr('opacity',.25)
+        .attr('filter','url(#glow)');
+    }
+
+    // Main rect
+    const rect=grp.append('rect')
+      .attr('x',0).attr('y',0)
+      .attr('width',NW).attr('height',NH)
+      .attr('rx',7)
+      .attr('fill', isSel?col.stroke: isPath?'rgba(201,168,76,.2)': isHL?'rgba(59,130,246,.15)':col.fill)
+      .attr('stroke', isSel?col.text: isPath?'var(--gold)': isHL?'var(--blue)':col.stroke)
+      .attr('stroke-width', isSel?2: isPath?2:1)
+      .attr('opacity', (highlightedIds.size>0&&!isHL&&!isSel&&!isPath)?.35:1);
+
+    // Dead indicator — diagonal stripe overlay
+    if(isDead){
+      grp.append('rect')
+        .attr('x',0).attr('y',0)
+        .attr('width',NW).attr('height',NH)
+        .attr('rx',7)
+        .attr('fill','none')
+        .attr('stroke','rgba(148,163,184,.2)')
+        .attr('stroke-width',1)
+        .attr('stroke-dasharray','3,3');
+    }
+
+    // Children count badge
+    const childCount=(node.children||[]).length;
+    if(childCount>0){
+      grp.append('circle')
+        .attr('cx',NW-6).attr('cy',3)
+        .attr('r',7)
+        .attr('fill',col.stroke)
+        .attr('stroke',col.fill)
+        .attr('stroke-width',1.5);
+      grp.append('text')
+        .attr('x',NW-6).attr('y',3)
+        .attr('text-anchor','middle')
+        .attr('dominant-baseline','central')
+        .attr('fill','#fff')
+        .attr('font-size',8)
+        .attr('font-family','Tajawal,sans-serif')
+        .attr('font-weight','700')
+        .text(childCount);
+    }
+
+    // Name text
+    const displayName=node.name.replace('⭐ ','');
+    const hasStar=node.name.startsWith('⭐');
+    const maxChars=9;
+    const shortName=displayName.length>maxChars?displayName.substr(0,maxChars)+'…':displayName;
+
+    if(hasStar){
+      grp.append('text')
+        .attr('x',6).attr('y',NH/2)
+        .attr('dominant-baseline','central')
+        .attr('fill','var(--gold2)')
+        .attr('font-size',9)
+        .text('⭐');
+    }
+
+    grp.append('text')
+      .attr('x',NW/2+(hasStar?4:0)).attr('y',NH/2)
+      .attr('text-anchor','middle')
+      .attr('dominant-baseline','central')
+      .attr('fill', isSel?'#fff':col.text)
+      .attr('font-size',11)
+      .attr('font-family','Tajawal,sans-serif')
+      .attr('font-weight', isSel?'700':'500')
+      .text(shortName);
+
+    // Death year overlay
+    if(isDead){
+      grp.append('text')
+        .attr('x',NW/2).attr('y',NH-3)
+        .attr('text-anchor','middle')
+        .attr('fill','rgba(148,163,184,.5)')
+        .attr('font-size',7)
+        .attr('font-family','Tajawal,sans-serif')
+        .text('†'+node.deathYear);
+    }
+
+    // Interactions
+    grp.on('click',function(event){
+      event.stopPropagation();
+      selectedId=node.id;
+      if(highlightedIds.size>0&&!highlightedIds.has(node.id)){
+        highlightedIds.clear();
+        pathIds=[];
+        d3.select('#pathIndicator').classed('show',false);
+      }
+      renderTree();
+      showPersonSidebar(node.id);
+      switchTab('details');
+    });
+
+    grp.on('contextmenu',function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      ctxTargetId=node.id;
+      showCtxMenu(event.clientX,event.clientY);
+    });
+
+    grp.on('mouseenter',function(event){
+      showTooltip(event,node);
+    });
+    grp.on('mousemove',function(event){
+      moveTooltip(event);
+    });
+    grp.on('mouseleave',function(){
+      hideTooltip();
+    });
+  });
+
+  // Update SVG size
+  svg.attr('width',Math.max(treeW,800)).attr('height',Math.max(treeH,600));
+
+  updateMinimap();
+  renderStats();
 }
 
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
-else{init();}
+// ═══════════════════════════════════════════════════════════
+//  ZOOM / CENTER
+// ═══════════════════════════════════════════════════════════
+function zoom(delta){
+  const area=document.getElementById('treeArea');
+  const cx=area.clientWidth/2, cy=area.clientHeight/2;
+  svg.call(zoomBehavior.scaleBy, 1+delta, [cx,cy]);
+}
+
+function centerTree(){
+  if(!familyData) return;
+  const area=document.getElementById('treeArea');
+  const node=find(familyData.id);
+  if(!node) return;
+  const tx=area.clientWidth/2-(node._x+NW/2);
+  const ty=60;
+  svg.transition().duration(600)
+    .call(zoomBehavior.transform, d3.zoomIdentity.translate(tx,ty).scale(1));
+}
+
+function fitTree(){
+  const area=document.getElementById('treeArea');
+  const pad=40;
+  const k=Math.min(
+    (area.clientWidth-pad*2)/treeW,
+    (area.clientHeight-pad*2)/treeH,
+    1
+  );
+  const tx=(area.clientWidth-treeW*k)/2;
+  const ty=(area.clientHeight-treeH*k)/2;
+  svg.transition().duration(700)
+    .call(zoomBehavior.transform, d3.zoomIdentity.translate(tx,ty).scale(k));
+}
+
+function scrollToNode(id){
+  const pos=nodePos[id];
+  if(!pos) return;
+  const area=document.getElementById('treeArea');
+  const k=Math.max(currentTransform.k,.8);
+  const tx=area.clientWidth/2-(pos.x+NW/2)*k;
+  const ty=area.clientHeight/2-(pos.y+NH/2)*k;
+  svg.transition().duration(600)
+    .call(zoomBehavior.transform, d3.zoomIdentity.translate(tx,ty).scale(k));
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MINIMAP
+// ═══════════════════════════════════════════════════════════
+function updateMinimap(){
+  const mm=document.getElementById('minimap');
+  if(mm.style.display==='none') return;
+  const mmW=160, mmH=100;
+  const scaleX=mmW/Math.max(treeW,1);
+  const scaleY=mmH/Math.max(treeH,1);
+  const sc=Math.min(scaleX,scaleY)*.9;
+
+  const mmContent=d3.select('#minimapContent');
+  mmContent.selectAll('*').remove();
+
+  allNodes.forEach(node=>{
+    const g=genMap[node.id]||1;
+    const col=gc(g);
+    mmContent.append('rect')
+      .attr('x',node._x*sc+4).attr('y',node._y*sc+4)
+      .attr('width',NW*sc).attr('height',NH*sc)
+      .attr('rx',2)
+      .attr('fill', node.id===selectedId?col.stroke:col.fill)
+      .attr('stroke',col.stroke)
+      .attr('stroke-width',.5)
+      .attr('opacity',.8);
+  });
+
+  // Viewport rect
+  const area=document.getElementById('treeArea');
+  const vx=-currentTransform.x/currentTransform.k*sc+4;
+  const vy=-currentTransform.y/currentTransform.k*sc+4;
+  const vw=area.clientWidth/currentTransform.k*sc;
+  const vh=area.clientHeight/currentTransform.k*sc;
+
+  d3.select('#minimapViewport')
+    .attr('x',Math.max(4,vx)).attr('y',Math.max(4,vy))
+    .attr('width',Math.min(vw,mmW-8)).attr('height',Math.min(vh,mmH-8));
+}
+
+function toggleMinimap(){
+  const mm=document.getElementById('minimap');
+  mm.style.display=mm.style.display==='none'?'block':'none';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  TOOLTIP
+// ═══════════════════════════════════════════════════════════
+function showTooltip(event, node){
+  const tt=document.getElementById('tooltip');
+  const g=genMap[node.id]||1;
+  const col=gc(g);
+  let html=`<b style="color:${col.stroke}">${node.name}</b>`;
+  if(node.nickname) html+=`<br><span style="color:var(--text3)">${node.nickname}</span>`;
+  html+=`<br><span style="color:var(--text3)">${GEN_LABELS[Math.min(g,9)]}</span>`;
+  if(node.birthYear) html+=`<br>📅 ${node.birthYear}${node.deathYear?' — '+node.deathYear:''}`;
+  if(node.location) html+=`<br>📍 ${node.location}`;
+  const cc=(node.children||[]).length;
+  if(cc) html+=`<br>👶 ${cc} ${cc===1?'ابن':'أبناء'}`;
+  tt.innerHTML=html;
+  tt.classList.add('show');
+  moveTooltip(event);
+}
+function moveTooltip(event){
+  const tt=document.getElementById('tooltip');
+  const area=document.getElementById('treeArea').getBoundingClientRect();
+  let x=event.clientX-area.left+12;
+  let y=event.clientY-area.top+12;
+  if(x+220>area.width) x-=240;
+  if(y+100>area.height) y-=110;
+  tt.style.left=x+'px';
+  tt.style.top=y+'px';
+}
+function hideTooltip(){
+  document.getElementById('tooltip').classList.remove('show');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CONTEXT MENU
+// ═══════════════════════════════════════════════════════════
+function showCtxMenu(x,y){
+  const m=document.getElementById('ctxMenu');
+  m.style.left=x+'px';m.style.top=y+'px';
+  m.classList.add('show');
+  setTimeout(()=>document.addEventListener('click',hideCtxMenu,{once:true}),10);
+}
+function hideCtxMenu(){ document.getElementById('ctxMenu').classList.remove('show'); }
+
+function ctxAddChild(){
+  hideCtxMenu();
+  openAddChildModal(ctxTargetId);
+}
+function ctxEdit(){
+  hideCtxMenu();
+  openEditModal(ctxTargetId);
+}
+function ctxDelete(){
+  hideCtxMenu();
+  openDeleteModal(ctxTargetId);
+}
+function ctxShowPath(){
+  hideCtxMenu();
+  if(!ctxTargetId) return;
+  pathIds=ancestors(ctxTargetId);
+  highlightedIds.clear();
+  renderTree();
+  showPathIndicator();
+}
+function ctxHighlightFamily(){
+  hideCtxMenu();
+  if(!ctxTargetId) return;
+  const node=find(ctxTargetId);
+  highlightedIds.clear();
+  pathIds=[];
+  function collectAll(n){ highlightedIds.add(n.id); (n.children||[]).forEach(collectAll); }
+  collectAll(node);
+  // Also add ancestors
+  ancestors(ctxTargetId).forEach(id=>highlightedIds.add(id));
+  renderTree();
+}
+
+function showPathIndicator(){
+  const pi=document.getElementById('pathIndicator');
+  pi.innerHTML='<span class="path-close" onclick="clearPath()">✕</span>';
+  pathIds.forEach((id,i)=>{
+    const node=find(id);
+    if(!node) return;
+    if(i>0) pi.innerHTML+='<span class="pi-arrow">›</span>';
+    pi.innerHTML+=`<span class="pi-name" onclick="selectAndScrollTo('${id}')" style="cursor:pointer">${node.name}</span>`;
+  });
+  pi.classList.add('show');
+}
+function clearPath(){
+  pathIds=[];
+  highlightedIds.clear();
+  d3.select('#pathIndicator').classed('show',false);
+  renderTree();
+}
+
+function selectAndScrollTo(id){
+  selectedId=id;
+  renderTree();
+  showPersonSidebar(id);
+  scrollToNode(id);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SIDEBAR
+// ═══════════════════════════════════════════════════════════
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+name));
+}
+
+function showPersonSidebar(id){
+  const node=find(id);
+  if(!node) return;
+  const g=genMap[id]||1;
+  const col=gc(g);
+  const parentId=parentMap[id];
+  const parentNode=parentId?find(parentId):null;
+  const children=node.children||[];
+  const gen=GEN_LABELS[Math.min(g,9)];
+
+  let childChips=children.length
+    ? children.map(c=>`<span class="chip" onclick="selectAndScrollTo('${c.id}')">${c.name}</span>`).join('')
+    : '<span style="color:var(--text3);font-size:12px">لا يوجد أبناء مسجلون</span>';
+
+  const dead=node.deathYear?`<span style="color:var(--text3);font-size:11px">(†${node.deathYear})</span>`:'';
+
+  document.getElementById('sidebarDetails').innerHTML=`
+    <div class="person-card">
+      <div class="person-card-header">
+        <div class="person-avatar" title="انقر لإضافة صورة" onclick="toast('ميزة الصور قيد التطوير','warn')">👤</div>
+        <div class="person-info-main">
+          <h3>${node.name} ${dead}</h3>
+          ${node.nickname?`<div style="font-size:12px;color:var(--text3)">${node.nickname}</div>`:''}
+          <span class="gen-tag" style="background:${col.fill};color:${col.stroke};border:1px solid ${col.stroke}">${gen}</span>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <span class="label">الأب</span>
+        <span class="val">
+          ${parentNode
+            ? `<span class="chip" onclick="selectAndScrollTo('${parentNode.id}')">${parentNode.name}</span>`
+            : '<span style="color:var(--text3)">جذر الشجرة</span>'}
+        </span>
+      </div>
+      ${node.birthYear?`<div class="info-row"><span class="label">الميلاد</span><span class="val">${node.birthYear}</span></div>`:''}
+      ${node.deathYear?`<div class="info-row"><span class="label">الوفاة</span><span class="val">${node.deathYear}</span></div>`:''}
+      ${node.location?`<div class="info-row"><span class="label">الإقامة</span><span class="val">📍 ${node.location}</span></div>`:''}
+      <div class="info-row">
+        <span class="label">الأبناء</span>
+        <span class="val" style="font-weight:700;color:var(--gold2)">${children.length}</span>
+      </div>
+      <div class="info-row">
+        <span class="label">الأحفاد</span>
+        <span class="val" style="font-weight:700;color:var(--gold2)">${countDesc(node)}</span>
+      </div>
+      ${node.notes?`<div class="info-row"><span class="label">ملاحظات</span><span class="val">${node.notes}</span></div>`:''}
+
+      <div style="margin-top:10px">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">الأبناء المباشرون</div>
+        <div class="chips">${childChips}</div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn btn-primary btn-sm" onclick="openAddChildModal('${id}')">➕ ابن</button>
+        <button class="btn btn-ghost btn-sm" onclick="openEditModal('${id}')">✏️ تعديل</button>
+        <button class="btn btn-ghost btn-sm" onclick="ctxTargetId='${id}';ctxShowPath()">🗺 مسار</button>
+        <button class="btn btn-danger btn-sm" onclick="openDeleteModal('${id}')">🗑</button>
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  STATS
+// ═══════════════════════════════════════════════════════════
+function renderStats(){
+  const total=allNodes.length;
+  const maxGen=Math.max(...Object.values(genMap),0);
+  const genCounts={};
+  allNodes.forEach(n=>{ const g=genMap[n.id]||1; genCounts[g]=(genCounts[g]||0)+1; });
+  const withLocation=allNodes.filter(n=>n.location).length;
+  const withNotes=allNodes.filter(n=>n.notes).length;
+  const deceased=allNodes.filter(n=>n.deathYear).length;
+
+  let genRows='';
+  for(let g=1;g<=Math.min(maxGen,9);g++){
+    const col=gc(g);
+    const pct=Math.round((genCounts[g]||0)/total*100);
+    genRows+=`
+      <div class="gen-row">
+        <div class="gen-dot" style="background:${col.stroke}"></div>
+        <span class="gen-row-label">${GEN_LABELS[g]||'الجيل '+g}</span>
+        <div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px">
+          <div style="height:100%;width:${pct}%;background:${col.stroke};border-radius:2px;transition:width .5s"></div>
+        </div>
+        <span class="gen-count">${genCounts[g]||0}</span>
+      </div>`;
+  }
+
+  document.getElementById('sidebarStats').innerHTML=`
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">إجمالي الأشخاص</div></div>
+      <div class="stat-box"><div class="stat-num">${maxGen}</div><div class="stat-label">عدد الأجيال</div></div>
+      <div class="stat-box"><div class="stat-num">${withLocation}</div><div class="stat-label">لديهم موقع</div></div>
+      <div class="stat-box"><div class="stat-num">${deceased}</div><div class="stat-label">متوفون</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:8px;font-weight:600">توزيع الأجيال</div>
+    <div class="gen-list">${genRows}</div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════════════════════
+function handleSearch(val){
+  const sr=document.getElementById('searchResults');
+  if(!val.trim()){sr.style.display='none';return;}
+
+  const results=allNodes.filter(n=>
+    n.name.includes(val)||
+    (n.nickname&&n.nickname.includes(val))||
+    (n.location&&n.location.includes(val))
+  ).slice(0,8);
+
+  if(!results.length){sr.style.display='none';return;}
+
+  sr.innerHTML=results.map(n=>{
+    const g=genMap[n.id]||1;
+    const col=gc(g);
+    return `<div class="search-item" onclick="pickSearchResult('${n.id}')">
+      <span style="width:8px;height:8px;border-radius:50%;background:${col.stroke};display:inline-block;flex-shrink:0"></span>
+      <span>${n.name}</span>
+      <span class="si-gen">${GEN_LABELS[Math.min(g,9)]}</span>
+    </div>`;
+  }).join('');
+  sr.style.display='block';
+}
+
+function pickSearchResult(id){
+  document.getElementById('searchResults').style.display='none';
+  document.getElementById('searchInput').value='';
+  selectedId=id;
+  renderTree();
+  showPersonSidebar(id);
+  scrollToNode(id);
+  switchTab('details');
+}
+
+function advancedSearch(val){
+  const sb=document.getElementById('sidebarSearch');
+  if(!val.trim()){
+    sb.innerHTML='<div class="empty-state"><div class="icon">🔍</div><p>اكتب للبحث</p></div>';
+    return;
+  }
+  const results=allNodes.filter(n=>
+    n.name.includes(val)||(n.nickname&&n.nickname.includes(val))||(n.location&&n.location.includes(val))||(n.notes&&n.notes.includes(val))
+  );
+  if(!results.length){
+    sb.innerHTML='<div class="empty-state"><div class="icon">😕</div><p>لا توجد نتائج</p></div>';
+    return;
+  }
+  sb.innerHTML=results.map(n=>{
+    const g=genMap[n.id]||1;
+    const col=gc(g);
+    return `<div class="person-card" style="cursor:pointer" onclick="selectAndScrollTo('${n.id}');switchTab('details')">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;border-radius:50%;background:${col.stroke};flex-shrink:0"></div>
+        <div>
+          <div style="font-weight:600;font-size:13px">${n.name}</div>
+          <div style="font-size:11px;color:var(--text3)">${GEN_LABELS[Math.min(g,9)]}${n.location?' • '+n.location:''}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Close search on outside click
+document.addEventListener('click',function(e){
+  if(!document.getElementById('searchBox').contains(e.target)){
+    document.getElementById('searchResults').style.display='none';
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+//  ADD / EDIT MODAL
+// ═══════════════════════════════════════════════════════════
+function populateParentSelect(excludeId){
+  const sel=document.getElementById('fParent');
+  sel.innerHTML='<option value="">— جذر الشجرة —</option>';
+  allNodes.forEach(n=>{
+    if(n.id===excludeId) return;
+    const g=genMap[n.id]||1;
+    const opt=document.createElement('option');
+    opt.value=n.id;
+    opt.textContent=`${n.name} — ${GEN_LABELS[Math.min(g,9)]}`;
+    sel.appendChild(opt);
+  });
+}
+
+function openAddModal(){
+  editMode='add'; editNodeId=null; editParentId=null;
+  document.getElementById('editTitle').textContent='➕ إضافة شخص';
+  document.getElementById('fName').value='';
+  document.getElementById('fNickname').value='';
+  document.getElementById('fBirthYear').value='';
+  document.getElementById('fDeathYear').value='';
+  document.getElementById('fLocation').value='';
+  document.getElementById('fNotes').value='';
+  document.getElementById('parentGroup').style.display='block';
+  populateParentSelect(null);
+  document.getElementById('fParent').value='';
+  document.getElementById('editOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('fName').focus(),150);
+}
+
+function openAddChildModal(parentId){
+  editMode='addChild'; editParentId=parentId; editNodeId=null;
+  const p=find(parentId);
+  document.getElementById('editTitle').textContent=`➕ إضافة ابن لـ "${p?p.name:''}"`;
+  document.getElementById('fName').value='';
+  document.getElementById('fNickname').value='';
+  document.getElementById('fBirthYear').value='';
+  document.getElementById('fDeathYear').value='';
+  document.getElementById('fLocation').value='';
+  document.getElementById('fNotes').value='';
+  document.getElementById('parentGroup').style.display='none';
+  document.getElementById('editOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('fName').focus(),150);
+}
+
+function openEditModal(id){
+  editMode='edit'; editNodeId=id;
+  const node=find(id);
+  if(!node) return;
+  document.getElementById('editTitle').textContent=`✏️ تعديل "${node.name}"`;
+  document.getElementById('fName').value=node.name;
+  document.getElementById('fNickname').value=node.nickname||'';
+  document.getElementById('fBirthYear').value=node.birthYear||'';
+  document.getElementById('fDeathYear').value=node.deathYear||'';
+  document.getElementById('fLocation').value=node.location||'';
+  document.getElementById('fNotes').value=node.notes||'';
+  document.getElementById('parentGroup').style.display='block';
+  populateParentSelect(id);
+  document.getElementById('fParent').value=parentMap[id]||'';
+  document.getElementById('editOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('fName').focus(),150);
+}
+
+function closeEdit(){ document.getElementById('editOverlay').classList.remove('open'); }
+
+function saveEdit(){
+  const name=document.getElementById('fName').value.trim();
+  if(!name){ toast('يرجى إدخال الاسم','error'); return; }
+
+  const data={
+    name,
+    nickname: document.getElementById('fNickname').value.trim(),
+    birthYear: document.getElementById('fBirthYear').value.trim(),
+    deathYear: document.getElementById('fDeathYear').value.trim(),
+    location:  document.getElementById('fLocation').value.trim(),
+    notes:     document.getElementById('fNotes').value.trim(),
+    children:  []
+  };
+
+  if(editMode==='add'){
+    const parentId=document.getElementById('fParent').value;
+    const newNode={id:uid(),...data};
+    if(!parentId){
+      familyData.children=familyData.children||[];
+      familyData.children.push(newNode);
+    } else {
+      const p=find(parentId);
+      if(p){ p.children=p.children||[]; p.children.push(newNode); }
+    }
+    selectedId=newNode.id;
+    toast(`تمت إضافة "${name}" ✓`,'success');
+  }
+  else if(editMode==='addChild'){
+    const newNode={id:uid(),...data};
+    const p=find(editParentId);
+    if(p){ p.children=p.children||[]; p.children.push(newNode); }
+    selectedId=newNode.id;
+    toast(`تمت إضافة "${name}" ✓`,'success');
+  }
+  else if(editMode==='edit'){
+    const node=find(editNodeId);
+    if(!node) return;
+    const newPId=document.getElementById('fParent').value;
+    const oldPId=parentMap[editNodeId]||'';
+    Object.assign(node,{name:data.name,nickname:data.nickname,birthYear:data.birthYear,deathYear:data.deathYear,location:data.location,notes:data.notes});
+    if(newPId!==oldPId){
+      if(oldPId){ const op=find(oldPId); if(op) op.children=op.children.filter(c=>c.id!==editNodeId); }
+      if(newPId){ const np=find(newPId); if(np){np.children=np.children||[];np.children.push(node);} }
+      else { familyData.children=familyData.children||[]; if(!familyData.children.find(c=>c.id===editNodeId)) familyData.children.push(node); }
+    }
+    selectedId=editNodeId;
+    toast(`تم تعديل "${name}" ✓`,'success');
+  }
+
+  closeEdit();
+  markUnsaved();
+  renderTree();
+  if(selectedId) showPersonSidebar(selectedId);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DELETE
+// ═══════════════════════════════════════════════════════════
+function openDeleteModal(id){
+  deletingId=id;
+  const node=find(id);
+  if(!node) return;
+  const desc=countDesc(node);
+  let msg=`هل أنت متأكد من حذف <b style="color:var(--text)">"${node.name}"</b>؟`;
+  if(desc>0) msg+=`<br><br><span style="color:var(--danger)">⚠ تحذير: سيتم حذف ${desc+1} شخص (بما فيهم جميع الأبناء والأحفاد).</span>`;
+  document.getElementById('deleteMsg').innerHTML=msg;
+  document.getElementById('deleteOverlay').classList.add('open');
+}
+
+function closeDelete(){ document.getElementById('deleteOverlay').classList.remove('open'); deletingId=null; }
+
+function confirmDelete(){
+  if(!deletingId) return;
+  if(deletingId===familyData.id){ toast('لا يمكن حذف الجذر','error'); closeDelete(); return; }
+  const node=find(deletingId);
+  const name=node?node.name:'';
+  remove(deletingId);
+  if(selectedId===deletingId){ selectedId=null; document.getElementById('sidebarDetails').innerHTML='<div class="empty-state"><div class="icon">👆</div><p>انقر على شخص</p></div>'; }
+  toast(`تم حذف "${name}" ✓`,'success');
+  closeDelete();
+  markUnsaved();
+  renderTree();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  UNSAVED
+// ═══════════════════════════════════════════════════════════
+function markUnsaved(){
+  hasUnsaved=true;
+  document.getElementById('unsavedBadge').classList.add('show');
+}
+function markSaved(){
+  hasUnsaved=false;
+  document.getElementById('unsavedBadge').classList.remove('show');
+}
+window.addEventListener('beforeunload',e=>{ if(hasUnsaved){e.preventDefault();e.returnValue='';} });
+
+// ═══════════════════════════════════════════════════════════
+//  EXPORT / IMPORT
+// ═══════════════════════════════════════════════════════════
+function exportData(){
+  const json=JSON.stringify(familyData,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='family_tree_'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();
+  markSaved();
+  toast('✅ تم حفظ الشجرة — احتفظ بالملف في مكان آمن','success');
+}
+
+function openImport(){ document.getElementById('importFile').click(); }
+
+function handleImport(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      familyData=data;
+      selectedId=null;
+      highlightedIds.clear();
+      pathIds=[];
+      renderTree();
+      markSaved();
+      document.getElementById('sidebarDetails').innerHTML='<div class="empty-state"><div class="icon">✅</div><p>تم تحميل الشجرة بنجاح</p></div>';
+      toast('✅ تم تحميل الشجرة بنجاح','success');
+    }catch(err){ toast('خطأ في قراءة الملف','error'); }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PRINT
+// ═══════════════════════════════════════════════════════════
+function printTree(){
+  const printColors=[
+    null,
+    {fill:'#f3e8ff',stroke:'#9333ea',text:'#3b0764'},
+    {fill:'#cffafe',stroke:'#0891b2',text:'#083344'},
+    {fill:'#fef3c7',stroke:'#d97706',text:'#451a03'},
+    {fill:'#dbeafe',stroke:'#2563eb',text:'#1e1b4b'},
+    {fill:'#dcfce7',stroke:'#16a34a',text:'#052e16'},
+    {fill:'#ffe4e6',stroke:'#e11d48',text:'#4c0519'},
+    {fill:'#ede9fe',stroke:'#7c3aed',text:'#2e1065'},
+    {fill:'#ccfbf1',stroke:'#0d9488',text:'#042f2e'},
+    {fill:'#ffedd5',stroke:'#ea580c',text:'#431407'},
+  ];
+  const GLL=['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن','الجيل التاسع'];
+
+  const PNW=96, PNH=36, PHGAP=16, PVGAP=70;
+  const pParentMap={}, pGenMap={}, pAllNodes=[], pNodePos={};
+  function pbm(node,parent,gen){ pParentMap[node.id]=parent?parent.id:null; pGenMap[node.id]=gen; pAllNodes.push(node); (node.children||[]).forEach(c=>pbm(c,node,gen+1)); }
+  pbm(familyData,null,1);
+  function pmW(node){ if(!node.children||!node.children.length){node._pw=PNW;return PNW;} let t=node.children.reduce((s,c,i)=>s+pmW(c)+(i?PHGAP:0),0); node._pw=Math.max(PNW,t); return node._pw; }
+  pmW(familyData);
+  function pPlace(node,x,y){ node._px=x+node._pw/2-PNW/2; node._py=y; pNodePos[node.id]={x:node._px,y:node._py}; if(!node.children||!node.children.length)return; let cx=x; node.children.forEach(c=>{pPlace(c,cx,y+PNH+PVGAP);cx+=c._pw+PHGAP;}); }
+  pPlace(familyData,30,60);
+
+  const maxX=Math.max(...pAllNodes.map(n=>n._px+PNW))+60;
+  const maxY=Math.max(...pAllNodes.map(n=>n._py+PNH))+60;
+  const maxGen=Math.max(...Object.values(pGenMap));
+
+  let edges='', nodes='';
+  pAllNodes.forEach(node=>{
+    (node.children||[]).forEach(child=>{
+      const px=node._px+PNW/2, py=node._py+PNH;
+      const cx=child._px+PNW/2, cy=child._py;
+      const my=(py+cy)/2;
+      edges+=`<path d="M${px},${py} C${px},${my} ${cx},${my} ${cx},${cy}" fill="none" stroke="#c4cad4" stroke-width="1.3"/>`;
+    });
+  });
+  pAllNodes.forEach(node=>{
+    const g=pGenMap[node.id]||1;
+    const col=printColors[Math.min(g,9)];
+    const dn=node.name.replace('⭐ ','');
+    const hasStar=node.name.startsWith('⭐');
+    nodes+=`<g>
+      <rect x="${node._px}" y="${node._py}" width="${PNW}" height="${PNH}" rx="7" fill="${col.fill}" stroke="${col.stroke}" stroke-width="1.2"/>
+      ${hasStar?`<text x="${node._px+6}" y="${node._py+PNH/2}" dominant-baseline="central" fill="#b8922f" font-size="10">⭐</text>`:''}
+      <text x="${node._px+PNW/2+(hasStar?4:0)}" y="${node._py+PNH/2}" text-anchor="middle" dominant-baseline="central" fill="${col.text}" font-size="13" font-family="Tajawal,Arial,sans-serif" font-weight="600">${dn}</text>
+      ${node.deathYear?`<text x="${node._px+PNW-5}" y="${node._py+PNH-3}" text-anchor="end" fill="#9ca3af" font-size="8" font-family="Tajawal,Arial,sans-serif">†${node.deathYear}</text>`:''}
+    </g>`;
+  });
+
+  let legend='';
+  for(let g=1;g<=Math.min(maxGen,9);g++){
+    const col=printColors[g];
+    legend+=`<span style="display:inline-flex;align-items:center;gap:5px;margin:0 10px 6px 0;font-size:12px">
+      <span style="width:12px;height:12px;border-radius:50%;background:${col.stroke};display:inline-block"></span>${GLL[g]||'الجيل '+g}
+    </span>`;
+  }
+
+  const today=new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'});
+  const total=pAllNodes.length;
+
+  const html=`<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<title>شجرة عائلة المجاحيد سواعد</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:Tajawal,Arial,sans-serif;direction:rtl;color:#111}
+.toolbar{display:flex;gap:10px;justify-content:center;padding:16px;background:#f8f9fa;border-bottom:1px solid #e5e7eb}
+.toolbar button{padding:10px 24px;border-radius:8px;border:none;font-family:Tajawal,sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+.btn-print{background:#1d4ed8;color:#fff}
+.btn-close{background:#e5e7eb;color:#374151}
+.header{text-align:center;padding:24px 40px 16px;border-bottom:2px solid #f0f0f0}
+.header h1{font-family:'Amiri',serif;font-size:28px;font-weight:700;color:#111}
+.header .sub{font-size:13px;color:#666;margin-top:4px}
+.header .meta{font-size:13px;margin-top:8px}
+.legend{text-align:center;padding:10px 40px;border-bottom:1px solid #eee;background:#fafafa;flex-wrap:wrap;display:flex;justify-content:center}
+.tree-wrap{padding:24px 32px 48px;overflow:visible}
+.footer{text-align:center;padding:14px;border-top:1px solid #eee;font-size:11px;color:#aaa;margin-top:8px}
+@media print{.toolbar{display:none!important}}
+</style></head><body>
+<div class="toolbar">
+  <button class="btn-print" onclick="window.print()">🖨 طباعة / PDF</button>
+  <button class="btn-close" onclick="window.close()">✕ إغلاق</button>
+</div>
+<div class="header">
+  <h1>🌳 شجرة عائلة المجاحيد سواعد</h1>
+  <div class="sub">سوريا &bull; فلسطين &bull; الأردن</div>
+  <div class="meta">إجمالي: <b>${total}</b> شخص &nbsp;|&nbsp; الأجيال: <b>${maxGen}</b> &nbsp;|&nbsp; ${today}</div>
+  <div style="font-size:11px;color:#888;margin-top:6px">© جميع الحقوق محفوظة لـ <b>Muhammad Abdalla</b></div>
+</div>
+<div class="legend">${legend}</div>
+<div class="tree-wrap">
+  <svg width="${maxX}" height="${maxY}" xmlns="http://www.w3.org/2000/svg">${edges}${nodes}</svg>
+</div>
+<div class="footer">شجرة عائلة المجاحيد سواعد — © Muhammad Abdalla — ${today}</div>
+</body></html>`;
+
+  const w=window.open('','_blank','width=1500,height=900,scrollbars=yes');
+  if(!w){toast('السماح بالنوافذ المنبثقة مطلوب','error');return;}
+  w.document.open(); w.document.write(html); w.document.close();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════════════
+let toastTimer=null;
+function toast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show '+type;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  KEYBOARD
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ closeEdit(); closeDelete(); hideCtxMenu(); }
+  if(e.key==='Enter'&&document.getElementById('editOverlay').classList.contains('open')) saveEdit();
+  if(e.key==='f'&&(e.ctrlKey||e.metaKey)){e.preventDefault();document.getElementById('searchInput').focus();}
+  if(e.key==='+') zoom(0.15);
+  if(e.key==='-') zoom(-0.15);
+  if(e.key==='0'&&e.ctrlKey){e.preventDefault();fitTree();}
+});
+
+// Modal overlay click to close
+document.getElementById('editOverlay').addEventListener('click',e=>{ if(e.target===document.getElementById('editOverlay')) closeEdit(); });
+document.getElementById('deleteOverlay').addEventListener('click',e=>{ if(e.target===document.getElementById('deleteOverlay')) closeDelete(); });
+
+// ═══════════════════════════════════════════════════════════
+//  RESIZE
+// ═══════════════════════════════════════════════════════════
+window.addEventListener('resize',()=>{ updateMinimap(); });
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+renderTree();
+setTimeout(()=>{ fitTree(); },100);
 </script>
 </body>
 </html>
