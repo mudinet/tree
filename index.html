@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0d14">
+<title>شجرة عائلة المجاحيد سواعد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;width:100%;overflow:hidden;font-family:'Tajawal','Segoe UI',Tahoma,Arial,sans-serif;background:#0a0d14;color:#e8eaf6;touch-action:manipulation}
+:root{--bg:#0a0d14;--s1:#13161f;--s2:#1c2030;--s3:#242840;--bdr:#2a2f4a;--acc:#5b8dee;--gold:#f5c542;--t1:#e8eaf6;--t2:#7a82a8;--red:#f56565;--grn:#48bb78;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
+#loader{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .4s}
+#loader .ico{font-size:52px}
+#loader .ttl{font-size:19px;font-weight:700;color:var(--t1)}
+#loader .sub{font-size:13px;color:var(--t2)}
+#loader .bwrap{width:130px;height:3px;background:var(--bdr);border-radius:2px;overflow:hidden;margin-top:6px}
+#loaderBar{height:100%;width:0%;background:var(--acc);border-radius:2px;transition:width 1.2s ease}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,13,20,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);padding:10px 12px;padding-top:calc(var(--st) + 10px);display:flex;align-items:center;gap:8px}
+.tinfo{flex:1;min-width:0}
+.tinfo h1{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tinfo p{font-size:10px;color:var(--t2);margin-top:1px}
+.ibtn{width:38px;height:38px;border-radius:10px;background:var(--s2);border:1px solid var(--bdr);color:var(--t2);font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative}
+.ibtn:active{background:var(--s3);transform:scale(.93)}
+.udot{width:8px;height:8px;border-radius:50%;background:#f59e0b;position:absolute;top:6px;right:6px;display:none}
+.udot.on{display:block}
+#treeWrap{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;touch-action:none}
+#treeCanvas{position:absolute;transform-origin:0 0;will-change:transform}
+.fab{position:fixed;bottom:calc(var(--sb) + 20px);left:20px;z-index:150;width:52px;height:52px;border-radius:16px;background:var(--acc);color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(91,141,238,.45);cursor:pointer;border:none}
+.fab:active{transform:scale(.91)}
+#zoomBadge{position:fixed;bottom:calc(var(--sb) + 20px);right:16px;z-index:150;background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:5px 11px;font-size:12px;color:var(--t2);pointer-events:none;opacity:0;transition:opacity .3s}
+#zoomBadge.on{opacity:1}
+#backdrop{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .25s}
+#backdrop.on{opacity:1;pointer-events:all}
+.sheet{position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--s1);border-radius:20px 20px 0 0;border-top:1px solid var(--bdr);padding-bottom:calc(var(--sb) + 16px);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:82vh;display:flex;flex-direction:column}
+.sheet.on{transform:translateY(0)}
+.handle{width:36px;height:4px;border-radius:2px;background:var(--bdr);margin:10px auto 0;flex-shrink:0}
+.shd{padding:12px 18px 10px;border-bottom:1px solid var(--bdr);flex-shrink:0}
+.shd h2{font-size:17px;font-weight:700}
+.shd p{font-size:12px;color:var(--t2);margin-top:3px}
+.shb{overflow-y:auto;flex:1;padding:14px 18px}
+.drow{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--bdr);font-size:14px}
+.drow:last-of-type{border-bottom:none}
+.dlbl{color:var(--t2);font-size:13px;white-space:nowrap}
+.dval{color:var(--t1);font-weight:500;flex:1;text-align:left}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:4px 10px;font-size:13px;color:var(--t1);cursor:pointer}
+.chip:active{background:var(--s3);border-color:var(--acc)}
+.btn{flex:1;padding:11px 8px;border-radius:11px;border:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn:active{transform:scale(.96)}
+.bp{background:var(--acc);color:#fff}
+.bg{background:var(--s2);color:var(--t2);border:1px solid var(--bdr)}
+.br{background:#2d1515;color:var(--red);border:1px solid #5a1e1e}
+.brow{display:flex;gap:8px;margin-top:12px}
+.mlist{list-style:none}
+.mitem{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid var(--bdr);cursor:pointer;font-size:15px;color:var(--t1);border-radius:10px}
+.mitem:last-child{border-bottom:none}
+.mitem:active{background:var(--s2)}
+.mico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.msub{font-size:12px;color:var(--t2)}
+.flbl{font-size:13px;color:var(--t2);margin-bottom:6px;display:block}
+.finp,.fsel{width:100%;padding:12px 14px;background:var(--s2);border:1.5px solid var(--bdr);border-radius:11px;color:var(--t1);font-family:inherit;font-size:15px;direction:rtl;-webkit-appearance:none;margin-bottom:14px}
+.finp:focus,.fsel:focus{outline:none;border-color:var(--acc)}
+.fsel option{background:var(--s2)}
+#searchPane{position:fixed;inset:0;z-index:300;background:var(--bg);padding:10px 14px;padding-top:calc(var(--st) + 10px);display:flex;flex-direction:column;gap:10px;transform:translateY(-100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+#searchPane.on{transform:translateY(0)}
+.sinput{flex:1;padding:11px 14px;background:var(--s2);border:1.5px solid var(--bdr);border-radius:11px;color:var(--t1);font-family:inherit;font-size:16px;direction:rtl}
+.sinput:focus{outline:none;border-color:var(--acc)}
+.srow{display:flex;gap:8px}
+#sResults{overflow-y:auto;flex:1}
+.sri{display:flex;align-items:center;gap:10px;padding:13px 12px;border-radius:11px;cursor:pointer;margin-bottom:4px}
+.sri:active{background:var(--s2)}
+.sdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+#toast{position:fixed;bottom:calc(var(--sb) + 80px);left:50%;transform:translateX(-50%) translateY(20px);background:var(--s2);border:1px solid var(--bdr);border-radius:12px;padding:11px 20px;font-size:13px;z-index:500;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.ok{border-color:var(--grn);color:var(--grn)}
+#toast.err{border-color:var(--red);color:var(--red)}
+.starred rect{filter:drop-shadow(0 0 5px #f5c542)}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="ico">🌳</div>
+  <div class="ttl">شجرة عائلة المجاحيد سواعد</div>
+  <div class="sub">جاري التحميل...</div>
+  <div class="bwrap"><div id="loaderBar"></div></div>
+</div>
+
+<div class="topbar">
+  <div class="tinfo">
+    <h1>🌳 شجرة عائلة المجاحيد سواعد</h1>
+    <p>سوريا • فلسطين • الأردن &nbsp;|&nbsp; © Muhammad Abdalla</p>
+  </div>
+  <div class="ibtn" onclick="openSearch()">🔍</div>
+  <div class="ibtn" onclick="openMenu()">☰<span class="udot" id="udot"></span></div>
+</div>
+
+<div id="treeWrap">
+  <div id="treeCanvas"><svg id="treeSvg"></svg></div>
+</div>
+
+<button class="fab" onclick="openAddSheet()">＋</button>
+<div id="zoomBadge">100%</div>
+<div id="backdrop" onclick="closeAll()"></div>
+
+<div class="sheet" id="detailSheet">
+  <div class="handle"></div>
+  <div class="shd"><h2 id="dName">—</h2><div id="dGen"></div></div>
+  <div class="shb" id="dBody"></div>
+</div>
+
+<div class="sheet" id="menuSheet">
+  <div class="handle"></div>
+  <div class="shd"><h2>القائمة</h2></div>
+  <div class="shb">
+    <ul class="mlist">
+      <li class="mitem" onclick="closeAll();exportData()"><div class="mico" style="background:#0d3b1e">💾</div><div><div style="font-weight:600">حفظ الشجرة</div><div class="msub" id="saveHint">لم يتم الحفظ بعد</div></div></li>
+      <li class="mitem" onclick="closeAll();importData()"><div class="mico" style="background:#0c2560">📂</div><div><div style="font-weight:600">تحميل ملف محفوظ</div><div class="msub">استيراد ملف .json</div></div></li>
+      <li class="mitem" onclick="closeAll();printTree()"><div class="mico" style="background:#2d1b6b">🖨️</div><div><div style="font-weight:600">طباعة / PDF</div><div class="msub">طباعة الشجرة كاملة</div></div></li>
+      <li class="mitem" onclick="closeAll();resetZoom()"><div class="mico" style="background:#1a1d27">🎯</div><div><div style="font-weight:600">ضبط العرض</div><div class="msub">العودة للعرض الكامل</div></div></li>
+    </ul>
+  </div>
+</div>
+
+<div class="sheet" id="formSheet">
+  <div class="handle"></div>
+  <div class="shd"><h2 id="formTitle">إضافة شخص</h2></div>
+  <div class="shb">
+    <label class="flbl">الاسم *</label>
+    <input class="finp" id="fName" type="text" placeholder="أدخل الاسم...">
+    <div id="fParentGroup">
+      <label class="flbl">الأب</label>
+      <select class="fsel" id="fParent"><option value="">— جذر الشجرة —</option></select>
+    </div>
+    <div class="brow">
+      <button class="btn bg" onclick="closeAll()">إلغاء</button>
+      <button class="btn bp" onclick="saveForm()">✓ حفظ</button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="deleteSheet">
+  <div class="handle"></div>
+  <div class="shd"><h2 style="color:var(--red)">🗑️ تأكيد الحذف</h2></div>
+  <div class="shb">
+    <p id="delMsg" style="font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:16px"></p>
+    <div class="brow">
+      <button class="btn bg" onclick="closeAll()">إلغاء</button>
+      <button class="btn br" onclick="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>
+
+<div id="searchPane">
+  <div class="srow">
+    <input class="sinput" id="sInput" type="search" placeholder="ابحث عن اسم..." oninput="doSearch(this.value)" autocomplete="off">
+    <button class="btn bg" style="flex:none;padding:10px 14px;font-size:14px" onclick="closeSearch()">إلغاء</button>
+  </div>
+  <div id="sResults"><div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div></div>
+</div>
+
+<input type="file" id="fileIn" accept=".json" style="display:none" onchange="handleImport(event)">
+<div id="toast"></div>
+
+<script>
+"use strict";
+
+var familyData={id:'taha',name:'طه',children:[{id:'mustafa',name:'مصطفى',children:[{id:'muhammad1',name:'محمد',children:[{id:'ubaid',name:'عبيد',children:[{id:'khabasa',name:'خبصة',children:[]}]},{id:'khalid1',name:'خالد',children:[{id:'mahmoud1',name:'محمود',children:[]},{id:'muhammad2',name:'محمد',children:[]},{id:'hamad',name:'حمد',children:[]},{id:'hussain1',name:'حسين',children:[]}]}]},{id:'hasan1',name:'حسن',children:[{id:'abdallah1',name:'عبد الله',children:[{id:'awwad1',name:'عواد',children:[{id:'said1',name:'⭐ سعيد',children:[{id:'haytham',name:'هيثم',children:[{id:'said2',name:'سعيد',children:[]}]},{id:'muhammad3',name:'محمد',children:[{id:'umar',name:'عمر',children:[]}]},{id:'ahmad1',name:'أحمد',children:[]},{id:'amjad',name:'أمجد',children:[{id:'adam',name:'آدم',children:[]}]}]},{id:'abdallah2',name:'عبد الله',children:[{id:'awwad2',name:'عواد',children:[]},{id:'fadi',name:'فادي',children:[]},{id:'husam',name:'حسام',children:[]},{id:'imad',name:'عماد',children:[]},{id:'muhammad4',name:'محمد',children:[]},{id:'basil1',name:'باسل',children:[]}]},{id:'karim1',name:'كريم',children:[{id:'maher',name:'ماهر',children:[]},{id:'samer',name:'سامر',children:[]},{id:'ammar',name:'عمار',children:[]},{id:'zaher',name:'زاهر',children:[]}]}]}]},{id:'ahmad2',name:'أحمد',children:[]},{id:'mahmoud2',name:'محمود',children:[]},{id:'muhammad5',name:'محمد',children:[{id:'musa',name:'موسى',children:[{id:'fayiz',name:'فايز',children:[]},{id:'khalid2',name:'خالد',children:[]},{id:'mahmoud3',name:'محمود',children:[]},{id:'ali1',name:'علي',children:[]},{id:'muhammad6',name:'محمد',children:[]},{id:'ismail',name:'إسماعيل',children:[]},{id:'ibrahim',name:'إبراهيم',children:[]},{id:'khalil1',name:'خليل',children:[]},{id:'yusuf',name:'يوسف',children:[]}]},{id:'hasan2',name:'حسن',children:[{id:'muhammad7',name:'محمد',children:[{id:'wasim',name:'وسيم',children:[]},{id:'iyad',name:'إياد',children:[]},{id:'basil2',name:'باسل',children:[]}]},{id:'hasan3',name:'حسن',children:[{id:'shawqi',name:'شوقي',children:[]}]}]}]},{id:'karim2',name:'كريم',children:[]}]},{id:'khalil2',name:'خليل',children:[{id:'salih1',name:'صالح',children:[{id:'ahmad3',name:'أحمد',children:[{id:'said3',name:'سعيد',children:[{id:'adnan1',name:'عدنان',children:[]}]},{id:'muhammad8',name:'محمد',children:[]},{id:'khalil3',name:'خليل',children:[{id:'ahmad4',name:'أحمد',children:[]},{id:'muhammad9',name:'محمد',children:[]},{id:'zayn',name:'زين',children:[]},{id:'abd',name:'عبد',children:[]}]}]},{id:'hussain2',name:'حسين',children:[{id:'atif',name:'عاطف',children:[]},{id:'atiyya',name:'عطية',children:[]},{id:'hatim',name:'حاتم',children:[]},{id:'ahmad5',name:'أحمد',children:[]}]},{id:'hasan4',name:'حسن',children:[{id:'ahmad6',name:'أحمد',children:[]},{id:'salih2',name:'صالح',children:[{id:'adil',name:'عادل',children:[]},{id:'adnan2',name:'عدنان',children:[]},{id:'hasan5',name:'حسن',children:[]},{id:'khalid3',name:'خالد',children:[]}]}]}]},{id:'ali2',name:'علي',children:[{id:'muhammad10',name:'محمد',children:[{id:'ali3',name:'علي',children:[]},{id:'sultan',name:'سلطان',children:[]},{id:'hussain3',name:'حسين',children:[]},{id:'hasan6',name:'حسن',children:[]},{id:'abdallah3',name:'عبد الله',children:[]},{id:'isa',name:'عيسى',children:[]},{id:'khalil4',name:'خليل',children:[]},{id:'ghazi',name:'غازي',children:[]}]}]}]},{id:'ali4',name:'علي',children:[{id:'isa2',name:'عيسى',children:[{id:'raja',name:'رجا',children:[]}]}]}]}]};
+
+var selId=null,editId=null,delId=null,fMode='add',fPid=null;
+var unsaved=false,pMap={},gMap={},allN=[],nPos={};
+var panX=20,panY=80,scl=1,MIN_S=0.15,MAX_S=3;
+var tWrap=null,tCvs=null;
+
+var GCOL=[null,{s:'#7c3aed',f:'#2d1b6b'},{s:'#0d9488',f:'#0f3d3a'},{s:'#b45309',f:'#3d2a0b'},{s:'#1d4ed8',f:'#0c2560'},{s:'#15803d',f:'#0d3b1e'},{s:'#be185d',f:'#4a0d2e'},{s:'#7c3aed',f:'#2d1b6b'},{s:'#0d9488',f:'#0f3d3a'}];
+function gcol(g){return GCOL[Math.min(g,8)]||GCOL[1];}
+function glbl(g){return['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن'][Math.min(g,8)]||'الجيل '+g;}
+
+function uid(){return 'n'+Math.random().toString(36).substr(2,8);}
+function findN(id,node){if(node.id===id)return node;for(var i=0;i<(node.children||[]).length;i++){var r=findN(id,node.children[i]);if(r)return r;}return null;}
+function delN(id,par){if(!par.children)return false;var i=par.children.findIndex(function(c){return c.id===id;});if(i!==-1){par.children.splice(i,1);return true;}for(var j=0;j<par.children.length;j++){if(delN(id,par.children[j]))return true;}return false;}
+function buildMaps(node,par,gen){pMap[node.id]=par?par.id:null;gMap[node.id]=gen;allN.push(node);(node.children||[]).forEach(function(c){buildMaps(c,node,gen+1);});}
+function cntD(node){var c=0;(node.children||[]).forEach(function(ch){c+=1+cntD(ch);});return c;}
+
+var BW=80,BH=32,HG=14,VG=58;
+function measure(node){if(!node.children||!node.children.length){node._w=BW;return BW;}var t=0;node.children.forEach(function(c,i){t+=measure(c);if(i<node.children.length-1)t+=HG;});node._w=Math.max(BW,t);return node._w;}
+function layout(node,x,y){node._x=x+node._w/2-BW/2;node._y=y;nPos[node.id]={x:node._x,y:node._y};if(!node.children||!node.children.length)return;var cx=x;node.children.forEach(function(c){layout(c,cx,y+BH+VG);cx+=c._w+HG;});}
+
+function render(){
+  pMap={};gMap={};allN=[];nPos={};
+  buildMaps(familyData,null,1);
+  measure(familyData);
+  layout(familyData,20,20);
+  var svg=document.getElementById('treeSvg');
+  var mxX=0,mxY=0;
+  allN.forEach(function(n){if(n._x+BW>mxX)mxX=n._x+BW;if(n._y+BH>mxY)mxY=n._y+BH;});
+  mxX+=40;mxY+=40;
+  svg.setAttribute('width',mxX);svg.setAttribute('height',mxY);svg.innerHTML='';
+  var eg=document.createElementNS('http://www.w3.org/2000/svg','g');
+  allN.forEach(function(node){
+    (node.children||[]).forEach(function(child){
+      var px=node._x+BW/2,py=node._y+BH,cx2=child._x+BW/2,cy=child._y,my=(py+cy)/2;
+      var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d','M'+px+','+py+' C'+px+','+my+' '+cx2+','+my+' '+cx2+','+cy);
+      p.setAttribute('fill','none');p.setAttribute('stroke','#2a2f4a');p.setAttribute('stroke-width','1.5');
+      eg.appendChild(p);
+    });
+  });
+  svg.appendChild(eg);
+  allN.forEach(function(node){
+    var g=gMap[node.id]||1,col=gcol(g),isSel=(node.id===selId),isStar=(node.id==='said1');
+    var grp=document.createElementNS('http://www.w3.org/2000/svg','g');
+    grp.style.cursor='pointer';
+    if(isStar)grp.setAttribute('class','starred');
+    var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x',node._x);rect.setAttribute('y',node._y);rect.setAttribute('width',BW);rect.setAttribute('height',BH);rect.setAttribute('rx','8');
+    rect.setAttribute('fill',isSel?col.s:col.f);rect.setAttribute('stroke',isSel?'#fff':col.s);rect.setAttribute('stroke-width',isSel?'2':'1');
+    var txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x',node._x+BW/2);txt.setAttribute('y',node._y+BH/2);txt.setAttribute('text-anchor','middle');txt.setAttribute('dominant-baseline','central');
+    txt.setAttribute('fill','#fff');txt.setAttribute('font-size',node.name.length>8?'9.5':'11.5');
+    txt.setAttribute('font-family',"Tajawal,'Segoe UI',Tahoma,Arial,sans-serif");txt.setAttribute('font-weight',isSel?'700':'500');
+    txt.textContent=node.name;
+    grp.appendChild(rect);grp.appendChild(txt);svg.appendChild(grp);
+    (function(id){grp.addEventListener('click',function(){selectNode(id);});})(node.id);
+  });
+}
+
+function applyT(){tCvs.style.transform='translate('+panX+'px,'+panY+'px) scale('+scl+')';}
+function resetZoom(){
+  var svg=document.getElementById('treeSvg');
+  var sw=parseFloat(svg.getAttribute('width')||600),sh=parseFloat(svg.getAttribute('height')||400);
+  var ww=tWrap.clientWidth,wh=tWrap.clientHeight-70;
+  scl=Math.min(ww/sw,wh/sh,1)*0.9;scl=Math.max(MIN_S,Math.min(MAX_S,scl));
+  panX=(ww-sw*scl)/2;panY=70+(wh-sh*scl)/2;applyT();
+}
+
+var isPan=false,lPanX=0,lPanY=0,pDist0=0,pScl0=1,pMidX=0,pMidY=0;
+function tdist(a,b){return Math.hypot(b.clientX-a.clientX,b.clientY-a.clientY);}
+
+function setupTouch(){
+  tWrap.addEventListener('touchstart',function(e){
+    if(e.touches.length===1){isPan=true;lPanX=e.touches[0].clientX-panX;lPanY=e.touches[0].clientY-panY;}
+    else if(e.touches.length===2){isPan=false;pDist0=tdist(e.touches[0],e.touches[1]);pScl0=scl;pMidX=(e.touches[0].clientX+e.touches[1].clientX)/2;pMidY=(e.touches[0].clientY+e.touches[1].clientY)/2;}
+  },{passive:true});
+  tWrap.addEventListener('touchmove',function(e){
+    e.preventDefault();
+    if(e.touches.length===1&&isPan){panX=e.touches[0].clientX-lPanX;panY=e.touches[0].clientY-lPanY;applyT();}
+    else if(e.touches.length===2){
+      var d=tdist(e.touches[0],e.touches[1]);
+      var ns=Math.max(MIN_S,Math.min(MAX_S,pScl0*(d/pDist0)));
+      var mx=(e.touches[0].clientX+e.touches[1].clientX)/2,my2=(e.touches[0].clientY+e.touches[1].clientY)/2;
+      panX=mx-(pMidX-panX)*(ns/pScl0)-(mx-pMidX);
+      panY=my2-(pMidY-panY)*(ns/pScl0)-(my2-pMidY);
+      scl=ns;applyT();showZoom();
+    }
+  },{passive:false});
+  tWrap.addEventListener('touchend',function(){isPan=false;},{passive:true});
+  var mDown=false,lMX=0,lMY=0;
+  tWrap.addEventListener('mousedown',function(e){if(e.target===tWrap||e.target===tCvs||e.target.tagName==='svg'){mDown=true;lMX=e.clientX-panX;lMY=e.clientY-panY;}});
+  window.addEventListener('mousemove',function(e){if(mDown){panX=e.clientX-lMX;panY=e.clientY-lMY;applyT();}});
+  window.addEventListener('mouseup',function(){mDown=false;});
+  tWrap.addEventListener('wheel',function(e){e.preventDefault();var f=e.deltaY>0?0.9:1.1;var ns=Math.max(MIN_S,Math.min(MAX_S,scl*f));panX=e.clientX-(e.clientX-panX)*(ns/scl);panY=e.clientY-(e.clientY-panY)*(ns/scl);scl=ns;applyT();showZoom();},{passive:false});
+}
+
+var zTmr;
+function showZoom(){var el=document.getElementById('zoomBadge');el.textContent=Math.round(scl*100)+'%';el.classList.add('on');clearTimeout(zTmr);zTmr=setTimeout(function(){el.classList.remove('on');},1200);}
+
+function selectNode(id){selId=id;render();showDetail(id);}
+function showDetail(id){
+  var node=findN(id,familyData);if(!node)return;
+  var g=gMap[id]||1,col=gcol(g),par=pMap[id]?findN(pMap[id],familyData):null,kids=node.children||[];
+  document.getElementById('dName').textContent=node.name;
+  document.getElementById('dGen').innerHTML='<span style="display:inline-flex;align-items:center;gap:5px;background:'+col.f+';color:'+col.s+';border:1px solid '+col.s+';padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600">'+glbl(g)+'</span>';
+  var h='';
+  h+='<div class="drow"><span class="dlbl">👤 الأب</span><span class="dval">'+(par?'<span class="chip" onclick="closeAll();setTimeout(function(){selectNode(\''+par.id+'\');},100)">'+par.name+'</span>':'جذر الشجرة')+'</span></div>';
+  h+='<div class="drow"><span class="dlbl">👥 الأبناء</span><span class="dval">'+kids.length+'</span></div>';
+  if(kids.length){h+='<div class="drow" style="flex-direction:column;align-items:flex-start;gap:8px"><span class="dlbl">👦 الأسماء</span><div class="chips">'+kids.map(function(c){return'<span class="chip" onclick="closeAll();setTimeout(function(){selectNode(\''+c.id+'\');},100)">'+c.name+'</span>';}).join('')+'</div></div>';}
+  h+='<div class="brow"><button class="btn bp" onclick="openAddChild(\''+id+'\')">＋ ابن</button><button class="btn bg" onclick="openEdit(\''+id+'\')">✏️</button><button class="btn br" onclick="openDel(\''+id+'\')">🗑️</button></div>';
+  document.getElementById('dBody').innerHTML=h;
+  openSheet('detailSheet');
+}
+
+var ALL_SHEETS=['detailSheet','menuSheet','formSheet','deleteSheet'];
+function openSheet(id){document.getElementById('backdrop').classList.add('on');ALL_SHEETS.forEach(function(s){document.getElementById(s).classList.remove('on');});document.getElementById(id).classList.add('on');}
+function closeAll(){document.getElementById('backdrop').classList.remove('on');ALL_SHEETS.forEach(function(s){document.getElementById(s).classList.remove('on');});}
+function openMenu(){openSheet('menuSheet');}
+
+function fillPS(excl){var sel=document.getElementById('fParent');sel.innerHTML='<option value="">— جذر الشجرة —</option>';allN.forEach(function(n){if(n.id!==excl){var o=document.createElement('option');o.value=n.id;o.textContent=n.name+' ('+glbl(gMap[n.id]||1)+')';sel.appendChild(o);}});}
+function openAddSheet(){fMode='add';editId=null;document.getElementById('formTitle').textContent='إضافة شخص';document.getElementById('fName').value='';document.getElementById('fParentGroup').style.display='block';fillPS(null);document.getElementById('fParent').value='';openSheet('formSheet');setTimeout(function(){document.getElementById('fName').focus();},350);}
+function openAddChild(pid){fMode='addChild';fPid=pid;var p=findN(pid,familyData);document.getElementById('formTitle').textContent='إضافة ابن لـ "'+p.name+'"';document.getElementById('fName').value='';document.getElementById('fParentGroup').style.display='none';openSheet('formSheet');setTimeout(function(){document.getElementById('fName').focus();},350);}
+function openEdit(id){fMode='edit';editId=id;var node=findN(id,familyData);document.getElementById('formTitle').textContent='تعديل "'+node.name+'"';document.getElementById('fName').value=node.name;document.getElementById('fParentGroup').style.display='block';fillPS(id);document.getElementById('fParent').value=pMap[id]||'';openSheet('formSheet');setTimeout(function(){document.getElementById('fName').focus();},350);}
+
+function saveForm(){
+  var name=document.getElementById('fName').value.trim();
+  if(!name){toast('يرجى إدخال الاسم','err');return;}
+  if(fMode==='add'){
+    var pid=document.getElementById('fParent').value;
+    var nn={id:uid(),name:name,children:[]};
+    var par=pid?findN(pid,familyData):familyData;par.children=par.children||[];par.children.push(nn);
+    closeAll();markUnsaved();render();toast('✅ تمت الإضافة','ok');setTimeout(function(){selectNode(nn.id);},100);
+  }else if(fMode==='addChild'){
+    var nn2={id:uid(),name:name,children:[]};
+    var par2=findN(fPid,familyData);par2.children=par2.children||[];par2.children.push(nn2);
+    closeAll();markUnsaved();render();toast('✅ تمت الإضافة','ok');setTimeout(function(){selectNode(nn2.id);},100);
+  }else if(fMode==='edit'){
+    var nd=findN(editId,familyData),newPid=document.getElementById('fParent').value,oldPid=pMap[editId];
+    nd.name=name;
+    if(newPid!==(oldPid||'')){
+      if(oldPid){var op=findN(oldPid,familyData);if(op)op.children=op.children.filter(function(c){return c.id!==editId;});}
+      var np=newPid?findN(newPid,familyData):familyData;np.children=np.children||[];np.children.push(nd);
+    }
+    closeAll();markUnsaved();selId=editId;render();toast('✅ تم التعديل','ok');setTimeout(function(){showDetail(editId);},100);
+  }
+}
+
+function openDel(id){delId=id;var nd=findN(id,familyData),dc=cntD(nd);var msg='هل أنت متأكد من حذف <strong style="color:#e8eaf6">"'+nd.name+'"</strong>؟';if(dc>0)msg+='<br><br>⚠️ سيتم حذف <strong style="color:#f56565">'+(dc+1)+' شخص</strong>.';document.getElementById('delMsg').innerHTML=msg;openSheet('deleteSheet');}
+function confirmDelete(){if(!delId)return;if(delId===familyData.id){toast('لا يمكن حذف الجذر','err');closeAll();return;}var nd=findN(delId,familyData),name=nd?nd.name:'';delN(delId,familyData);if(selId===delId)selId=null;closeAll();markUnsaved();render();toast('تم الحذف','ok');}
+
+function openSearch(){document.getElementById('searchPane').classList.add('on');document.getElementById('sResults').innerHTML='<div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>';document.getElementById('sInput').value='';setTimeout(function(){document.getElementById('sInput').focus();},300);}
+function closeSearch(){document.getElementById('searchPane').classList.remove('on');}
+function doSearch(val){
+  if(!val.trim()){document.getElementById('sResults').innerHTML='<div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>';return;}
+  var found=allN.filter(function(n){return n.name.indexOf(val.trim())!==-1;});
+  if(!found.length){document.getElementById('sResults').innerHTML='<div style="text-align:center;color:var(--t2);padding:40px 0;font-size:14px">لم يُوجد الاسم</div>';return;}
+  document.getElementById('sResults').innerHTML=found.map(function(n){var col=gcol(gMap[n.id]||1);return'<div class="sri" onclick="closeSearch();setTimeout(function(){selectNode(\''+n.id+'\');},300)"><div class="sdot" style="background:'+col.s+'"></div><div><div style="font-size:15px;font-weight:600;color:var(--t1)">'+n.name+'</div><div style="font-size:12px;color:var(--t2)">'+glbl(gMap[n.id]||1)+'</div></div></div>';}).join('');
+}
+
+function markUnsaved(){unsaved=true;document.getElementById('udot').classList.add('on');document.getElementById('saveHint').textContent='⚠️ لديك تغييرات غير محفوظة!';document.getElementById('saveHint').style.color='#f59e0b';}
+function markSaved(){unsaved=false;document.getElementById('udot').classList.remove('on');var now=new Date(),t=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');document.getElementById('saveHint').textContent='✅ آخر حفظ الساعة '+t;document.getElementById('saveHint').style.color='var(--grn)';}
+window.addEventListener('beforeunload',function(e){if(unsaved){e.preventDefault();e.returnValue='';}});
+
+function exportData(){var json=JSON.stringify(familyData,null,2);var blob=new Blob([json],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='family_tree_majahid.json';a.click();markSaved();toast('✅ تم الحفظ!','ok');}
+function importData(){document.getElementById('fileIn').click();}
+function handleImport(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){try{familyData=JSON.parse(ev.target.result);selId=null;render();resetZoom();markSaved();toast('✅ تم التحميل','ok');}catch(err){toast('خطأ في الملف','err');}};reader.readAsText(file);e.target.value='';}
+
+function printTree(){
+  var PBW=100,PBH=36,PHG=20,PVG=70,ppMap={},pgMap={},pAll=[];
+  function pbm(node,par,gen){ppMap[node.id]=par?par.id:null;pgMap[node.id]=gen;pAll.push(node);(node.children||[]).forEach(function(c){pbm(c,node,gen+1);});}
+  pbm(familyData,null,1);
+  function pm(node){if(!node.children||!node.children.length){node._pw=PBW;return PBW;}var t=0;node.children.forEach(function(c,i){t+=pm(c);if(i<node.children.length-1)t+=PHG;});node._pw=Math.max(PBW,t);return node._pw;}
+  function pl(node,x,y){node._px=x+node._pw/2-PBW/2;node._py=y;if(!node.children||!node.children.length)return;var cx=x;node.children.forEach(function(c){pl(c,cx,y+PBH+PVG);cx+=c._pw+PHG;});}
+  pm(familyData);pl(familyData,30,50);
+  var mxX=0,mxY=0;pAll.forEach(function(n){if(n._px+PBW>mxX)mxX=n._px+PBW;if(n._py+PBH>mxY)mxY=n._py+PBH;});mxX+=60;mxY+=60;
+  var maxGen=0;Object.keys(pgMap).forEach(function(k){if(pgMap[k]>maxGen)maxGen=pgMap[k];});
+  var pc=[null,{f:'#ede9fe',s:'#7c3aed',t:'#3b0764'},{f:'#ccfbf1',s:'#0d9488',t:'#042f2e'},{f:'#fef3c7',s:'#b45309',t:'#451a03'},{f:'#dbeafe',s:'#1d4ed8',t:'#1e1b4b'},{f:'#dcfce7',s:'#15803d',t:'#052e16'},{f:'#fce7f3',s:'#be185d',t:'#500724'},{f:'#ede9fe',s:'#7c3aed',t:'#3b0764'},{f:'#ccfbf1',s:'#0d9488',t:'#042f2e'}];
+  var edges='';pAll.forEach(function(node){(node.children||[]).forEach(function(child){var px=node._px+PBW/2,py=node._py+PBH,cx2=child._px+PBW/2,cy=child._py,my=(py+cy)/2;edges+='<path d="M'+px+','+py+' C'+px+','+my+' '+cx2+','+my+' '+cx2+','+cy+'" fill="none" stroke="#aaa" stroke-width="1.2"/>';});});
+  var snodes='';pAll.forEach(function(node){var g=pgMap[node.id]||1;var c=pc[Math.min(g,8)];snodes+='<g><rect x="'+node._px+'" y="'+node._py+'" width="'+PBW+'" height="'+PBH+'" rx="7" fill="'+c.f+'" stroke="'+c.s+'" stroke-width="1.2"/><text x="'+(node._px+PBW/2)+'" y="'+(node._py+PBH/2)+'" text-anchor="middle" dominant-baseline="central" fill="'+c.t+'" font-size="13" font-family="Tajawal,Arial,sans-serif" font-weight="600">'+node.name+'</text></g>';});
+  var lbls=['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن'];
+  var leg='';for(var g=1;g<=Math.min(maxGen,8);g++){var c=pc[g];leg+='<span style="display:inline-flex;align-items:center;gap:5px;margin-left:14px;font-size:12px"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:'+c.s+'"></span>'+lbls[g]+'</span>';}
+  var today=new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
+  var html='<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>شجرة المجاحيد سواعد</title><style>*{box-sizing:border-box;margin:0;padding:0}body{background:#fff;font-family:Tajawal,Arial,sans-serif;direction:rtl}.top{display:flex;gap:12px;justify-content:center;padding:14px;background:#f3f4f6;border-bottom:1px solid #e5e7eb}.top button{padding:10px 26px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer}.bp{background:#1d4ed8;color:#fff}.bc{background:#e5e7eb;color:#374151}.hdr{text-align:center;padding:18px 30px 12px;border-bottom:2px solid #e5e7eb}.hdr h1{font-size:24px;font-weight:900}.leg{text-align:center;padding:8px 20px;border-bottom:1px solid #e5e7eb;background:#f9fafb}.tree{padding:20px}.ftr{text-align:center;padding:12px;border-top:1px solid #e5e7eb;font-size:11px;color:#aaa;margin-top:8px}@media print{.top{display:none!important}}</style></head><body><div class="top"><button class="bp" onclick="window.print()">🖨️ طباعة / PDF</button><button class="bc" onclick="window.close()">✕ إغلاق</button></div><div class="hdr"><h1>🌳 شجرة عائلة المجاحيد سواعد</h1><p style="font-size:14px;color:#555;margin-top:4px">سوريا • فلسطين • الأردن</p><p style="font-size:12px;color:#777;margin-top:6px">الأشخاص: <strong>'+pAll.length+'</strong> | الأجيال: <strong>'+maxGen+'</strong> | '+today+'</p><p style="font-size:11px;color:#999;margin-top:4px">© جميع الحقوق محفوظة لـ <strong>Muhammad Abdalla</strong></p></div><div class="leg">'+leg+'</div><div class="tree"><svg width="'+mxX+'" height="'+mxY+'" xmlns="http://www.w3.org/2000/svg">'+edges+snodes+'</svg></div><div class="ftr">شجرة عائلة المجاحيد سواعد • © Muhammad Abdalla • '+today+'</div></body></html>';
+  var win=window.open('','_blank','width=1400,height=900,scrollbars=yes');
+  if(!win){toast('اسمح بالنوافذ المنبثقة','err');return;}
+  win.document.open();win.document.write(html);win.document.close();
+}
+
+var tTmr;
+function toast(msg,type){var el=document.getElementById('toast');el.textContent=msg;el.className='toast on '+(type||'ok');clearTimeout(tTmr);tTmr=setTimeout(function(){el.className='toast';},2500);}
+
+document.querySelectorAll('.handle').forEach(function(h){
+  var sy=0;
+  h.parentElement.addEventListener('touchstart',function(e){sy=e.touches[0].clientY;},{passive:true});
+  h.parentElement.addEventListener('touchend',function(e){if(e.changedTouches[0].clientY-sy>60)closeAll();},{passive:true});
+});
+
+function init(){
+  tWrap=document.getElementById('treeWrap');
+  tCvs=document.getElementById('treeCanvas');
+  setupTouch();
+  render();
+  setTimeout(resetZoom,200);
+  var bar=document.getElementById('loaderBar');
+  if(bar)bar.style.width='100%';
+  setTimeout(function(){
+    var loader=document.getElementById('loader');
+    if(loader){loader.style.opacity='0';setTimeout(function(){loader.style.display='none';},400);}
+  },700);
+}
+
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+else{init();}
+</script>
+</body>
+</html>
