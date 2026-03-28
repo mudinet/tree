@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
+<html lang="ar" dir="rtl"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>شجرة عائلة المجاحيد سواعد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&amp;family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
 /* ══════════════════════════════════════════════
@@ -316,7 +314,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
 <!-- ══════════════════════════════════════════
      LOGIN SCREEN
 ══════════════════════════════════════════════ -->
-<div id="loginScreen">
+<div id="loginScreen" style="display: none;">
   <div class="login-bg"></div>
   <div class="login-card">
     <div class="login-logo">
@@ -350,7 +348,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
 <!-- ══════════════════════════════════════════
      HEADER
 ══════════════════════════════════════════════ -->
-<div id="header" style="display:none">
+<div id="header" style="display: flex;">
   <div class="header-brand">
     <div class="brand-icon">🌳</div>
     <div>
@@ -366,12 +364,12 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
   </div>
   <div class="header-right">
     <div class="user-pill" id="userPill">
-      <span id="userLabel"></span>
-      <span class="role-badge" id="roleBadge"></span>
+      <span id="userLabel">admin</span>
+      <span class="role-badge role-admin" id="roleBadge">مسؤول</span>
     </div>
     <button class="btn btn-ghost btn-sm" onclick="centerTree()" title="توسيط">⌂</button>
-    <button class="btn btn-ghost btn-sm" id="btnSettings" onclick="openSettings()" title="إعدادات GitHub" style="display:none">⚙ GitHub</button>
-    <button class="btn btn-ghost btn-sm" onclick="openImport()" id="btnImport" style="display:none">📂 تحميل</button>
+    <button class="btn btn-ghost btn-sm" id="btnSettings" onclick="openSettings()" title="إعدادات GitHub" style="">⚙ GitHub</button>
+    <button class="btn btn-ghost btn-sm" onclick="openImport()" id="btnImport" style="">📂 تحميل</button>
     <button class="btn btn-ghost btn-sm" onclick="printTree()">🖨 طباعة</button>
     <button class="btn btn-gold btn-sm" onclick="exportData()" id="btnExport">💾 حفظ</button>
     <button class="btn btn-ghost btn-sm" onclick="doLogout()" title="خروج">🚪</button>
@@ -380,20 +378,20 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
 </div>
 
 <!-- APP -->
-<div id="app" style="display:none">
+<div id="app" style="display: flex;">
 
   <!-- TREE AREA -->
   <div id="treeArea">
-    <svg id="treeSvg">
+    <svg id="treeSvg" width="5592" height="736">
       <defs>
         <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+          <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
         </filter>
       </defs>
-      <g id="treeRoot"></g>
+      <g id="treeRoot" transform="translate(-2006.5,-233) scale(1)"><g><path d="M2786,52 C2786,82 2786,82 2786,112" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2786,144 C2786,174 248,174 248,204" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2786,144 C2786,174 1893,174 1893,204" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2786,144 C2786,174 4384,174 4384,204" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2786,144 C2786,174 5512,174 5512,204" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M248,236 C248,266 60,266 60,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M248,236 C248,266 295,266 295,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M60,328 C60,358 60,358 60,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M295,328 C295,358 154,358 154,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M295,328 C295,358 248,358 248,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M295,328 C295,358 342,358 342,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M295,328 C295,358 436,358 436,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1893,236 C1893,266 1141,266 1141,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1893,236 C1893,266 1846,266 1846,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1893,236 C1893,266 1940,266 1940,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1893,236 C1893,266 2598,266 2598,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1893,236 C1893,266 3256,266 3256,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,328 C1141,358 1141,358 1141,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,420 C1141,450 671,450 671,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,420 C1141,450 1141,450 1141,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,420 C1141,450 1611,450 1611,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M671,512 C671,542 530,542 530,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M671,512 C671,542 624,542 624,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M671,512 C671,542 718,542 718,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M671,512 C671,542 812,542 812,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M530,604 C530,634 530,634 530,664" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M624,604 C624,634 624,634 624,664" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M812,604 C812,634 812,634 812,664" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,512 C1141,542 906,542 906,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,512 C1141,542 1000,542 1000,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,512 C1141,542 1094,542 1094,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,512 C1141,542 1188,542 1188,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,512 C1141,542 1282,542 1282,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1141,512 C1141,542 1376,542 1376,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1282,604 C1282,634 1282,634 1282,664" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1611,512 C1611,542 1470,542 1470,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1611,512 C1611,542 1564,542 1564,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1611,512 C1611,542 1658,542 1658,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M1611,512 C1611,542 1752,542 1752,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2598,328 C2598,358 2410,358 2410,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2598,328 C2598,358 3021,358 3021,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2034,450 2034,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2128,450 2128,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2222,450 2222,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2316,450 2316,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2410,450 2410,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2504,450 2504,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2598,450 2598,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2692,450 2692,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2410,420 C2410,450 2786,450 2786,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2222,512 C2222,542 2222,542 2222,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3021,420 C3021,450 2974,450 2974,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3021,420 C3021,450 3162,450 3162,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2974,512 C2974,542 2880,542 2880,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2974,512 C2974,542 2974,542 2974,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M2974,512 C2974,542 3068,542 3068,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3162,512 C3162,542 3162,542 3162,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4384,236 C4384,266 4008,266 4008,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4384,236 C4384,266 5089,266 5089,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4008,328 C4008,358 3585,358 3585,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4008,328 C4008,358 4055,358 4055,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4008,328 C4008,358 4478,358 4478,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3585,420 C3585,450 3350,450 3350,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3585,420 C3585,450 3444,450 3444,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3585,420 C3585,450 3679,450 3679,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3350,512 C3350,542 3350,542 3350,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3679,512 C3679,542 3538,542 3538,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3679,512 C3679,542 3632,542 3632,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3679,512 C3679,542 3726,542 3726,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M3679,512 C3679,542 3820,542 3820,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4055,420 C4055,450 3914,450 3914,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4055,420 C4055,450 4008,450 4008,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4055,420 C4055,450 4102,450 4102,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4055,420 C4055,450 4196,450 4196,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4478,420 C4478,450 4290,450 4290,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4478,420 C4478,450 4525,450 4525,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4525,512 C4525,542 4384,542 4384,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4525,512 C4525,542 4478,542 4478,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4525,512 C4525,542 4572,542 4572,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M4525,512 C4525,542 4666,542 4666,572" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,328 C5089,358 5089,358 5089,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 4760,450 4760,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 4854,450 4854,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 4948,450 4948,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 5042,450 5042,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 5136,450 5136,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 5230,450 5230,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 5324,450 5324,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5089,420 C5089,450 5418,450 5418,480" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5512,236 C5512,266 5512,266 5512,296" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path><path d="M5512,328 C5512,358 5512,358 5512,388" fill="none" stroke="var(--border)" stroke-width="1.2" opacity="0.6"></path></g><g><g data-id="taha" transform="translate(2746,20)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1e0f3a" stroke="#a855f7" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#a855f7" stroke="#1e0f3a" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#e9d5ff" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">طه</text></g><g data-id="mustafa" transform="translate(2746,112)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#042330" stroke="#06b6d4" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#06b6d4" stroke="#042330" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#cffafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">مصطفى</text></g><g data-id="muhammad1" transform="translate(208,204)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#2d1a00" stroke="#f59e0b" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f59e0b" stroke="#2d1a00" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">2</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#fef3c7" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="ubaid" transform="translate(20,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عبيد</text></g><g data-id="khabasa" transform="translate(20,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خبصة</text></g><g data-id="khalid1" transform="translate(255,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خالد</text></g><g data-id="mahmoud1" transform="translate(114,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمود</text></g><g data-id="muhammad2" transform="translate(208,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="hamad" transform="translate(302,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حمد</text></g><g data-id="hussain1" transform="translate(396,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسين</text></g><g data-id="hasan1" transform="translate(1853,204)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#2d1a00" stroke="#f59e0b" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f59e0b" stroke="#2d1a00" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">5</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#fef3c7" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسن</text></g><g data-id="abdallah1" transform="translate(1101,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عبد الله</text></g><g data-id="awwad1" transform="translate(1101,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">3</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عواد</text></g><g data-id="said1" transform="translate(631,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="6" y="16" dominant-baseline="central" fill="var(--gold2)" font-size="9">⭐</text><text x="44" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">سعيد</text></g><g data-id="haytham" transform="translate(490,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#8b5cf6" stroke="#1a0f35" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">هيثم</text></g><g data-id="said2" transform="translate(490,664)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#031e1c" stroke="#14b8a6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ccfbf1" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">سعيد</text></g><g data-id="muhammad3" transform="translate(584,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#8b5cf6" stroke="#1a0f35" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="umar" transform="translate(584,664)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#031e1c" stroke="#14b8a6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ccfbf1" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عمرو</text></g><g data-id="ahmad1" transform="translate(678,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أحمد</text></g><g data-id="amjad" transform="translate(772,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#8b5cf6" stroke="#1a0f35" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أمجد</text></g><g data-id="adam" transform="translate(772,664)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#031e1c" stroke="#14b8a6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ccfbf1" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">آدم</text></g><g data-id="abdallah2" transform="translate(1101,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">6</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عبد الله</text></g><g data-id="awwad2" transform="translate(866,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عواد</text></g><g data-id="fadi" transform="translate(960,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">فادي</text></g><g data-id="husam" transform="translate(1054,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسام</text></g><g data-id="imad" transform="translate(1148,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عماد</text></g><g data-id="muhammad4" transform="translate(1242,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#8b5cf6" stroke="#1a0f35" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="n_dnkfh8mt8" transform="translate(1242,664)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#031e1c" stroke="#14b8a6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ccfbf1" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">وليم</text></g><g data-id="basil1" transform="translate(1336,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">باسل</text></g><g data-id="karim1" transform="translate(1571,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">كريم</text></g><g data-id="maher" transform="translate(1430,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">ماهر</text></g><g data-id="samer" transform="translate(1524,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">سامر</text></g><g data-id="ammar" transform="translate(1618,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عمار</text></g><g data-id="zaher" transform="translate(1712,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">زاهر</text></g><g data-id="ahmad2" transform="translate(1806,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أحمد</text></g><g data-id="mahmoud2" transform="translate(1900,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمود</text></g><g data-id="muhammad5" transform="translate(2558,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">2</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="musa" transform="translate(2370,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">9</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">موسى</text></g><g data-id="fayiz" transform="translate(1994,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">فايز</text></g><g data-id="khalid2" transform="translate(2088,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خالد</text></g><g data-id="mahmoud3" transform="translate(2182,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمود</text></g><g data-id="n_1kds9p6on" transform="translate(2182,572)" style="cursor: pointer;"><rect x="-3" y="-3" width="86" height="38" rx="10" fill="#8b5cf6" opacity="0.25" filter="url(#glow)"></rect><rect x="0" y="0" width="80" height="32" rx="7" fill="#8b5cf6" stroke="#ede9fe" stroke-width="2" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-family="Tajawal,sans-serif" font-weight="700">لوي</text></g><g data-id="ali1" transform="translate(2276,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">علي</text></g><g data-id="muhammad6" transform="translate(2370,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="ismail" transform="translate(2464,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">إسماعيل</text></g><g data-id="ibrahim" transform="translate(2558,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">إبراهيم</text></g><g data-id="khalil1" transform="translate(2652,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خليل</text></g><g data-id="yusuf" transform="translate(2746,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">يوسف</text></g><g data-id="hasan2" transform="translate(2981,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">2</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسن</text></g><g data-id="muhammad7" transform="translate(2934,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">3</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="wasim" transform="translate(2840,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">وسيم</text></g><g data-id="iyad" transform="translate(2934,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">إياد</text></g><g data-id="basil2" transform="translate(3028,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">باسل</text></g><g data-id="hasan3" transform="translate(3122,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسن</text></g><g data-id="shawqi" transform="translate(3122,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">شوقي</text></g><g data-id="karim2" transform="translate(3216,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">كريم</text></g><g data-id="khalil2" transform="translate(4344,204)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#2d1a00" stroke="#f59e0b" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f59e0b" stroke="#2d1a00" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">2</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#fef3c7" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خليل</text></g><g data-id="salih1" transform="translate(3968,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">3</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">صالح</text></g><g data-id="ahmad3" transform="translate(3545,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">3</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أحمد</text></g><g data-id="said3" transform="translate(3310,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">سعيد</text></g><g data-id="adnan1" transform="translate(3310,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عدنان</text></g><g data-id="muhammad8" transform="translate(3404,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="khalil3" transform="translate(3639,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خليل</text></g><g data-id="ahmad4" transform="translate(3498,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أحمد</text></g><g data-id="muhammad9" transform="translate(3592,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="zayn" transform="translate(3686,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">زين</text></g><g data-id="abd" transform="translate(3780,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عبد</text></g><g data-id="hussain2" transform="translate(4015,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسين</text></g><g data-id="atif" transform="translate(3874,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عاطف</text></g><g data-id="atiyya" transform="translate(3968,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عطية</text></g><g data-id="hatim" transform="translate(4062,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حاتم</text></g><g data-id="ahmad5" transform="translate(4156,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أحمد</text></g><g data-id="hasan4" transform="translate(4438,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">2</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسن</text></g><g data-id="ahmad6" transform="translate(4250,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">أحمد</text></g><g data-id="salih2" transform="translate(4485,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f43f5e" stroke="#300a14" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">4</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">صالح</text></g><g data-id="adil" transform="translate(4344,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عادل</text></g><g data-id="adnan2" transform="translate(4438,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عدنان</text></g><g data-id="hasan5" transform="translate(4532,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسن</text></g><g data-id="khalid3" transform="translate(4626,572)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#1a0f35" stroke="#8b5cf6" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ede9fe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خالد</text></g><g data-id="ali2" transform="translate(5049,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">علي</text></g><g data-id="muhammad10" transform="translate(5049,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#10b981" stroke="#032817" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">8</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">محمد</text></g><g data-id="ali3" transform="translate(4720,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">علي</text></g><g data-id="sultan" transform="translate(4814,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">سلطان</text></g><g data-id="hussain3" transform="translate(4908,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسين</text></g><g data-id="hasan6" transform="translate(5002,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">حسن</text></g><g data-id="abdallah3" transform="translate(5096,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عبد الله</text></g><g data-id="isa" transform="translate(5190,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عيسى</text></g><g data-id="khalil4" transform="translate(5284,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">خليل</text></g><g data-id="ghazi" transform="translate(5378,480)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#300a14" stroke="#f43f5e" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#ffe4e6" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">غازي</text></g><g data-id="ali4" transform="translate(5472,204)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#2d1a00" stroke="#f59e0b" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#f59e0b" stroke="#2d1a00" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#fef3c7" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">علي</text></g><g data-id="isa2" transform="translate(5472,296)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#0c1e40" stroke="#3b82f6" stroke-width="1" opacity="1"></rect><circle cx="74" cy="3" r="7" fill="#3b82f6" stroke="#0c1e40" stroke-width="1.5"></circle><text x="74" y="3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="8" font-family="Tajawal,sans-serif" font-weight="700">1</text><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#dbeafe" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">عيسى</text></g><g data-id="raja" transform="translate(5472,388)" style="cursor: pointer;"><rect x="0" y="0" width="80" height="32" rx="7" fill="#032817" stroke="#10b981" stroke-width="1" opacity="1"></rect><text x="40" y="16" text-anchor="middle" dominant-baseline="central" fill="#d1fae5" font-size="11" font-family="Tajawal,sans-serif" font-weight="500">رجا</text></g></g></g>
     </svg>
-    <button class="fab hidden" id="fabAdd" onclick="openAddModal()" title="إضافة شخص">+</button>
+    <button class="fab" id="fabAdd" onclick="openAddModal()" title="إضافة شخص">+</button>
     <div class="viewer-notice" id="viewerNotice" style="display:none">👁 وضع المشاهدة فقط</div>
     <div id="treeControls">
       <button class="ctrl-btn" onclick="zoom(-0.2)">−</button>
@@ -403,16 +401,16 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
       <button class="ctrl-btn" onclick="fitTree()">⊞</button>
       <button class="ctrl-btn" onclick="toggleMinimap()">🗺</button>
     </div>
-    <div id="minimap">
+    <div id="minimap" style="display: none;">
       <svg id="minimapSvg">
-        <g id="minimapContent"></g>
-        <rect id="minimapViewport" x="0" y="0" width="40" height="25" rx="2" fill="rgba(201,168,76,.15)" stroke="var(--gold)" stroke-width="1"/>
+        <g id="minimapContent"><rect x="74.71244635193133" y="4.515021459227468" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1e0f3a" stroke="#a855f7" stroke-width="0.5" opacity="0.8"></rect><rect x="74.71244635193133" y="6.884120171673819" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#042330" stroke="#06b6d4" stroke-width="0.5" opacity="0.8"></rect><rect x="9.356223175965665" y="9.253218884120171" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#2d1a00" stroke="#f59e0b" stroke-width="0.5" opacity="0.8"></rect><rect x="4.515021459227468" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="4.515021459227468" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="10.566523605150214" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="6.935622317596566" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="9.356223175965665" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="11.776824034334764" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="14.197424892703863" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="51.716738197424895" y="9.253218884120171" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#2d1a00" stroke="#f59e0b" stroke-width="0.5" opacity="0.8"></rect><rect x="32.3519313304721" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="32.3519313304721" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="20.248927038626608" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="16.618025751072963" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="16.618025751072963" y="21.098712446351932" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#031e1c" stroke="#14b8a6" stroke-width="0.5" opacity="0.8"></rect><rect x="19.038626609442062" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="19.038626609442062" y="21.098712446351932" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#031e1c" stroke="#14b8a6" stroke-width="0.5" opacity="0.8"></rect><rect x="21.459227467811157" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="23.879828326180256" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="23.879828326180256" y="21.098712446351932" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#031e1c" stroke="#14b8a6" stroke-width="0.5" opacity="0.8"></rect><rect x="32.3519313304721" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="26.300429184549355" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="28.721030042918454" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="31.141630901287552" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="33.562231759656655" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="35.98283261802575" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="35.98283261802575" y="21.098712446351932" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#031e1c" stroke="#14b8a6" stroke-width="0.5" opacity="0.8"></rect><rect x="38.40343347639485" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="44.4549356223176" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="40.82403433476395" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="43.24463519313305" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="45.66523605150215" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="48.08583690987125" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="50.506437768240346" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="52.927038626609445" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="69.87124463519314" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="65.03004291845494" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="55.347639484978544" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="57.76824034334764" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="60.18884120171674" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="62.60944206008584" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="65.03004291845494" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="67.45064377682404" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="69.87124463519314" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="72.29184549356223" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="74.71244635193133" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="80.76394849785407" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="79.55364806866953" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="77.13304721030043" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="79.55364806866953" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="81.97424892703863" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="84.39484978540773" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="84.39484978540773" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="86.81545064377683" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="115.86266094420601" y="9.253218884120171" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#2d1a00" stroke="#f59e0b" stroke-width="0.5" opacity="0.8"></rect><rect x="106.18025751072962" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="95.28755364806867" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="89.23605150214593" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="89.23605150214593" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="91.65665236051503" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="97.70815450643777" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="94.07725321888412" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="96.49785407725322" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="98.91845493562232" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="101.33905579399142" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="107.39055793991416" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="103.75965665236052" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="106.18025751072962" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="108.60085836909872" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="111.02145922746782" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="118.28326180257511" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="113.44206008583691" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="119.49356223175965" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="115.86266094420601" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="118.28326180257511" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="120.70386266094421" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="123.12446351931331" y="18.72961373390558" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#1a0f35" stroke="#8b5cf6" stroke-width="0.5" opacity="0.8"></rect><rect x="134.01716738197425" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="134.01716738197425" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect><rect x="125.54506437768241" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="127.9656652360515" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="130.3862660944206" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="132.8068669527897" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="135.2274678111588" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="137.6480686695279" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="140.068669527897" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="142.4892703862661" y="16.36051502145923" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#300a14" stroke="#f43f5e" stroke-width="0.5" opacity="0.8"></rect><rect x="144.90987124463518" y="9.253218884120171" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#2d1a00" stroke="#f59e0b" stroke-width="0.5" opacity="0.8"></rect><rect x="144.90987124463518" y="11.622317596566525" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#0c1e40" stroke="#3b82f6" stroke-width="0.5" opacity="0.8"></rect><rect x="144.90987124463518" y="13.991416309012875" width="2.060085836909871" height="0.8240343347639485" rx="2" fill="#032817" stroke="#10b981" stroke-width="0.5" opacity="0.8"></rect></g>
+        <rect id="minimapViewport" x="12.54126532554801" y="6.040041158157456" width="52.664922786230804" height="27.74758840159684" rx="2" fill="rgba(201,168,76,.15)" stroke="var(--gold)" stroke-width="1"></rect>
       </svg>
     </div>
     <div class="path-indicator" id="pathIndicator">
       <span class="path-close" onclick="clearPath()">✕</span>
     </div>
-    <div id="tooltip"></div>
+    <div id="tooltip" class="" style="left: 201px; top: 285px;"><b style="color:#f43f5e">محمود</b><br><span style="color:var(--text3)">الجيل السادس</span><br>👶 1 ابن</div>
   </div>
 
   <!-- SIDEBAR -->
@@ -424,20 +422,38 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
     </div>
     <div class="tab-panel active" id="tab-details">
       <div class="sidebar-body" id="sidebarDetails">
-        <div class="empty-state">
-          <div class="icon">👆</div>
-          <p>انقر على أي شخص في الشجرة لعرض تفاصيله</p>
+    <div class="person-card">
+      <div class="person-card-header">
+        <div class="person-avatar">👤</div>
+        <div class="person-info-main">
+          <h3>لوي </h3>
+          
+          <span class="gen-tag" style="background:#1a0f35;color:#8b5cf6;border:1px solid #8b5cf6">الجيل السابع</span>
         </div>
       </div>
+      <div class="info-row"><span class="label">الأب</span><span class="val"><span class="chip" onclick="selectAndScrollTo('mahmoud3')">محمود</span></span></div>
+      
+      
+      
+      <div class="info-row"><span class="label">الأبناء</span><span class="val" style="font-weight:700;color:var(--gold2)">0</span></div>
+      <div class="info-row"><span class="label">الأحفاد</span><span class="val" style="font-weight:700;color:var(--gold2)">0</span></div>
+      
+      <div style="margin-top:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:6px">الأبناء المباشرون</div><div class="chips"><span style="color:var(--text3);font-size:12px">لا يوجد أبناء مسجلون</span></div></div>
+      
+    <div class="action-bar">
+      <button class="btn btn-primary btn-sm" onclick="openAddChildModal('n_1kds9p6on')">➕ ابن</button>
+      <button class="btn btn-ghost btn-sm" onclick="openEditModal('n_1kds9p6on')">✏️ تعديل</button>
+      <button class="btn btn-ghost btn-sm" onclick="ctxTargetId='n_1kds9p6on';ctxShowPath()">🗺 مسار</button>
+      <button class="btn btn-danger btn-sm" onclick="openDeleteModal('n_1kds9p6on')">🗑</button>
+    </div>
+    </div></div>
     </div>
     <div class="tab-panel" id="tab-stats">
-      <div class="sidebar-body" id="sidebarStats"></div>
+      <div class="sidebar-body" id="sidebarStats"><div class="stat-grid"><div class="stat-box"><div class="stat-num">92</div><div class="stat-label">إجمالي الأشخاص</div></div><div class="stat-box"><div class="stat-num">8</div><div class="stat-label">عدد الأجيال</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">لديهم موقع</div></div><div class="stat-box"><div class="stat-num">0</div><div class="stat-label">متوفون</div></div></div><div style="font-size:11px;color:var(--text3);margin-bottom:8px;font-weight:600">توزيع الأجيال</div><div class="gen-list"><div class="gen-row"><div class="gen-dot" style="background:#a855f7"></div><span class="gen-row-label">الجيل الأول</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:1%;background:#a855f7;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">1</span></div><div class="gen-row"><div class="gen-dot" style="background:#06b6d4"></div><span class="gen-row-label">الجيل الثاني</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:1%;background:#06b6d4;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">1</span></div><div class="gen-row"><div class="gen-dot" style="background:#f59e0b"></div><span class="gen-row-label">الجيل الثالث</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:4%;background:#f59e0b;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">4</span></div><div class="gen-row"><div class="gen-dot" style="background:#3b82f6"></div><span class="gen-row-label">الجيل الرابع</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:11%;background:#3b82f6;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">10</span></div><div class="gen-row"><div class="gen-dot" style="background:#10b981"></div><span class="gen-row-label">الجيل الخامس</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:14%;background:#10b981;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">13</span></div><div class="gen-row"><div class="gen-dot" style="background:#f43f5e"></div><span class="gen-row-label">الجيل السادس</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:34%;background:#f43f5e;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">31</span></div><div class="gen-row"><div class="gen-dot" style="background:#8b5cf6"></div><span class="gen-row-label">الجيل السابع</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:30%;background:#8b5cf6;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">28</span></div><div class="gen-row"><div class="gen-dot" style="background:#14b8a6"></div><span class="gen-row-label">الجيل الثامن</span><div style="flex:1;height:4px;background:var(--surface3);border-radius:2px;margin:0 8px"><div style="height:100%;width:4%;background:#14b8a6;border-radius:2px;transition:width .5s"></div></div><span class="gen-count">4</span></div></div></div>
     </div>
     <div class="tab-panel" id="tab-search">
       <div style="padding:12px;border-bottom:1px solid var(--border)">
-        <input type="text" id="advSearch" placeholder="ابحث بالاسم أو الملاحظات..."
-          style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:8px 12px;font-family:'Tajawal',sans-serif;font-size:13px;direction:rtl"
-          oninput="advancedSearch(this.value)">
+        <input type="text" id="advSearch" placeholder="ابحث بالاسم أو الملاحظات..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:8px 12px;font-family:'Tajawal',sans-serif;font-size:13px;direction:rtl" oninput="advancedSearch(this.value)">
       </div>
       <div class="sidebar-body" id="sidebarSearch">
         <div class="empty-state"><div class="icon">🔍</div><p>اكتب للبحث</p></div>
@@ -447,9 +463,9 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
 </div>
 
 <!-- GitHub Status -->
-<div id="githubStatus">
+<div id="githubStatus" class="show saving">
   <div class="gs-dot"></div>
-  <span id="githubStatusText">جاري الحفظ...</span>
+  <span id="githubStatusText">جاري الحفظ على GitHub...</span>
 </div>
 
 <!-- Context Menu -->
@@ -466,7 +482,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
 <div class="overlay" id="editOverlay">
   <div class="modal">
     <div class="modal-header">
-      <h2 id="editTitle">إضافة شخص</h2>
+      <h2 id="editTitle">➕ إضافة ابن لـ "محمود"</h2>
       <button class="modal-close" onclick="closeEdit()">✕</button>
     </div>
     <div class="form-group">
@@ -477,7 +493,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
       <label>اللقب / الكنية</label>
       <input type="text" id="fNickname" placeholder="مثال: أبو محمد...">
     </div>
-    <div class="form-group" id="parentGroup">
+    <div class="form-group" id="parentGroup" style="display: none;">
       <label>الأب</label>
       <select id="fParent"><option value="">— جذر الشجرة —</option></select>
     </div>
@@ -534,7 +550,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
       <div class="form-group">
         <label>GitHub Personal Access Token</label>
         <div class="copy-row">
-          <input type="password" id="sToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+          <input type="text" id="sToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
           <button class="btn btn-ghost btn-sm" onclick="toggleTokenVis()">👁</button>
         </div>
         <div class="settings-hint">
@@ -568,7 +584,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
     <div class="settings-section">
       <h3>🧪 اختبار الاتصال</h3>
       <button class="btn btn-primary btn-sm" onclick="testGithubConnection()">🔍 اختبار الاتصال</button>
-      <div id="testResult" style="margin-top:10px;font-size:12px;color:var(--text3)"></div>
+      <div id="testResult" style="margin-top: 10px; font-size: 12px; color: var(--success);">✅ الاتصال ناجح! الملف موجود (94 KB)</div>
     </div>
 
     <div class="modal-footer">
@@ -579,7 +595,7 @@ html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);colo
 </div>
 
 <!-- TOAST -->
-<div id="toast"></div>
+<div id="toast" class="toast success">✅ تم حفظ ملف JSON</div>
 
 <script>
 // ══════════════════════════════════════════════════════════════
@@ -853,127 +869,1509 @@ function scheduleAutoSave() {
 //  FAMILY DATA
 // ══════════════════════════════════════════════════════════════
 let familyData = {
-  id:'taha',name:'طه',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-    {id:'mustafa',name:'مصطفى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-      {id:'muhammad1',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-        {id:'ubaid',name:'عبيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'khabasa',name:'خبصة',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-        ]},
-        {id:'khalid1',name:'خالد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'mahmoud1',name:'محمود',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-          {id:'muhammad2',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-          {id:'hamad',name:'حمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-          {id:'hussain1',name:'حسين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-        ]}
-      ]},
-      {id:'hasan1',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-        {id:'abdallah1',name:'عبد الله',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'awwad1',name:'عواد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'said1',name:'⭐ سعيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'haytham',name:'هيثم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-                {id:'said2',name:'سعيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-              ]},
-              {id:'muhammad3',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-                {id:'umar',name:'عمرو',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-              ]},
-              {id:'ahmad1',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'amjad',name:'أمجد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-                {id:'adam',name:'آدم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-              ]}
-            ]},
-            {id:'abdallah2',name:'عبد الله',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'awwad2',name:'عواد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'fadi',name:'فادي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'husam',name:'حسام',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'imad',name:'عماد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'muhammad4',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'basil1',name:'باسل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]},
-            {id:'karim1',name:'كريم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'maher',name:'ماهر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'samer',name:'سامر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'ammar',name:'عمار',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'zaher',name:'زاهر',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]}
-          ]}
-        ]},
-        {id:'ahmad2',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-        {id:'mahmoud2',name:'محمود',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-        {id:'muhammad5',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'musa',name:'موسى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'fayiz',name:'فايز',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'khalid2',name:'خالد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'mahmoud3',name:'محمود',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'ali1',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'muhammad6',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'ismail',name:'إسماعيل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'ibrahim',name:'إبراهيم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'khalil1',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'yusuf',name:'يوسف',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-          ]},
-          {id:'hasan2',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'muhammad7',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'wasim',name:'وسيم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'iyad',name:'إياد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'basil2',name:'باسل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]},
-            {id:'hasan3',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'shawqi',name:'شوقي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]}
-          ]}
-        ]},
-        {id:'karim2',name:'كريم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-      ]},
-      {id:'khalil2',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-        {id:'salih1',name:'صالح',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'ahmad3',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'said3',name:'سعيد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'adnan1',name:'عدنان',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]},
-            {id:'muhammad8',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'khalil3',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'ahmad4',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'muhammad9',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'zayn',name:'زين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'abd',name:'عبد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]}
-          ]},
-          {id:'hussain2',name:'حسين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'atif',name:'عاطف',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'atiyya',name:'عطية',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'hatim',name:'حاتم',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'ahmad5',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-          ]},
-          {id:'hasan4',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'ahmad6',name:'أحمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'salih2',name:'صالح',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-              {id:'adil',name:'عادل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'adnan2',name:'عدنان',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'hasan5',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-              {id:'khalid3',name:'خالد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-            ]}
-          ]}
-        ]},
-        {id:'ali2',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'muhammad10',name:'محمد',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-            {id:'ali3',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'sultan',name:'سلطان',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'hussain3',name:'حسين',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'hasan6',name:'حسن',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'abdallah3',name:'عبد الله',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'isa',name:'عيسى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'khalil4',name:'خليل',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]},
-            {id:'ghazi',name:'غازي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-          ]}
-        ]}
-      ]},
-      {id:'ali4',name:'علي',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-        {id:'isa2',name:'عيسى',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[
-          {id:'raja',name:'رجا',nickname:'',birthYear:'',deathYear:'',location:'',notes:'',children:[]}
-        ]}
-      ]}
-    ]}
-  ]
+  "id": "taha",
+  "name": "طه",
+  "nickname": "",
+  "birthYear": "",
+  "deathYear": "",
+  "location": "",
+  "notes": "",
+  "children": [
+    {
+      "id": "mustafa",
+      "name": "مصطفى",
+      "nickname": "",
+      "birthYear": "",
+      "deathYear": "",
+      "location": "",
+      "notes": "",
+      "children": [
+        {
+          "id": "muhammad1",
+          "name": "محمد",
+          "nickname": "",
+          "birthYear": "",
+          "deathYear": "",
+          "location": "",
+          "notes": "",
+          "children": [
+            {
+              "id": "ubaid",
+              "name": "عبيد",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "khabasa",
+                  "name": "خبصة",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [],
+                  "_w": 80,
+                  "_x": 20,
+                  "_y": 388,
+                  "_pw": 96,
+                  "_px": 30,
+                  "_py": 484
+                }
+              ],
+              "_w": 80,
+              "_x": 20,
+              "_y": 296,
+              "_pw": 96,
+              "_px": 30,
+              "_py": 378
+            },
+            {
+              "id": "khalid1",
+              "name": "خالد",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "mahmoud1",
+                  "name": "محمود",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [],
+                  "_w": 80,
+                  "_x": 114,
+                  "_y": 388,
+                  "_pw": 96,
+                  "_px": 142,
+                  "_py": 484
+                },
+                {
+                  "id": "muhammad2",
+                  "name": "محمد",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [],
+                  "_w": 80,
+                  "_x": 208,
+                  "_y": 388,
+                  "_pw": 96,
+                  "_px": 254,
+                  "_py": 484
+                },
+                {
+                  "id": "hamad",
+                  "name": "حمد",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [],
+                  "_w": 80,
+                  "_x": 302,
+                  "_y": 388,
+                  "_pw": 96,
+                  "_px": 366,
+                  "_py": 484
+                },
+                {
+                  "id": "hussain1",
+                  "name": "حسين",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [],
+                  "_w": 80,
+                  "_x": 396,
+                  "_y": 388,
+                  "_pw": 96,
+                  "_px": 478,
+                  "_py": 484
+                }
+              ],
+              "_w": 362,
+              "_x": 255,
+              "_y": 296,
+              "_pw": 432,
+              "_px": 310,
+              "_py": 378
+            }
+          ],
+          "_w": 456,
+          "_x": 208,
+          "_y": 204,
+          "_pw": 544,
+          "_px": 254,
+          "_py": 272
+        },
+        {
+          "id": "hasan1",
+          "name": "حسن",
+          "nickname": "",
+          "birthYear": "",
+          "deathYear": "",
+          "location": "",
+          "notes": "",
+          "children": [
+            {
+              "id": "abdallah1",
+              "name": "عبد الله",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "awwad1",
+                  "name": "عواد",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "said1",
+                      "name": "⭐ سعيد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "haytham",
+                          "name": "هيثم",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [
+                            {
+                              "id": "said2",
+                              "name": "سعيد",
+                              "nickname": "",
+                              "birthYear": "",
+                              "deathYear": "",
+                              "location": "",
+                              "notes": "",
+                              "children": [],
+                              "_w": 80,
+                              "_x": 490,
+                              "_y": 664,
+                              "_pw": 96,
+                              "_px": 590,
+                              "_py": 802
+                            }
+                          ],
+                          "_w": 80,
+                          "_x": 490,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 590,
+                          "_py": 696
+                        },
+                        {
+                          "id": "muhammad3",
+                          "name": "محمد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [
+                            {
+                              "id": "umar",
+                              "name": "عمرو",
+                              "nickname": "",
+                              "birthYear": "",
+                              "deathYear": "",
+                              "location": "",
+                              "notes": "",
+                              "children": [],
+                              "_w": 80,
+                              "_x": 584,
+                              "_y": 664,
+                              "_pw": 96,
+                              "_px": 702,
+                              "_py": 802
+                            }
+                          ],
+                          "_w": 80,
+                          "_x": 584,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 702,
+                          "_py": 696
+                        },
+                        {
+                          "id": "ahmad1",
+                          "name": "أحمد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 678,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 814,
+                          "_py": 696
+                        },
+                        {
+                          "id": "amjad",
+                          "name": "أمجد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [
+                            {
+                              "id": "adam",
+                              "name": "آدم",
+                              "nickname": "",
+                              "birthYear": "",
+                              "deathYear": "",
+                              "location": "",
+                              "notes": "",
+                              "children": [],
+                              "_w": 80,
+                              "_x": 772,
+                              "_y": 664,
+                              "_pw": 96,
+                              "_px": 926,
+                              "_py": 802
+                            }
+                          ],
+                          "_w": 80,
+                          "_x": 772,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 926,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 362,
+                      "_x": 631,
+                      "_y": 480,
+                      "_pw": 432,
+                      "_px": 758,
+                      "_py": 590
+                    },
+                    {
+                      "id": "abdallah2",
+                      "name": "عبد الله",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "awwad2",
+                          "name": "عواد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 866,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1038,
+                          "_py": 696
+                        },
+                        {
+                          "id": "fadi",
+                          "name": "فادي",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 960,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1150,
+                          "_py": 696
+                        },
+                        {
+                          "id": "husam",
+                          "name": "حسام",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1054,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1262,
+                          "_py": 696
+                        },
+                        {
+                          "id": "imad",
+                          "name": "عماد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1148,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1374,
+                          "_py": 696
+                        },
+                        {
+                          "id": "muhammad4",
+                          "name": "محمد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [
+                            {
+                              "id": "n_dnkfh8mt8",
+                              "name": "وليم",
+                              "nickname": "",
+                              "birthYear": "",
+                              "deathYear": "",
+                              "location": "",
+                              "notes": "",
+                              "children": [],
+                              "_w": 80,
+                              "_x": 1242,
+                              "_y": 664,
+                              "_pw": 96,
+                              "_px": 1486,
+                              "_py": 802
+                            }
+                          ],
+                          "_w": 80,
+                          "_x": 1242,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1486,
+                          "_py": 696
+                        },
+                        {
+                          "id": "basil1",
+                          "name": "باسل",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1336,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1598,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 550,
+                      "_x": 1101,
+                      "_y": 480,
+                      "_pw": 656,
+                      "_px": 1318,
+                      "_py": 590
+                    },
+                    {
+                      "id": "karim1",
+                      "name": "كريم",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "maher",
+                          "name": "ماهر",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1430,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1710,
+                          "_py": 696
+                        },
+                        {
+                          "id": "samer",
+                          "name": "سامر",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1524,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1822,
+                          "_py": 696
+                        },
+                        {
+                          "id": "ammar",
+                          "name": "عمار",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1618,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 1934,
+                          "_py": 696
+                        },
+                        {
+                          "id": "zaher",
+                          "name": "زاهر",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 1712,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 2046,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 362,
+                      "_x": 1571,
+                      "_y": 480,
+                      "_pw": 432,
+                      "_px": 1878,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 1302,
+                  "_x": 1101,
+                  "_y": 388,
+                  "_pw": 1552,
+                  "_px": 1318,
+                  "_py": 484
+                }
+              ],
+              "_w": 1302,
+              "_x": 1101,
+              "_y": 296,
+              "_pw": 1552,
+              "_px": 1318,
+              "_py": 378
+            },
+            {
+              "id": "ahmad2",
+              "name": "أحمد",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [],
+              "_w": 80,
+              "_x": 1806,
+              "_y": 296,
+              "_pw": 96,
+              "_px": 2158,
+              "_py": 378
+            },
+            {
+              "id": "mahmoud2",
+              "name": "محمود",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [],
+              "_w": 80,
+              "_x": 1900,
+              "_y": 296,
+              "_pw": 96,
+              "_px": 2270,
+              "_py": 378
+            },
+            {
+              "id": "muhammad5",
+              "name": "محمد",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "musa",
+                  "name": "موسى",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "fayiz",
+                      "name": "فايز",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 1994,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 2382,
+                      "_py": 590
+                    },
+                    {
+                      "id": "khalid2",
+                      "name": "خالد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2088,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 2494,
+                      "_py": 590
+                    },
+                    {
+                      "id": "mahmoud3",
+                      "name": "محمود",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "n_1kds9p6on",
+                          "name": "لوي",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 2182,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 2606,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 80,
+                      "_x": 2182,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 2606,
+                      "_py": 590
+                    },
+                    {
+                      "id": "ali1",
+                      "name": "علي",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2276,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 2718,
+                      "_py": 590
+                    },
+                    {
+                      "id": "muhammad6",
+                      "name": "محمد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2370,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 2830,
+                      "_py": 590
+                    },
+                    {
+                      "id": "ismail",
+                      "name": "إسماعيل",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2464,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 2942,
+                      "_py": 590
+                    },
+                    {
+                      "id": "ibrahim",
+                      "name": "إبراهيم",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2558,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 3054,
+                      "_py": 590
+                    },
+                    {
+                      "id": "khalil1",
+                      "name": "خليل",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2652,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 3166,
+                      "_py": 590
+                    },
+                    {
+                      "id": "yusuf",
+                      "name": "يوسف",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 2746,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 3278,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 832,
+                  "_x": 2370,
+                  "_y": 388,
+                  "_pw": 992,
+                  "_px": 2830,
+                  "_py": 484
+                },
+                {
+                  "id": "hasan2",
+                  "name": "حسن",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "muhammad7",
+                      "name": "محمد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "wasim",
+                          "name": "وسيم",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 2840,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 3390,
+                          "_py": 696
+                        },
+                        {
+                          "id": "iyad",
+                          "name": "إياد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 2934,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 3502,
+                          "_py": 696
+                        },
+                        {
+                          "id": "basil2",
+                          "name": "باسل",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3028,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 3614,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 268,
+                      "_x": 2934,
+                      "_y": 480,
+                      "_pw": 320,
+                      "_px": 3502,
+                      "_py": 590
+                    },
+                    {
+                      "id": "hasan3",
+                      "name": "حسن",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "shawqi",
+                          "name": "شوقي",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3122,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 3726,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 80,
+                      "_x": 3122,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 3726,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 362,
+                  "_x": 2981,
+                  "_y": 388,
+                  "_pw": 432,
+                  "_px": 3558,
+                  "_py": 484
+                }
+              ],
+              "_w": 1208,
+              "_x": 2558,
+              "_y": 296,
+              "_pw": 1440,
+              "_px": 3054,
+              "_py": 378
+            },
+            {
+              "id": "karim2",
+              "name": "كريم",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [],
+              "_w": 80,
+              "_x": 3216,
+              "_y": 296,
+              "_pw": 96,
+              "_px": 3838,
+              "_py": 378
+            }
+          ],
+          "_w": 2806,
+          "_x": 1853,
+          "_y": 204,
+          "_pw": 3344,
+          "_px": 2214,
+          "_py": 272
+        },
+        {
+          "id": "khalil2",
+          "name": "خليل",
+          "nickname": "",
+          "birthYear": "",
+          "deathYear": "",
+          "location": "",
+          "notes": "",
+          "children": [
+            {
+              "id": "salih1",
+              "name": "صالح",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "ahmad3",
+                  "name": "أحمد",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "said3",
+                      "name": "سعيد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "adnan1",
+                          "name": "عدنان",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3310,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 3950,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 80,
+                      "_x": 3310,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 3950,
+                      "_py": 590
+                    },
+                    {
+                      "id": "muhammad8",
+                      "name": "محمد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 3404,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 4062,
+                      "_py": 590
+                    },
+                    {
+                      "id": "khalil3",
+                      "name": "خليل",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "ahmad4",
+                          "name": "أحمد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3498,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 4174,
+                          "_py": 696
+                        },
+                        {
+                          "id": "muhammad9",
+                          "name": "محمد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3592,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 4286,
+                          "_py": 696
+                        },
+                        {
+                          "id": "zayn",
+                          "name": "زين",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3686,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 4398,
+                          "_py": 696
+                        },
+                        {
+                          "id": "abd",
+                          "name": "عبد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 3780,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 4510,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 362,
+                      "_x": 3639,
+                      "_y": 480,
+                      "_pw": 432,
+                      "_px": 4342,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 550,
+                  "_x": 3545,
+                  "_y": 388,
+                  "_pw": 656,
+                  "_px": 4230,
+                  "_py": 484
+                },
+                {
+                  "id": "hussain2",
+                  "name": "حسين",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "atif",
+                      "name": "عاطف",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 3874,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 4622,
+                      "_py": 590
+                    },
+                    {
+                      "id": "atiyya",
+                      "name": "عطية",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 3968,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 4734,
+                      "_py": 590
+                    },
+                    {
+                      "id": "hatim",
+                      "name": "حاتم",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 4062,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 4846,
+                      "_py": 590
+                    },
+                    {
+                      "id": "ahmad5",
+                      "name": "أحمد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 4156,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 4958,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 362,
+                  "_x": 4015,
+                  "_y": 388,
+                  "_pw": 432,
+                  "_px": 4790,
+                  "_py": 484
+                },
+                {
+                  "id": "hasan4",
+                  "name": "حسن",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "ahmad6",
+                      "name": "أحمد",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 4250,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 5070,
+                      "_py": 590
+                    },
+                    {
+                      "id": "salih2",
+                      "name": "صالح",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [
+                        {
+                          "id": "adil",
+                          "name": "عادل",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 4344,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 5182,
+                          "_py": 696
+                        },
+                        {
+                          "id": "adnan2",
+                          "name": "عدنان",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 4438,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 5294,
+                          "_py": 696
+                        },
+                        {
+                          "id": "hasan5",
+                          "name": "حسن",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 4532,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 5406,
+                          "_py": 696
+                        },
+                        {
+                          "id": "khalid3",
+                          "name": "خالد",
+                          "nickname": "",
+                          "birthYear": "",
+                          "deathYear": "",
+                          "location": "",
+                          "notes": "",
+                          "children": [],
+                          "_w": 80,
+                          "_x": 4626,
+                          "_y": 572,
+                          "_pw": 96,
+                          "_px": 5518,
+                          "_py": 696
+                        }
+                      ],
+                      "_w": 362,
+                      "_x": 4485,
+                      "_y": 480,
+                      "_pw": 432,
+                      "_px": 5350,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 456,
+                  "_x": 4438,
+                  "_y": 388,
+                  "_pw": 544,
+                  "_px": 5294,
+                  "_py": 484
+                }
+              ],
+              "_w": 1396,
+              "_x": 3968,
+              "_y": 296,
+              "_pw": 1664,
+              "_px": 4734,
+              "_py": 378
+            },
+            {
+              "id": "ali2",
+              "name": "علي",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "muhammad10",
+                  "name": "محمد",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [
+                    {
+                      "id": "ali3",
+                      "name": "علي",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 4720,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 5630,
+                      "_py": 590
+                    },
+                    {
+                      "id": "sultan",
+                      "name": "سلطان",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 4814,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 5742,
+                      "_py": 590
+                    },
+                    {
+                      "id": "hussain3",
+                      "name": "حسين",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 4908,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 5854,
+                      "_py": 590
+                    },
+                    {
+                      "id": "hasan6",
+                      "name": "حسن",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 5002,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 5966,
+                      "_py": 590
+                    },
+                    {
+                      "id": "abdallah3",
+                      "name": "عبد الله",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 5096,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 6078,
+                      "_py": 590
+                    },
+                    {
+                      "id": "isa",
+                      "name": "عيسى",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 5190,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 6190,
+                      "_py": 590
+                    },
+                    {
+                      "id": "khalil4",
+                      "name": "خليل",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 5284,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 6302,
+                      "_py": 590
+                    },
+                    {
+                      "id": "ghazi",
+                      "name": "غازي",
+                      "nickname": "",
+                      "birthYear": "",
+                      "deathYear": "",
+                      "location": "",
+                      "notes": "",
+                      "children": [],
+                      "_w": 80,
+                      "_x": 5378,
+                      "_y": 480,
+                      "_pw": 96,
+                      "_px": 6414,
+                      "_py": 590
+                    }
+                  ],
+                  "_w": 738,
+                  "_x": 5049,
+                  "_y": 388,
+                  "_pw": 880,
+                  "_px": 6022,
+                  "_py": 484
+                }
+              ],
+              "_w": 738,
+              "_x": 5049,
+              "_y": 296,
+              "_pw": 880,
+              "_px": 6022,
+              "_py": 378
+            }
+          ],
+          "_w": 2148,
+          "_x": 4344,
+          "_y": 204,
+          "_pw": 2560,
+          "_px": 5182,
+          "_py": 272
+        },
+        {
+          "id": "ali4",
+          "name": "علي",
+          "nickname": "",
+          "birthYear": "",
+          "deathYear": "",
+          "location": "",
+          "notes": "",
+          "children": [
+            {
+              "id": "isa2",
+              "name": "عيسى",
+              "nickname": "",
+              "birthYear": "",
+              "deathYear": "",
+              "location": "",
+              "notes": "",
+              "children": [
+                {
+                  "id": "raja",
+                  "name": "رجا",
+                  "nickname": "",
+                  "birthYear": "",
+                  "deathYear": "",
+                  "location": "",
+                  "notes": "",
+                  "children": [],
+                  "_w": 80,
+                  "_x": 5472,
+                  "_y": 388,
+                  "_pw": 96,
+                  "_px": 6526,
+                  "_py": 484
+                }
+              ],
+              "_w": 80,
+              "_x": 5472,
+              "_y": 296,
+              "_pw": 96,
+              "_px": 6526,
+              "_py": 378
+            }
+          ],
+          "_w": 80,
+          "_x": 5472,
+          "_y": 204,
+          "_pw": 96,
+          "_px": 6526,
+          "_py": 272
+        }
+      ],
+      "_w": 5532,
+      "_x": 2746,
+      "_y": 112,
+      "_pw": 6592,
+      "_px": 3278,
+      "_py": 166
+    }
+  ],
+  "_w": 5532,
+  "_x": 2746,
+  "_y": 20,
+  "_pw": 6592,
+  "_px": 3278,
+  "_py": 60
 };
 
 // ══════════════════════════════════════════════════════════════
@@ -1245,5 +2643,6 @@ document.getElementById('deleteOverlay').addEventListener('click',e=>{if(e.targe
 document.getElementById('settingsOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('settingsOverlay'))closeSettings();});
 window.addEventListener('resize',()=>{updateMinimap();});
 </script>
-</body>
-</html>
+
+
+</body></html>
