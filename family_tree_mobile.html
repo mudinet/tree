@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f1117">
+<title>شجرة عائلة المجاحيد سواعد</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --bg: #0a0d14;
+  --surface: #13161f;
+  --surface2: #1c2030;
+  --surface3: #242840;
+  --border: #2a2f4a;
+  --accent: #5b8dee;
+  --accent2: #9d6fff;
+  --gold: #f5c542;
+  --text: #e8eaf6;
+  --text2: #7a82a8;
+  --text3: #4a5070;
+  --danger: #f56565;
+  --success: #48bb78;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  height: 100%; width: 100%; overflow: hidden;
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  touch-action: manipulation;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(13,16,25,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--safe-top) + 10px) 14px 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.topbar-title { flex: 1; min-width: 0; }
+.topbar-title h1 {
+  font-size: 15px; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.topbar-title p {
+  font-size: 10px; color: var(--text2); margin-top: 1px;
+}
+
+.icon-btn {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text2); font-size: 17px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  -webkit-user-select: none; user-select: none;
+}
+.icon-btn:active { background: var(--surface3); transform: scale(0.93); }
+.icon-btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ── TREE CANVAS ── */
+.tree-wrap {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+#treeCanvas {
+  position: absolute;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+#treeSvg { display: block; }
+
+/* ── BOTTOM SHEET ── */
+.sheet-backdrop {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.55);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.28s;
+}
+.sheet-backdrop.open { opacity: 1; pointer-events: all; }
+
+.bottom-sheet {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 201;
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  border-top: 1px solid var(--border);
+  padding-bottom: calc(var(--safe-bottom) + 16px);
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 82vh;
+  display: flex; flex-direction: column;
+}
+.bottom-sheet.open { transform: translateY(0); }
+
+.sheet-handle {
+  width: 36px; height: 4px; border-radius: 2px;
+  background: var(--border); margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+.sheet-header {
+  padding: 12px 18px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sheet-title {
+  font-size: 17px; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.sheet-subtitle { font-size: 12px; color: var(--text2); margin-top: 3px; }
+
+.sheet-body { overflow-y: auto; flex: 1; padding: 14px 18px; }
+
+/* ── PERSON DETAIL CARD ── */
+.detail-gen-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; margin-bottom: 12px;
+}
+
+.detail-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.detail-row:last-of-type { border-bottom: none; }
+.detail-label { color: var(--text2); white-space: nowrap; font-size: 13px; }
+.detail-value { color: var(--text); font-weight: 500; flex: 1; text-align: left; }
+
+.children-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.child-pill {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 10px;
+  font-size: 13px; color: var(--text); cursor: pointer;
+  transition: all 0.15s;
+}
+.child-pill:active { background: var(--surface3); border-color: var(--accent); }
+
+.action-row {
+  display: flex; gap: 8px; margin-top: 14px;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  flex: 1; padding: 11px 8px; border-radius: 11px; border: none;
+  font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-ghost { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+.btn-danger { background: #2d1515; color: var(--danger); border: 1px solid #5a1e1e; }
+.btn-success { background: linear-gradient(135deg,#22c55e,#16a34a); color: #fff; }
+.btn-full { width: 100%; flex: none; }
+
+/* ── FAB ── */
+.fab {
+  position: fixed; bottom: calc(var(--safe-bottom) + 20px); left: 20px;
+  z-index: 150;
+  width: 52px; height: 52px; border-radius: 16px;
+  background: var(--accent); color: #fff; font-size: 24px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(91,141,238,0.45);
+  cursor: pointer; border: none;
+  transition: all 0.2s;
+}
+.fab:active { transform: scale(0.92); }
+
+/* ── MENU SHEET ── */
+.menu-list { list-style: none; }
+.menu-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; border-radius: 10px;
+  font-size: 15px; color: var(--text);
+  transition: background 0.15s;
+}
+.menu-item:last-child { border-bottom: none; }
+.menu-item:active { background: var(--surface2); }
+.menu-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ── FORM SHEET ── */
+.form-group { margin-bottom: 14px; }
+.form-label { font-size: 13px; color: var(--text2); margin-bottom: 6px; display: block; }
+.form-input, .form-select {
+  width: 100%; padding: 12px 14px;
+  background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: 11px; color: var(--text);
+  font-family: 'Tajawal', sans-serif; font-size: 15px;
+  direction: rtl; transition: border-color 0.2s; -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus { outline: none; border-color: var(--accent); }
+.form-select option { background: var(--surface2); }
+
+/* ── SEARCH BAR ── */
+.search-bar {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 300; background: var(--bg);
+  padding: calc(var(--safe-top) + 10px) 14px 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  transform: translateY(-100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+.search-bar.open { transform: translateY(0); }
+.search-input-wrap { display: flex; gap: 8px; }
+.search-input {
+  flex: 1; padding: 11px 14px;
+  background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: 11px; color: var(--text);
+  font-family: 'Tajawal', sans-serif; font-size: 16px;
+  direction: rtl;
+}
+.search-input:focus { outline: none; border-color: var(--accent); }
+.search-results { overflow-y: auto; flex: 1; }
+.search-result-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 12px; border-radius: 11px;
+  cursor: pointer; transition: background 0.15s; margin-bottom: 4px;
+}
+.search-result-item:active { background: var(--surface2); }
+.result-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.result-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.result-gen { font-size: 12px; color: var(--text2); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: calc(var(--safe-bottom) + 80px); left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 11px 20px;
+  font-size: 13px; z-index: 500; opacity: 0;
+  transition: all 0.3s; pointer-events: none; white-space: nowrap;
+  max-width: 90vw; text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.success { border-color: var(--success); color: var(--success); }
+.toast.error { border-color: var(--danger); color: var(--danger); }
+
+/* ── UNSAVED DOT ── */
+.unsaved-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #f59e0b; position: absolute; top: 8px; right: 8px;
+  display: none;
+}
+.unsaved-dot.visible { display: block; }
+
+/* ── ZOOM INDICATOR ── */
+.zoom-indicator {
+  position: fixed; bottom: calc(var(--safe-bottom) + 20px); right: 20px;
+  z-index: 150; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 6px 12px;
+  font-size: 12px; color: var(--text2); pointer-events: none;
+  opacity: 0; transition: opacity 0.3s;
+}
+.zoom-indicator.visible { opacity: 1; }
+
+/* ── STAR NODE ── */
+.starred { filter: drop-shadow(0 0 5px var(--gold)); }
+
+/* ── DELETE CONFIRM ── */
+.confirm-sheet .sheet-title { color: var(--danger); }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-title">
+    <h1>🌳 شجرة عائلة المجاحيد سواعد</h1>
+    <p>سوريا • فلسطين • الأردن &nbsp;|&nbsp; © Muhammad Abdalla</p>
+  </div>
+  <div class="icon-btn" onclick="openSearch()" title="بحث">🔍</div>
+  <div class="icon-btn" style="position:relative" onclick="openMenu()">
+    ☰
+    <span class="unsaved-dot" id="unsavedDot"></span>
+  </div>
+</div>
+
+<!-- TREE CANVAS -->
+<div class="tree-wrap" id="treeWrap">
+  <div id="treeCanvas">
+    <svg id="treeSvg"></svg>
+  </div>
+</div>
+
+<!-- FAB: Add Person -->
+<button class="fab" onclick="openAddSheet()" title="إضافة شخص">＋</button>
+
+<!-- ZOOM INDICATOR -->
+<div class="zoom-indicator" id="zoomIndicator">100%</div>
+
+<!-- SHEET BACKDROP -->
+<div class="sheet-backdrop" id="sheetBackdrop" onclick="closeAllSheets()"></div>
+
+<!-- PERSON DETAIL SHEET -->
+<div class="bottom-sheet" id="detailSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-title" id="detailName">—</div>
+    <div class="sheet-subtitle" id="detailGen">—</div>
+  </div>
+  <div class="sheet-body" id="detailBody"></div>
+</div>
+
+<!-- MENU SHEET -->
+<div class="bottom-sheet" id="menuSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-title">القائمة</div>
+  </div>
+  <div class="sheet-body">
+    <ul class="menu-list">
+      <li class="menu-item" onclick="closeAllSheets(); exportData()">
+        <div class="menu-icon" style="background:#0d3b1e">💾</div>
+        <div>
+          <div style="font-weight:600">حفظ الشجرة</div>
+          <div style="font-size:12px;color:var(--text2)" id="saveHintMenu">لم يتم الحفظ بعد</div>
+        </div>
+      </li>
+      <li class="menu-item" onclick="closeAllSheets(); importData()">
+        <div class="menu-icon" style="background:#0c2560">📂</div>
+        <div>
+          <div style="font-weight:600">تحميل ملف محفوظ</div>
+          <div style="font-size:12px;color:var(--text2)">استيراد ملف .json</div>
+        </div>
+      </li>
+      <li class="menu-item" onclick="closeAllSheets(); printTree()">
+        <div class="menu-icon" style="background:#2d1b6b">🖨️</div>
+        <div>
+          <div style="font-weight:600">طباعة / PDF</div>
+          <div style="font-size:12px;color:var(--text2)">طباعة الشجرة كاملة</div>
+        </div>
+      </li>
+      <li class="menu-item" onclick="closeAllSheets(); resetZoom()">
+        <div class="menu-icon" style="background:#1a1d27">🎯</div>
+        <div>
+          <div style="font-weight:600">ضبط العرض</div>
+          <div style="font-size:12px;color:var(--text2)">العودة للعرض الكامل</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ADD/EDIT FORM SHEET -->
+<div class="bottom-sheet" id="formSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-title" id="formTitle">إضافة شخص</div>
+  </div>
+  <div class="sheet-body">
+    <div class="form-group">
+      <label class="form-label">الاسم *</label>
+      <input class="form-input" id="inputName" type="text" placeholder="أدخل الاسم...">
+    </div>
+    <div class="form-group" id="parentGroup">
+      <label class="form-label">الأب</label>
+      <select class="form-select" id="inputParent">
+        <option value="">— جذر الشجرة —</option>
+      </select>
+    </div>
+    <div class="action-row" style="margin-top:6px">
+      <button class="btn btn-ghost" onclick="closeAllSheets()">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveForm()">✓ حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM SHEET -->
+<div class="bottom-sheet confirm-sheet" id="deleteSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-title">🗑️ تأكيد الحذف</div>
+  </div>
+  <div class="sheet-body">
+    <p id="deleteMsg" style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:16px"></p>
+    <div class="action-row">
+      <button class="btn btn-ghost" onclick="closeAllSheets()">إلغاء</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-bar" id="searchBar">
+  <div class="search-input-wrap">
+    <input class="search-input" id="searchInput" type="search" placeholder="ابحث عن اسم..." oninput="doSearch(this.value)" autocomplete="off">
+    <button class="btn btn-ghost" style="flex:none;padding:10px 14px;font-size:14px" onclick="closeSearch()">إلغاء</button>
+  </div>
+  <div class="search-results" id="searchResults">
+    <div style="text-align:center;color:var(--text2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>
+  </div>
+</div>
+
+<!-- Hidden file input -->
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════
+let familyData = {
+  id:'taha',name:'طه',children:[
+    {id:'mustafa',name:'مصطفى',children:[
+      {id:'muhammad1',name:'محمد',children:[
+        {id:'ubaid',name:'عبيد',children:[{id:'khabasa',name:'خبصة',children:[]}]},
+        {id:'khalid1',name:'خالد',children:[
+          {id:'mahmoud1',name:'محمود',children:[]},
+          {id:'muhammad2',name:'محمد',children:[]},
+          {id:'hamad',name:'حمد',children:[]},
+          {id:'hussain1',name:'حسين',children:[]}
+        ]}
+      ]},
+      {id:'hasan1',name:'حسن',children:[
+        {id:'abdallah1',name:'عبد الله',children:[
+          {id:'awwad1',name:'عواد',children:[
+            {id:'said1',name:'⭐ سعيد',children:[
+              {id:'haytham',name:'هيثم',children:[{id:'said2',name:'سعيد',children:[]}]},
+              {id:'muhammad3',name:'محمد',children:[{id:'umar',name:'عمر',children:[]}]},
+              {id:'ahmad1',name:'أحمد',children:[]},
+              {id:'amjad',name:'أمجد',children:[{id:'adam',name:'آدم',children:[]}]}
+            ]},
+            {id:'abdallah2',name:'عبد الله',children:[
+              {id:'awwad2',name:'عواد',children:[]},
+              {id:'fadi',name:'فادي',children:[]},
+              {id:'husam',name:'حسام',children:[]},
+              {id:'imad',name:'عماد',children:[]},
+              {id:'muhammad4',name:'محمد',children:[]},
+              {id:'basil1',name:'باسل',children:[]}
+            ]},
+            {id:'karim1',name:'كريم',children:[
+              {id:'maher',name:'ماهر',children:[]},
+              {id:'samer',name:'سامر',children:[]},
+              {id:'ammar',name:'عمار',children:[]},
+              {id:'zaher',name:'زاهر',children:[]}
+            ]}
+          ]}
+        ]},
+        {id:'ahmad2',name:'أحمد',children:[]},
+        {id:'mahmoud2',name:'محمود',children:[]},
+        {id:'muhammad5',name:'محمد',children:[
+          {id:'musa',name:'موسى',children:[
+            {id:'fayiz',name:'فايز',children:[]},
+            {id:'khalid2',name:'خالد',children:[]},
+            {id:'mahmoud3',name:'محمود',children:[]},
+            {id:'ali1',name:'علي',children:[]},
+            {id:'muhammad6',name:'محمد',children:[]},
+            {id:'ismail',name:'إسماعيل',children:[]},
+            {id:'ibrahim',name:'إبراهيم',children:[]},
+            {id:'khalil1',name:'خليل',children:[]},
+            {id:'yusuf',name:'يوسف',children:[]}
+          ]},
+          {id:'hasan2',name:'حسن',children:[
+            {id:'muhammad7',name:'محمد',children:[
+              {id:'wasim',name:'وسيم',children:[]},
+              {id:'iyad',name:'إياد',children:[]},
+              {id:'basil2',name:'باسل',children:[]}
+            ]},
+            {id:'hasan3',name:'حسن',children:[{id:'shawqi',name:'شوقي',children:[]}]}
+          ]}
+        ]},
+        {id:'karim2',name:'كريم',children:[]}
+      ]},
+      {id:'khalil2',name:'خليل',children:[
+        {id:'salih1',name:'صالح',children:[
+          {id:'ahmad3',name:'أحمد',children:[
+            {id:'said3',name:'سعيد',children:[{id:'adnan1',name:'عدنان',children:[]}]},
+            {id:'muhammad8',name:'محمد',children:[]},
+            {id:'khalil3',name:'خليل',children:[
+              {id:'ahmad4',name:'أحمد',children:[]},
+              {id:'muhammad9',name:'محمد',children:[]},
+              {id:'zayn',name:'زين',children:[]},
+              {id:'abd',name:'عبد',children:[]}
+            ]}
+          ]},
+          {id:'hussain2',name:'حسين',children:[
+            {id:'atif',name:'عاطف',children:[]},
+            {id:'atiyya',name:'عطية',children:[]},
+            {id:'hatim',name:'حاتم',children:[]},
+            {id:'ahmad5',name:'أحمد',children:[]}
+          ]},
+          {id:'hasan4',name:'حسن',children:[
+            {id:'ahmad6',name:'أحمد',children:[]},
+            {id:'salih2',name:'صالح',children:[
+              {id:'adil',name:'عادل',children:[]},
+              {id:'adnan2',name:'عدنان',children:[]},
+              {id:'hasan5',name:'حسن',children:[]},
+              {id:'khalid3',name:'خالد',children:[]}
+            ]}
+          ]}
+        ]},
+        {id:'ali2',name:'علي',children:[
+          {id:'muhammad10',name:'محمد',children:[
+            {id:'ali3',name:'علي',children:[]},
+            {id:'sultan',name:'سلطان',children:[]},
+            {id:'hussain3',name:'حسين',children:[]},
+            {id:'hasan6',name:'حسن',children:[]},
+            {id:'abdallah3',name:'عبد الله',children:[]},
+            {id:'isa',name:'عيسى',children:[]},
+            {id:'khalil4',name:'خليل',children:[]},
+            {id:'ghazi',name:'غازي',children:[]}
+          ]}
+        ]}
+      ]},
+      {id:'ali4',name:'علي',children:[
+        {id:'isa2',name:'عيسى',children:[{id:'raja',name:'رجا',children:[]}]}
+      ]}
+    ]}
+  ]
+};
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let selectedId = null;
+let editingId = null;
+let deletingId = null;
+let formMode = 'add'; // 'add' | 'addChild' | 'edit'
+let formParentId = null;
+let parentMap = {}, genMap = {}, allNodes = [], nodePos = {};
+let hasUnsaved = false;
+
+let pan = { x: 20, y: 80 };
+let scale = 1;
+let minScale = 0.2, maxScale = 3;
+
+// ══════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════
+function genId() { return 'n_' + Math.random().toString(36).substr(2,9); }
+
+function findNode(id, node) {
+  if (node.id === id) return node;
+  for (const c of (node.children||[])) { const r = findNode(id,c); if(r) return r; }
+  return null;
+}
+
+function removeNode(id, parent) {
+  if (!parent.children) return false;
+  const i = parent.children.findIndex(c=>c.id===id);
+  if (i!==-1) { parent.children.splice(i,1); return true; }
+  for (const c of parent.children) { if(removeNode(id,c)) return true; }
+  return false;
+}
+
+function buildMaps(node, parent, gen) {
+  parentMap[node.id] = parent ? parent.id : null;
+  genMap[node.id] = gen;
+  allNodes.push(node);
+  (node.children||[]).forEach(c=>buildMaps(c,node,gen+1));
+}
+
+const GEN_COLORS = [
+  null,
+  {stroke:'#7c3aed',fill:'#2d1b6b',text:'#fff'},
+  {stroke:'#0d9488',fill:'#0f3d3a',text:'#fff'},
+  {stroke:'#b45309',fill:'#3d2a0b',text:'#fff'},
+  {stroke:'#1d4ed8',fill:'#0c2560',text:'#fff'},
+  {stroke:'#15803d',fill:'#0d3b1e',text:'#fff'},
+  {stroke:'#be185d',fill:'#4a0d2e',text:'#fff'},
+  {stroke:'#7c3aed',fill:'#2d1b6b',text:'#fff'},
+  {stroke:'#0d9488',fill:'#0f3d3a',text:'#fff'},
+];
+function genColor(g){ return GEN_COLORS[Math.min(g,8)] || GEN_COLORS[1]; }
+function genLabel(g){ return ['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن'][Math.min(g,8)] || `الجيل ${g}`; }
+
+// ══════════════════════════════════════════
+//  LAYOUT
+// ══════════════════════════════════════════
+const BW=80, BH=32, HGAP=14, VGAP=58;
+
+function measure(node){
+  if(!node.children||!node.children.length){node._w=BW;return BW;}
+  let t=0;
+  node.children.forEach((c,i)=>{t+=measure(c);if(i<node.children.length-1)t+=HGAP;});
+  node._w=Math.max(BW,t);return node._w;
+}
+
+function layout(node,x,y){
+  node._x=x+node._w/2-BW/2; node._y=y;
+  nodePos[node.id]={x:node._x,y:node._y};
+  if(!node.children||!node.children.length)return;
+  let cx=x;
+  node.children.forEach(c=>{layout(c,cx,y+BH+VGAP);cx+=c._w+HGAP;});
+}
+
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function render(){
+  parentMap={}; genMap={}; allNodes=[]; nodePos={};
+  buildMaps(familyData,null,1);
+  measure(familyData);
+  layout(familyData,20,20);
+
+  const maxX = Math.max(...allNodes.map(n=>n._x+BW))+40;
+  const maxY = Math.max(...allNodes.map(n=>n._y+BH))+40;
+
+  const svg = document.getElementById('treeSvg');
+  svg.setAttribute('width', maxX);
+  svg.setAttribute('height', maxY);
+  svg.innerHTML='';
+
+  // Edges
+  const eg = document.createElementNS('http://www.w3.org/2000/svg','g');
+  allNodes.forEach(node=>{
+    (node.children||[]).forEach(child=>{
+      const px=node._x+BW/2, py=node._y+BH;
+      const cx=child._x+BW/2, cy=child._y;
+      const my=(py+cy)/2;
+      const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d',`M${px},${py} C${px},${my} ${cx},${my} ${cx},${cy}`);
+      p.setAttribute('fill','none');
+      p.setAttribute('stroke','#2a2f4a');
+      p.setAttribute('stroke-width','1.5');
+      eg.appendChild(p);
+    });
+  });
+  svg.appendChild(eg);
+
+  // Nodes
+  allNodes.forEach(node=>{
+    const g=genMap[node.id]||1;
+    const col=genColor(g);
+    const isSel=node.id===selectedId;
+    const isStar=node.id==='said1';
+
+    const grp=document.createElementNS('http://www.w3.org/2000/svg','g');
+    if(isStar) grp.setAttribute('class','starred');
+
+    const rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x',node._x); rect.setAttribute('y',node._y);
+    rect.setAttribute('width',BW); rect.setAttribute('height',BH);
+    rect.setAttribute('rx','8');
+    rect.setAttribute('fill', isSel ? col.stroke : col.fill);
+    rect.setAttribute('stroke', isSel ? '#fff' : col.stroke);
+    rect.setAttribute('stroke-width', isSel ? '2' : '1');
+
+    const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x', node._x+BW/2);
+    txt.setAttribute('y', node._y+BH/2);
+    txt.setAttribute('text-anchor','middle');
+    txt.setAttribute('dominant-baseline','central');
+    txt.setAttribute('fill','#fff');
+    txt.setAttribute('font-size', node.name.length > 8 ? '10' : '12');
+    txt.setAttribute('font-family','Tajawal,sans-serif');
+    txt.setAttribute('font-weight', isSel?'700':'500');
+    txt.textContent = node.name;
+
+    grp.appendChild(rect); grp.appendChild(txt);
+    svg.appendChild(grp);
+
+    grp.addEventListener('click', ()=>selectNode(node.id));
+    grp.style.cursor='pointer';
+  });
+}
+
+// ══════════════════════════════════════════
+//  PAN & ZOOM (touch + mouse)
+// ══════════════════════════════════════════
+const wrap = document.getElementById('treeWrap');
+const canvas = document.getElementById('treeCanvas');
+
+function applyTransform(){
+  canvas.style.transform=`translate(${pan.x}px,${pan.y}px) scale(${scale})`;
+}
+
+function resetZoom(){
+  const svg=document.getElementById('treeSvg');
+  const sw=parseFloat(svg.getAttribute('width')||600);
+  const sh=parseFloat(svg.getAttribute('height')||400);
+  const ww=wrap.clientWidth, wh=wrap.clientHeight-80;
+  scale=Math.min(ww/sw, wh/sh, 1)*0.92;
+  scale=Math.max(minScale, Math.min(maxScale, scale));
+  pan.x=(ww-sw*scale)/2;
+  pan.y=80+(wh-sh*scale)/2;
+  applyTransform();
+}
+
+let isPanning=false, lastPan={x:0,y:0};
+let pinchDist0=0, pinchScale0=1, pinchMid={x:0,y:0};
+
+function dist(t1,t2){return Math.hypot(t2.clientX-t1.clientX,t2.clientY-t1.clientY);}
+function mid(t1,t2){return{x:(t1.clientX+t2.clientX)/2,y:(t1.clientY+t2.clientY)/2};}
+
+wrap.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){
+    isPanning=true;
+    lastPan={x:e.touches[0].clientX-pan.x, y:e.touches[0].clientY-pan.y};
+  } else if(e.touches.length===2){
+    isPanning=false;
+    pinchDist0=dist(e.touches[0],e.touches[1]);
+    pinchScale0=scale;
+    pinchMid=mid(e.touches[0],e.touches[1]);
+  }
+},{passive:true});
+
+wrap.addEventListener('touchmove',e=>{
+  e.preventDefault();
+  if(e.touches.length===1 && isPanning){
+    pan.x=e.touches[0].clientX-lastPan.x;
+    pan.y=e.touches[0].clientY-lastPan.y;
+    applyTransform();
+  } else if(e.touches.length===2){
+    const d=dist(e.touches[0],e.touches[1]);
+    const ns=Math.max(minScale,Math.min(maxScale,pinchScale0*(d/pinchDist0)));
+    const m=mid(e.touches[0],e.touches[1]);
+    pan.x=m.x-(pinchMid.x-pan.x)*(ns/pinchScale0)-(m.x-pinchMid.x);
+    pan.y=m.y-(pinchMid.y-pan.y)*(ns/pinchScale0)-(m.y-pinchMid.y);
+    scale=ns;
+    applyTransform();
+    showZoomHint();
+  }
+},{passive:false});
+
+wrap.addEventListener('touchend',()=>{isPanning=false;},{passive:true});
+
+// Mouse pan/zoom for desktop
+let mouseDown=false, lastMouse={x:0,y:0};
+wrap.addEventListener('mousedown',e=>{if(e.target===wrap||e.target===canvas||e.target.tagName==='svg'){mouseDown=true;lastMouse={x:e.clientX-pan.x,y:e.clientY-pan.y};}});
+wrap.addEventListener('mousemove',e=>{if(mouseDown){pan.x=e.clientX-lastMouse.x;pan.y=e.clientY-lastMouse.y;applyTransform();}});
+wrap.addEventListener('mouseup',()=>mouseDown=false);
+wrap.addEventListener('mouseleave',()=>mouseDown=false);
+wrap.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const factor=e.deltaY>0?0.9:1.1;
+  const ns=Math.max(minScale,Math.min(maxScale,scale*factor));
+  pan.x=e.clientX-(e.clientX-pan.x)*(ns/scale);
+  pan.y=e.clientY-(e.clientY-pan.y)*(ns/scale);
+  scale=ns; applyTransform(); showZoomHint();
+},{passive:false});
+
+let zoomTimer;
+function showZoomHint(){
+  const el=document.getElementById('zoomIndicator');
+  el.textContent=Math.round(scale*100)+'%';
+  el.classList.add('visible');
+  clearTimeout(zoomTimer);
+  zoomTimer=setTimeout(()=>el.classList.remove('visible'),1200);
+}
+
+// ══════════════════════════════════════════
+//  SELECTION
+// ══════════════════════════════════════════
+function selectNode(id){
+  selectedId=id;
+  render();
+  showDetail(id);
+}
+
+function showDetail(id){
+  const node=findNode(id,familyData);
+  if(!node)return;
+  const g=genMap[id]||1;
+  const col=genColor(g);
+  const parentId=parentMap[id];
+  const parentNode=parentId?findNode(parentId,familyData):null;
+  const children=node.children||[];
+
+  document.getElementById('detailName').textContent=node.name;
+  document.getElementById('detailGen').innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px;background:${col.fill};color:${col.stroke};border:1px solid ${col.stroke};padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600">${genLabel(g)}</span>`;
+
+  let html='';
+  html+=`<div class="detail-row"><span class="detail-label">👤 الأب</span><span class="detail-value">${parentNode?`<span class="child-pill" onclick="closeAllSheets();setTimeout(()=>selectNode('${parentNode.id}'),100)">${parentNode.name}</span>`:'جذر الشجرة'}</span></div>`;
+  html+=`<div class="detail-row"><span class="detail-label">👥 الأبناء</span><span class="detail-value">${children.length}</span></div>`;
+  if(children.length){
+    html+=`<div class="detail-row" style="flex-direction:column;align-items:flex-start;gap:8px"><span class="detail-label">👦 أسماء الأبناء</span><div class="children-wrap">${children.map(c=>`<span class="child-pill" onclick="closeAllSheets();setTimeout(()=>selectNode('${c.id}'),100)">${c.name}</span>`).join('')}</div></div>`;
+  }
+  html+=`<div class="action-row" style="margin-top:8px">
+    <button class="btn btn-primary" onclick="openAddChildSheet('${id}')">＋ ابن</button>
+    <button class="btn btn-ghost" onclick="openEditSheet('${id}')">✏️ تعديل</button>
+    <button class="btn btn-danger" onclick="openDeleteSheet('${id}')">🗑️</button>
+  </div>`;
+
+  document.getElementById('detailBody').innerHTML=html;
+  openSheet('detailSheet');
+}
+
+// ══════════════════════════════════════════
+//  SHEETS
+// ══════════════════════════════════════════
+const SHEETS=['detailSheet','menuSheet','formSheet','deleteSheet'];
+
+function openSheet(id){
+  closeAllSheets(true);
+  document.getElementById('sheetBackdrop').classList.add('open');
+  document.getElementById(id).classList.add('open');
+}
+
+function closeAllSheets(silent=false){
+  if(!silent) document.getElementById('sheetBackdrop').classList.remove('open');
+  SHEETS.forEach(s=>document.getElementById(s).classList.remove('open'));
+}
+
+function openMenu(){ openSheet('menuSheet'); }
+
+// ══════════════════════════════════════════
+//  FORM
+// ══════════════════════════════════════════
+function populateParentSelect(excludeId){
+  const sel=document.getElementById('inputParent');
+  sel.innerHTML='<option value="">— جذر الشجرة —</option>';
+  allNodes.forEach(n=>{
+    if(n.id!==excludeId){
+      const o=document.createElement('option');
+      o.value=n.id;
+      o.textContent=`${n.name} (${genLabel(genMap[n.id]||1)})`;
+      sel.appendChild(o);
+    }
+  });
+}
+
+function openAddSheet(){
+  formMode='add'; editingId=null;
+  document.getElementById('formTitle').textContent='إضافة شخص';
+  document.getElementById('inputName').value='';
+  document.getElementById('parentGroup').style.display='block';
+  populateParentSelect(null);
+  document.getElementById('inputParent').value='';
+  openSheet('formSheet');
+  setTimeout(()=>document.getElementById('inputName').focus(),350);
+}
+
+function openAddChildSheet(parentId){
+  formMode='addChild'; formParentId=parentId; editingId=null;
+  const p=findNode(parentId,familyData);
+  document.getElementById('formTitle').textContent=`إضافة ابن لـ "${p.name}"`;
+  document.getElementById('inputName').value='';
+  document.getElementById('parentGroup').style.display='none';
+  openSheet('formSheet');
+  setTimeout(()=>document.getElementById('inputName').focus(),350);
+}
+
+function openEditSheet(id){
+  formMode='edit'; editingId=id;
+  const node=findNode(id,familyData);
+  document.getElementById('formTitle').textContent=`تعديل "${node.name}"`;
+  document.getElementById('inputName').value=node.name;
+  document.getElementById('parentGroup').style.display='block';
+  populateParentSelect(id);
+  document.getElementById('inputParent').value=parentMap[id]||'';
+  openSheet('formSheet');
+  setTimeout(()=>document.getElementById('inputName').focus(),350);
+}
+
+function saveForm(){
+  const name=document.getElementById('inputName').value.trim();
+  if(!name){showToast('يرجى إدخال الاسم','error');return;}
+
+  if(formMode==='add'){
+    const pid=document.getElementById('inputParent').value;
+    const nn={id:genId(),name,children:[]};
+    const parent=pid?findNode(pid,familyData):familyData;
+    parent.children=parent.children||[];
+    parent.children.push(nn);
+    closeAllSheets();
+    markUnsaved();
+    render();
+    showToast(`✅ تمت إضافة "${name}"`,'success');
+    setTimeout(()=>selectNode(nn.id),100);
+
+  } else if(formMode==='addChild'){
+    const nn={id:genId(),name,children:[]};
+    const parent=findNode(formParentId,familyData);
+    parent.children=parent.children||[];
+    parent.children.push(nn);
+    closeAllSheets();
+    markUnsaved();
+    render();
+    showToast(`✅ تمت إضافة "${name}"`,'success');
+    setTimeout(()=>selectNode(nn.id),100);
+
+  } else if(formMode==='edit'){
+    const node=findNode(editingId,familyData);
+    const newPid=document.getElementById('inputParent').value;
+    const oldPid=parentMap[editingId];
+    node.name=name;
+    if(newPid!==(oldPid||'')){
+      if(oldPid){const op=findNode(oldPid,familyData);if(op)op.children=op.children.filter(c=>c.id!==editingId);}
+      else if(familyData.children)familyData.children=familyData.children.filter(c=>c.id!==editingId);
+      const np=newPid?findNode(newPid,familyData):familyData;
+      np.children=np.children||[];np.children.push(node);
+    }
+    closeAllSheets();
+    markUnsaved();
+    selectedId=editingId;
+    render();
+    showToast(`✅ تم تعديل "${name}"`,'success');
+    setTimeout(()=>showDetail(editingId),100);
+  }
+}
+
+// ══════════════════════════════════════════
+//  DELETE
+// ══════════════════════════════════════════
+function openDeleteSheet(id){
+  deletingId=id;
+  const node=findNode(id,familyData);
+  const dc=countDesc(node);
+  let msg=`هل أنت متأكد من حذف <strong style="color:var(--text)">"${node.name}"</strong>؟`;
+  if(dc>0) msg+=`<br><br>⚠️ سيتم حذف <strong style="color:var(--danger)">${dc+1} شخص</strong> (الشخص وجميع أبنائه وأحفاده).`;
+  document.getElementById('deleteMsg').innerHTML=msg;
+  openSheet('deleteSheet');
+}
+
+function countDesc(node){let c=0;(node.children||[]).forEach(ch=>{c+=1+countDesc(ch);});return c;}
+
+function confirmDelete(){
+  if(!deletingId)return;
+  if(deletingId===familyData.id){showToast('لا يمكن حذف الجذر','error');closeAllSheets();return;}
+  const node=findNode(deletingId,familyData);
+  const name=node?node.name:'';
+  removeNode(deletingId,familyData);
+  if(selectedId===deletingId)selectedId=null;
+  closeAllSheets();
+  markUnsaved();
+  render();
+  showToast(`تم حذف "${name}"`,'success');
+}
+
+// ══════════════════════════════════════════
+//  SEARCH
+// ══════════════════════════════════════════
+function openSearch(){
+  document.getElementById('searchBar').classList.add('open');
+  document.getElementById('searchResults').innerHTML='<div style="text-align:center;color:var(--text2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>';
+  document.getElementById('searchInput').value='';
+  setTimeout(()=>document.getElementById('searchInput').focus(),300);
+}
+function closeSearch(){ document.getElementById('searchBar').classList.remove('open'); }
+
+function doSearch(val){
+  if(!val.trim()){
+    document.getElementById('searchResults').innerHTML='<div style="text-align:center;color:var(--text2);padding:40px 0;font-size:14px">اكتب اسماً للبحث...</div>';
+    return;
+  }
+  const found=allNodes.filter(n=>n.name.includes(val.trim()));
+  if(!found.length){
+    document.getElementById('searchResults').innerHTML='<div style="text-align:center;color:var(--text2);padding:40px 0;font-size:14px">لم يُوجد الاسم</div>';
+    return;
+  }
+  const col=g=>genColor(genMap[g]||1).stroke;
+  document.getElementById('searchResults').innerHTML=found.map(n=>`
+    <div class="search-result-item" onclick="closeSearch();setTimeout(()=>selectNode('${n.id}'),300)">
+      <div class="result-dot" style="background:${col(n.id)}"></div>
+      <div>
+        <div class="result-name">${n.name}</div>
+        <div class="result-gen">${genLabel(genMap[n.id]||1)}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+//  UNSAVED
+// ══════════════════════════════════════════
+function markUnsaved(){
+  hasUnsaved=true;
+  document.getElementById('unsavedDot').classList.add('visible');
+  document.getElementById('saveHintMenu').textContent='⚠️ لديك تغييرات غير محفوظة!';
+  document.getElementById('saveHintMenu').style.color='#f59e0b';
+}
+function markSaved(){
+  hasUnsaved=false;
+  document.getElementById('unsavedDot').classList.remove('visible');
+  const now=new Date();
+  const t=now.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('saveHintMenu').textContent=`✅ آخر حفظ الساعة ${t}`;
+  document.getElementById('saveHintMenu').style.color='var(--success)';
+}
+
+window.addEventListener('beforeunload',e=>{
+  if(hasUnsaved){e.preventDefault();e.returnValue='';}
+});
+
+// ══════════════════════════════════════════
+//  EXPORT / IMPORT
+// ══════════════════════════════════════════
+function exportData(){
+  const json=JSON.stringify(familyData,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='family_tree_majahid.json';
+  a.click();
+  markSaved();
+  showToast('✅ تم حفظ الشجرة — احتفظ بالملف!','success');
+}
+
+function importData(){ document.getElementById('importFile').click(); }
+
+function handleImport(e){
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      familyData=JSON.parse(ev.target.result);
+      selectedId=null; render(); resetZoom(); markSaved();
+      showToast('✅ تم تحميل الشجرة','success');
+    }catch(err){showToast('خطأ في قراءة الملف','error');}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ══════════════════════════════════════════
+//  PRINT
+// ══════════════════════════════════════════
+function printTree(){
+  const PBW=100,PBH=36,PHGAP=20,PVGAP=70;
+  const pParentMap={},pGenMap={},pAll=[];
+  function pbm(node,parent,gen){pParentMap[node.id]=parent?parent.id:null;pGenMap[node.id]=gen;pAll.push(node);(node.children||[]).forEach(c=>pbm(c,node,gen+1));}
+  pbm(familyData,null,1);
+  function pm(node){if(!node.children||!node.children.length){node._pw=PBW;return PBW;}let t=0;node.children.forEach((c,i)=>{t+=pm(c);if(i<node.children.length-1)t+=PHGAP;});node._pw=Math.max(PBW,t);return node._pw;}
+  function pl(node,x,y){node._px=x+node._pw/2-PBW/2;node._py=y;if(!node.children||!node.children.length)return;let cx=x;node.children.forEach(c=>{pl(c,cx,y+PBH+PVGAP);cx+=c._pw+PHGAP;});}
+  pm(familyData);pl(familyData,30,50);
+  const maxX=Math.max(...pAll.map(n=>n._px+PBW))+60;
+  const maxY=Math.max(...pAll.map(n=>n._py+PBH))+60;
+  const maxGen=Math.max(...Object.values(pGenMap));
+  const pc=[null,{fill:'#ede9fe',stroke:'#7c3aed',text:'#3b0764'},{fill:'#ccfbf1',stroke:'#0d9488',text:'#042f2e'},{fill:'#fef3c7',stroke:'#b45309',text:'#451a03'},{fill:'#dbeafe',stroke:'#1d4ed8',text:'#1e1b4b'},{fill:'#dcfce7',stroke:'#15803d',text:'#052e16'},{fill:'#fce7f3',stroke:'#be185d',text:'#500724'},{fill:'#ede9fe',stroke:'#7c3aed',text:'#3b0764'},{fill:'#ccfbf1',stroke:'#0d9488',text:'#042f2e'}];
+  let edges='';
+  pAll.forEach(node=>{(node.children||[]).forEach(child=>{const px=node._px+PBW/2,py=node._py+PBH,cx=child._px+PBW/2,cy=child._py,my=(py+cy)/2;edges+=`<path d="M${px},${py} C${px},${my} ${cx},${my} ${cx},${cy}" fill="none" stroke="#aaa" stroke-width="1.2"/>`;});});
+  let nodes='';
+  pAll.forEach(node=>{const g=pGenMap[node.id]||1;const c=pc[Math.min(g,8)];nodes+=`<g><rect x="${node._px}" y="${node._py}" width="${PBW}" height="${PBH}" rx="7" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1.2"/><text x="${node._px+PBW/2}" y="${node._py+PBH/2}" text-anchor="middle" dominant-baseline="central" fill="${c.text}" font-size="13" font-family="Tajawal,Arial,sans-serif" font-weight="600">${node.name}</text></g>`;});
+  const labels=['','الجيل الأول','الجيل الثاني','الجيل الثالث','الجيل الرابع','الجيل الخامس','الجيل السادس','الجيل السابع','الجيل الثامن'];
+  let legend='';
+  for(let g=1;g<=Math.min(maxGen,8);g++){const c=pc[g];legend+=`<span style="display:inline-flex;align-items:center;gap:5px;margin-left:14px;font-size:12px"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${c.stroke}"></span>${labels[g]}</span>`;}
+  const today=new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
+  const html=`<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>شجرة عائلة المجاحيد سواعد</title><style>@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{background:#fff;font-family:Tajawal,Arial,sans-serif;direction:rtl;color:#111}.btn-row{display:flex;gap:12px;justify-content:center;padding:16px;background:#f3f4f6;border-bottom:1px solid #e5e7eb}.btn-row button{padding:10px 28px;border-radius:8px;border:none;font-family:Tajawal,sans-serif;font-size:15px;font-weight:600;cursor:pointer}.bp{background:#1d4ed8;color:#fff}.bc{background:#e5e7eb;color:#374151}.header{text-align:center;padding:20px 40px 14px;border-bottom:2px solid #e5e7eb}.header h1{font-size:26px;font-weight:900}.legend{text-align:center;padding:10px 20px;border-bottom:1px solid #e5e7eb;background:#f9fafb}.tree{padding:20px 20px 40px;overflow:visible}svg{display:block}.footer{text-align:center;padding:14px;border-top:1px solid #e5e7eb;font-size:11px;color:#aaa;margin-top:8px}@media print{.btn-row{display:none!important}}</style></head><body><div class="btn-row"><button class="bp" onclick="window.print()">🖨️ طباعة / حفظ PDF</button><button class="bc" onclick="window.close()">✕ إغلاق</button></div><div class="header"><h1>🌳 شجرة عائلة المجاحيد سواعد</h1><p style="font-size:14px;color:#555;margin-top:4px">سوريا • فلسطين • الأردن</p><p style="font-size:13px;color:#777;margin-top:6px">الأشخاص: <strong>${pAll.length}</strong> | الأجيال: <strong>${maxGen}</strong> | ${today}</p><p style="font-size:11px;color:#999;margin-top:4px">© جميع الحقوق محفوظة لـ <strong>Muhammad Abdalla</strong> — يُمنع إعادة النشر دون إذن</p></div><div class="legend">${legend}</div><div class="tree"><svg width="${maxX}" height="${maxY}" xmlns="http://www.w3.org/2000/svg">${edges}${nodes}</svg></div><div class="footer">شجرة عائلة المجاحيد سواعد • سوريا • فلسطين • الأردن • © Muhammad Abdalla • ${today}</div></body></html>`;
+  const win=window.open('','_blank','width=1400,height=900,scrollbars=yes');
+  if(!win){showToast('يرجى السماح بالنوافذ المنبثقة','error');return;}
+  win.document.open();win.document.write(html);win.document.close();
+}
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+type;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ══════════════════════════════════════════
+//  SWIPE TO CLOSE SHEETS
+// ══════════════════════════════════════════
+let sheetStartY=0;
+document.querySelectorAll('.sheet-handle').forEach(h=>{
+  h.parentElement.addEventListener('touchstart',e=>{sheetStartY=e.touches[0].clientY;},{passive:true});
+  h.parentElement.addEventListener('touchend',e=>{
+    if(e.changedTouches[0].clientY-sheetStartY>60) closeAllSheets();
+  },{passive:true});
+});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+render();
+setTimeout(resetZoom, 100);
+</script>
+</body>
+</html>
